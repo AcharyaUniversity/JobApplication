@@ -5,7 +5,6 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useMobileView } from "../utils/ViewContext";
 
 const steps = [
   "Select campaign settings",
@@ -13,12 +12,9 @@ const steps = [
   "Create an ad",
 ];
 
-function FormStepper() {
+function DesktopStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
-
-  const isMobile = useMobileView();
-  console.log(isMobile);
 
   const isStepOptional = (step: number) => {
     return step === 1;
@@ -123,4 +119,4 @@ function FormStepper() {
   );
 }
 
-export default FormStepper;
+export default DesktopStepper;
