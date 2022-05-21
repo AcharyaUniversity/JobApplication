@@ -8,7 +8,9 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles(() => ({}));
+const useStyles = makeStyles(() => ({
+  stepperContainer: { padding: "10px 30px" },
+}));
 
 interface Props {
   steps: { label: string; form: JSX.Element }[];
@@ -18,9 +20,11 @@ interface Props {
 }
 
 function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
+  const classes = useStyles();
+
   return (
     <Box sx={{ width: "100%" }}>
-      <Stepper activeStep={activeStep}>
+      <Stepper activeStep={activeStep} className={classes.stepperContainer}>
         {steps.map((obj, index) => {
           const stepProps: { completed?: boolean } = {};
 

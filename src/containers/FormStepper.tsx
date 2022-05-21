@@ -6,6 +6,14 @@ import ApplicationDetailsForm from "../components/Forms/ApplicationDetailsForm";
 import EducationDetailsForm from "../components/Forms/EducationDetailsForm";
 import ExperienceForm from "../components/Forms/ExperienceForm";
 import AttachmentsForm from "../components/Forms/AttachmentsForm";
+import { Paper } from "@mui/material";
+
+const paperStyles = {
+  width: "90vw",
+  margin: "50px auto",
+  padding: "20px",
+  borderRadius: 3,
+};
 
 const steps = [
   {
@@ -39,24 +47,25 @@ function FormStepper() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  if (isMobile)
-    return (
-      <MobileFormStepper
-        steps={steps}
-        activeStep={activeStep}
-        handleNext={handleNext}
-        handleBack={handleBack}
-      />
-    );
-  else
-    return (
-      <DesktopFormStepper
-        steps={steps}
-        activeStep={activeStep}
-        handleNext={handleNext}
-        handleBack={handleBack}
-      />
-    );
+  return (
+    <Paper elevation={4} sx={paperStyles}>
+      {isMobile ? (
+        <MobileFormStepper
+          steps={steps}
+          activeStep={activeStep}
+          handleNext={handleNext}
+          handleBack={handleBack}
+        />
+      ) : (
+        <DesktopFormStepper
+          steps={steps}
+          activeStep={activeStep}
+          handleNext={handleNext}
+          handleBack={handleBack}
+        />
+      )}
+    </Paper>
+  );
 }
 
 export default FormStepper;

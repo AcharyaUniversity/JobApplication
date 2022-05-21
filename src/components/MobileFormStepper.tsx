@@ -19,7 +19,7 @@ function MobileFormStepper({
   const theme = useTheme();
 
   return (
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+    <Box sx={{ width: "100%", flexGrow: 1 }}>
       {activeStep === steps.length ? (
         <>
           <Paper
