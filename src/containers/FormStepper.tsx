@@ -1,31 +1,28 @@
 import { useState } from "react";
-import DesktopFormStepper from "./DesktopFormStepper";
-import MobileFormStepper from "./MobileFormStepper";
+import DesktopFormStepper from "../components/DesktopFormStepper";
+import MobileFormStepper from "../components/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
+import ApplicationDetailsForm from "../components/Forms/ApplicationDetailsForm";
+import EducationDetailsForm from "../components/Forms/EducationDetailsForm";
+import ExperienceForm from "../components/Forms/ExperienceForm";
+import AttachmentsForm from "../components/Forms/AttachmentsForm";
 
 const steps = [
   {
-    label: "Select campaign settings",
-    description: `For each ad campaign that you create, you can control how much
-                you're willing to spend on clicks and conversions, which networks
-                and geographical locations you want your ads to show on, and more.`,
+    label: "Application Details",
+    form: <ApplicationDetailsForm />,
   },
   {
-    label: "Create an ad group",
-    description:
-      "An ad group contains one or more ads which target a shared set of keywords.",
+    label: "Education Details",
+    form: <EducationDetailsForm />,
   },
   {
-    label: "Create an ad",
-    description: `Try out different ad text to see what brings in the most customers,
-                and learn how to enhance your ads using features like ad extensions.
-                If you run into any problems with your ads, find out how to tell if
-                they're running and how to resolve approval issues.`,
+    label: "Experience",
+    form: <ExperienceForm />,
   },
   {
-    label: "Publish",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    label: "Attachments",
+    form: <AttachmentsForm />,
   },
 ];
 
@@ -51,14 +48,15 @@ function FormStepper() {
         handleBack={handleBack}
       />
     );
-  return (
-    <DesktopFormStepper
-      steps={steps}
-      activeStep={activeStep}
-      handleNext={handleNext}
-      handleBack={handleBack}
-    />
-  );
+  else
+    return (
+      <DesktopFormStepper
+        steps={steps}
+        activeStep={activeStep}
+        handleNext={handleNext}
+        handleBack={handleBack}
+      />
+    );
 }
 
 export default FormStepper;

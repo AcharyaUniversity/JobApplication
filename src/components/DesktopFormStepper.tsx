@@ -1,13 +1,17 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import {
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() => ({}));
 
 interface Props {
-  steps: { label: string; description: string }[];
+  steps: { label: string; form: JSX.Element }[];
   activeStep: number;
   handleNext: () => void;
   handleBack: () => void;
@@ -36,11 +40,9 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
         </>
       ) : (
         <>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            {/* <Box sx={{ height: 255, maxWidth: 400, width: "100%", p: 2 }}>
-              {steps[activeStep].description}
-            </Box> */}
-          </Typography>
+          <Box sx={{ height: 255, maxWidth: 400, width: "100%", p: 2 }}>
+            {steps[activeStep].form}
+          </Box>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"

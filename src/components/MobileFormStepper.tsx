@@ -1,15 +1,10 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
+import { Box, MobileStepper, Paper, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import MobileStepper from "@mui/material/MobileStepper";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
 interface Props {
-  steps: { label: string; description: string }[];
+  steps: { label: string; form: JSX.Element }[];
   activeStep: number;
   handleNext: () => void;
   handleBack: () => void;
@@ -59,7 +54,7 @@ function MobileFormStepper({
             <Typography>{steps[activeStep].label}</Typography>
           </Paper>
           <Box sx={{ height: 255, maxWidth: 400, width: "100%", p: 2 }}>
-            {steps[activeStep].description}
+            {steps[activeStep].form}
           </Box>
           <MobileStepper
             variant="text"
