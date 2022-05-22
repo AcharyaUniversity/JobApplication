@@ -28,7 +28,6 @@ function MobileFormStepper({
             sx={{
               display: "flex",
               alignItems: "center",
-              height: 50,
               pl: 2,
               bgcolor: "background.default",
             }}
@@ -46,16 +45,13 @@ function MobileFormStepper({
             sx={{
               display: "flex",
               alignItems: "center",
-              height: 50,
               pl: 2,
               bgcolor: "background.default",
             }}
           >
             <Typography>{steps[activeStep].label}</Typography>
           </Paper>
-          <Box sx={{ height: 255, width: "100%", p: 2 }}>
-            {steps[activeStep].form}
-          </Box>
+          <Box sx={{ width: "100%", p: 2 }}>{steps[activeStep].form}</Box>
           <MobileStepper
             variant="text"
             steps={steps.length}

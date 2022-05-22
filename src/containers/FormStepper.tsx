@@ -2,10 +2,10 @@ import { useState } from "react";
 import DesktopFormStepper from "../components/Steppers/DesktopFormStepper";
 import MobileFormStepper from "../components/Steppers/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
-import ApplicationDetailsForm from "../components/Forms/ApplicationDetailsForm";
-import EducationDetailsForm from "../components/Forms/EducationDetailsForm";
-import ExperienceForm from "../components/Forms/ExperienceForm";
-import AttachmentsForm from "../components/Forms/AttachmentsForm";
+import ApplicationDetailsForm from "./Forms/ApplicationDetailsForm";
+import EducationDetailsForm from "./Forms/EducationDetailsForm";
+import ExperienceForm from "./Forms/ExperienceForm";
+import AttachmentsForm from "./Forms/AttachmentsForm";
 import { Paper } from "@mui/material";
 
 const paperStyles = {

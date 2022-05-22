@@ -9,25 +9,25 @@ import {
 interface Props {
   name: string;
   label: string;
+  value: string;
   options: {
     value: string;
     label: string;
   }[];
   handleChange: (e: any) => void;
-  [x: string]: any;
 }
 
 function CustomRadioButtons({
   name,
   label,
+  value,
   options,
   handleChange,
-  ...props
 }: Props) {
   return (
     <FormControl fullWidth>
       <FormLabel>{label}</FormLabel>
-      <RadioGroup row onChange={handleChange} name={name}>
+      <RadioGroup row value={value} onChange={handleChange} name={name}>
         {options.map((obj, index) => (
           <FormControlLabel
             key={index}
@@ -36,8 +36,6 @@ function CustomRadioButtons({
             label={obj.label}
           />
         ))}
-        {/* <FormControlLabel value="male" control={<Radio />} label="Male" />
-        <FormControlLabel value="female" control={<Radio />} label="Female" /> */}
       </RadioGroup>
     </FormControl>
   );

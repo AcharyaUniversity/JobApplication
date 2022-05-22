@@ -46,9 +46,7 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
         </>
       ) : (
         <>
-          <Box sx={{ height: 255, width: "100%", p: 2 }}>
-            {steps[activeStep].form}
-          </Box>
+          <Box sx={{ width: "100%", p: 2 }}>{steps[activeStep].form}</Box>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"

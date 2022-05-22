@@ -20,7 +20,7 @@ function CustomDatePicker({ value, handleChange, ...props }: Props) {
         inputFormat="dd/MM/yyyy"
         onChange={handleChange}
         renderInput={(params) => (
-          <TextField helperText="dd/mm/yyyy" {...params} />
+          <TextField fullWidth helperText="dd/mm/yyyy" {...params} />
         )}
         {...props}
       />
