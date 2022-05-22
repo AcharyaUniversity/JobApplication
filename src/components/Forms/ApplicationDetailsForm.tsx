@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import CustomTextField from "../CustomTextField";
 import { makeStyles } from "@mui/styles";
 import CustomDatePicker from "../CustomDatePicker";
+import CustomRadioButtons from "../CustomRadioButtons";
 
 interface IValues {
   name: string;
@@ -57,6 +58,10 @@ function ApplicationDetailsForm() {
     setValues({ ...values, birthDate: value });
   };
 
+  // useEffect(() => {
+  //   console.log(values);
+  // }, [values]);
+
   return (
     <Box component="form" className={classes.form}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -77,7 +82,17 @@ function ApplicationDetailsForm() {
             label="Date of Birth"
           />
         </Grid>
-        <Grid item xs={12} md={4}></Grid>
+        <Grid item xs={12} md={4}>
+          <CustomRadioButtons
+            name="gender"
+            label="Gender"
+            options={[
+              { value: "male", label: "Male" },
+              { value: "female", label: "Female" },
+            ]}
+            handleChange={handleFieldChange}
+          />
+        </Grid>
       </Grid>
     </Box>
   );
