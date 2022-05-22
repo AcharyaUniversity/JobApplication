@@ -4,6 +4,9 @@ import { responsiveFontSizes } from "@mui/material";
 
 const theme = responsiveFontSizes(
   createTheme({
+    palette: {
+      primary: {},
+    },
     components: {
       MuiOutlinedInput: {
         styleOverrides: {

@@ -20,8 +20,8 @@ interface IValues {
   country: string;
   pinCode: string;
   skills: string;
-  linkedIn?: string;
-  link?: string;
+  linkedIn: string;
+  link: string;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -68,7 +68,7 @@ function ApplicationDetailsForm() {
       <Grid
         container
         alignItems="center"
-        justifyContent="space-between"
+        justifyContent="flex-start"
         rowSpacing={4}
         columnSpacing={{ xs: 2, md: 4 }}
       >
@@ -171,6 +171,88 @@ function ApplicationDetailsForm() {
                 { value: "Hyderabad", label: "Hyderabad" },
               ]}
               handleChange={handleFieldChange}
+            />
+          </Grid>
+        </>
+
+        {/* 4th row */}
+        <>
+          <Grid item xs={12} md={4}>
+            <CustomSelect
+              name="state"
+              label="State"
+              value={values.state}
+              items={[
+                { value: "Karnataka", label: "Karnataka" },
+                { value: "Maharashtra", label: "Maharashtra" },
+                { value: "Bihar", label: "Bihar" },
+                { value: "Andhra Pradesh", label: "Andhra Pradesh" },
+              ]}
+              handleChange={handleFieldChange}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomSelect
+              name="country"
+              label="Country"
+              value={values.country}
+              items={[
+                { value: "India", label: "India" },
+                {
+                  value: "United Arab Emirates",
+                  label: "United Arab Emirates",
+                },
+                {
+                  value: "United States of America",
+                  label: "United States of America",
+                },
+                { value: "Qatar", label: "Qatar" },
+              ]}
+              handleChange={handleFieldChange}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="pinCode"
+              value={values.pinCode}
+              handleChange={handleFieldChange}
+              fullWidth
+              label="Pincode"
+            />
+          </Grid>
+        </>
+
+        {/* 5th row */}
+        <>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="skills"
+              value={values.skills}
+              handleChange={handleFieldChange}
+              fullWidth
+              label="Skills"
+              helperText="Domain area"
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="linkedIn"
+              value={values.linkedIn}
+              handleChange={handleFieldChange}
+              fullWidth
+              label="LinkedIn URL"
+              helperText="Optional"
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="link"
+              value={values.link}
+              handleChange={handleFieldChange}
+              fullWidth
+              label="Link"
+              helperText="Optional"
+              placeholder="e.g.: git, drive"
             />
           </Grid>
         </>
