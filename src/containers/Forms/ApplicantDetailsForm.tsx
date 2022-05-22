@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ApplicationDetailsForm() {
+function ApplicantDetailsForm() {
   const classes = useStyles();
 
   const [values, setValues] = useState<IValues>({
@@ -261,4 +261,4 @@ function ApplicationDetailsForm() {
   );
 }
 
-export default ApplicationDetailsForm;
+export default ApplicantDetailsForm;

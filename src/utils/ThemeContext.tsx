@@ -1,11 +1,20 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { responsiveFontSizes } from "@mui/material";
 
 const theme = responsiveFontSizes(
   createTheme({
     palette: {
-      primary: {},
+      primary: {
+        main: "#4A57A9",
+        light: "#B9C3FF",
+        dark: "#182778",
+      },
+      secondary: {
+        main: "#ED980E",
+        light: "#FFB95C",
+        dark: "#A96900",
+      },
     },
     components: {
       MuiOutlinedInput: {
@@ -17,7 +26,7 @@ const theme = responsiveFontSizes(
       },
     },
     typography: {
-      fontFamily: "Rubik, Roboto, sans-serif",
+      fontFamily: "Rubik, Open Sans, Roboto, sans-serif",
     },
   })
 );

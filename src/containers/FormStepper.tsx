@@ -2,7 +2,7 @@ import { useState } from "react";
 import DesktopFormStepper from "../components/Steppers/DesktopFormStepper";
 import MobileFormStepper from "../components/Steppers/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
-import ApplicationDetailsForm from "./Forms/ApplicationDetailsForm";
+import ApplicantDetailsForm from "./Forms/ApplicantDetailsForm";
 import EducationDetailsForm from "./Forms/EducationDetailsForm";
 import ExperienceForm from "./Forms/ExperienceForm";
 import AttachmentsForm from "./Forms/AttachmentsForm";
@@ -17,8 +17,8 @@ const paperStyles = {
 
 const steps = [
   {
-    label: "Application Details",
-    form: <ApplicationDetailsForm />,
+    label: "Applicant Details",
+    form: <ApplicantDetailsForm />,
   },
   {
     label: "Education Details",

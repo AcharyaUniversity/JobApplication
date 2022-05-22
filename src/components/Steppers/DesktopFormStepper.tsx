@@ -28,10 +28,8 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep} className={classes.stepperContainer}>
         {steps.map((obj, index) => {
-          const stepProps: { completed?: boolean } = {};
-
           return (
-            <Step key={index} {...stepProps}>
+            <Step key={index}>
               <StepLabel>{obj.label}</StepLabel>
             </Step>
           );
