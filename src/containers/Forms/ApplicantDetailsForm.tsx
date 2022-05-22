@@ -1,28 +1,11 @@
-import { useEffect, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import CustomTextField from "../../components/Inputs/CustomTextField";
 import { makeStyles } from "@mui/styles";
 import CustomDatePicker from "../../components/Inputs/CustomDatePicker";
 import CustomRadioButtons from "../../components/Inputs/CustomRadioButtons";
 import CustomSelect from "../../components/Inputs/CustomSelect";
-
-interface IValues {
-  name: string;
-  birthDate: Date | null;
-  gender: string;
-  phone: string;
-  email: string;
-  headline: string;
-  street: string;
-  locality: string;
-  city: string;
-  state: string;
-  country: string;
-  pinCode: string;
-  skills: string;
-  linkedIn: string;
-  link: string;
-}
+import { formState } from "../../states/FormState";
+import { useSnapshot } from "valtio";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -33,35 +16,7 @@ const useStyles = makeStyles((theme) => ({
 function ApplicantDetailsForm() {
   const classes = useStyles();
 
-  const [values, setValues] = useState<IValues>({
-    name: "",
-    birthDate: null,
-    gender: "",
-    phone: "",
-    email: "",
-    headline: "",
-    street: "",
-    locality: "",
-    city: "",
-    state: "",
-    country: "",
-    pinCode: "",
-    skills: "",
-    linkedIn: "",
-    link: "",
-  });
-
-  const handleFieldChange = (e: any) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  const handleDateChange = (value: Date | null) => {
-    setValues({ ...values, birthDate: value });
-  };
-
-  // useEffect(() => {
-  //   console.log(values);
-  // }, [values]);
+  const { applicant } = useSnapshot(formState);
 
   return (
     <Box component="form" className={classes.form}>
@@ -77,8 +32,10 @@ function ApplicantDetailsForm() {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="name"
-              value={values.name}
-              handleChange={handleFieldChange}
+              value={applicant.name}
+              handleChange={(e: any) =>
+                (formState.applicant.name = e.target.value)
+              }
               fullWidth
               label="Name"
               helperText="As per SSC certificate"
@@ -86,8 +43,10 @@ function ApplicantDetailsForm() {
           </Grid>
           <Grid item xs={12} md={4}>
             <CustomDatePicker
-              value={values.birthDate}
-              handleChange={handleDateChange}
+              value={applicant.birthDate}
+              handleChange={(value: Date | null) =>
+                (formState.applicant.birthDate = value)
+              }
               label="Date of Birth"
             />
           </Grid>
@@ -95,12 +54,14 @@ function ApplicantDetailsForm() {
             <CustomRadioButtons
               name="gender"
               label="Gender"
-              value={values.gender}
+              value={applicant.gender}
               options={[
                 { value: "Male", label: "Male" },
                 { value: "Female", label: "Female" },
               ]}
-              handleChange={handleFieldChange}
+              handleChange={(e: any) =>
+                (formState.applicant.gender = e.target.value)
+              }
             />
           </Grid>
         </>
@@ -110,8 +71,10 @@ function ApplicantDetailsForm() {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="phone"
-              value={values.phone}
-              handleChange={handleFieldChange}
+              value={applicant.phone}
+              handleChange={(e: any) =>
+                (formState.applicant.phone = e.target.value)
+              }
               fullWidth
               label="Mobile number"
             />
@@ -119,8 +82,10 @@ function ApplicantDetailsForm() {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="email"
-              value={values.email}
-              handleChange={handleFieldChange}
+              value={applicant.email}
+              handleChange={(e: any) =>
+                (formState.applicant.email = e.target.value)
+              }
               fullWidth
               label="Email ID"
             />
@@ -129,12 +94,14 @@ function ApplicantDetailsForm() {
             <CustomRadioButtons
               name="headline"
               label="Resume Headline"
-              value={values.headline}
+              value={applicant.headline}
               options={[
                 { value: "Teaching", label: "Teaching" },
                 { value: "Non-teaching", label: "Non-teaching" },
               ]}
-              handleChange={handleFieldChange}
+              handleChange={(e: any) =>
+                (formState.applicant.headline = e.target.value)
+              }
             />
           </Grid>
         </>
@@ -144,8 +111,10 @@ function ApplicantDetailsForm() {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="street"
-              value={values.street}
-              handleChange={handleFieldChange}
+              value={applicant.street}
+              handleChange={(e: any) =>
+                (formState.applicant.street = e.target.value)
+              }
               fullWidth
               label="Street"
             />
@@ -153,8 +122,10 @@ function ApplicantDetailsForm() {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="locality"
-              value={values.locality}
-              handleChange={handleFieldChange}
+              value={applicant.locality}
+              handleChange={(e: any) =>
+                (formState.applicant.locality = e.target.value)
+              }
               fullWidth
               label="Locality"
             />
@@ -163,14 +134,16 @@ function ApplicantDetailsForm() {
             <CustomSelect
               name="city"
               label="City"
-              value={values.city}
+              value={applicant.city}
               items={[
                 { value: "Bangalore", label: "Bangalore" },
                 { value: "Mumbai", label: "Mumbai" },
                 { value: "Delhi", label: "Delhi" },
                 { value: "Hyderabad", label: "Hyderabad" },
               ]}
-              handleChange={handleFieldChange}
+              handleChange={(e: any) =>
+                (formState.applicant.city = e.target.value)
+              }
             />
           </Grid>
         </>
@@ -181,21 +154,23 @@ function ApplicantDetailsForm() {
             <CustomSelect
               name="state"
               label="State"
-              value={values.state}
+              value={applicant.state}
               items={[
                 { value: "Karnataka", label: "Karnataka" },
                 { value: "Maharashtra", label: "Maharashtra" },
                 { value: "Bihar", label: "Bihar" },
                 { value: "Andhra Pradesh", label: "Andhra Pradesh" },
               ]}
-              handleChange={handleFieldChange}
+              handleChange={(e: any) =>
+                (formState.applicant.state = e.target.value)
+              }
             />
           </Grid>
           <Grid item xs={12} md={4}>
             <CustomSelect
               name="country"
               label="Country"
-              value={values.country}
+              value={applicant.country}
               items={[
                 { value: "India", label: "India" },
                 {
@@ -208,14 +183,18 @@ function ApplicantDetailsForm() {
                 },
                 { value: "Qatar", label: "Qatar" },
               ]}
-              handleChange={handleFieldChange}
+              handleChange={(e: any) =>
+                (formState.applicant.country = e.target.value)
+              }
             />
           </Grid>
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="pinCode"
-              value={values.pinCode}
-              handleChange={handleFieldChange}
+              value={applicant.pinCode}
+              handleChange={(e: any) =>
+                (formState.applicant.pinCode = e.target.value)
+              }
               fullWidth
               label="Pincode"
             />
@@ -227,8 +206,10 @@ function ApplicantDetailsForm() {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="skills"
-              value={values.skills}
-              handleChange={handleFieldChange}
+              value={applicant.skills}
+              handleChange={(e: any) =>
+                (formState.applicant.skills = e.target.value)
+              }
               fullWidth
               label="Skills"
               helperText="Domain area"
@@ -237,8 +218,10 @@ function ApplicantDetailsForm() {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="linkedIn"
-              value={values.linkedIn}
-              handleChange={handleFieldChange}
+              value={applicant.linkedIn}
+              handleChange={(e: any) =>
+                (formState.applicant.linkedIn = e.target.value)
+              }
               fullWidth
               label="LinkedIn URL"
               helperText="Optional"
@@ -247,8 +230,10 @@ function ApplicantDetailsForm() {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="link"
-              value={values.link}
-              handleChange={handleFieldChange}
+              value={applicant.link}
+              handleChange={(e: any) =>
+                (formState.applicant.link = e.target.value)
+              }
               fullWidth
               label="Link"
               helperText="Optional"
