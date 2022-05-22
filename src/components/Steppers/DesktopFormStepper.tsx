@@ -9,7 +9,9 @@ import {
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(() => ({
-  stepperContainer: { padding: "10px 30px" },
+  stepperContainer: {
+    padding: "10px 30px",
+  },
 }));
 
 interface Props {
@@ -44,7 +46,7 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
         </>
       ) : (
         <>
-          <Box sx={{ height: 255, maxWidth: 400, width: "100%", p: 2 }}>
+          <Box sx={{ height: 255, width: "100%", p: 2 }}>
             {steps[activeStep].form}
           </Box>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>

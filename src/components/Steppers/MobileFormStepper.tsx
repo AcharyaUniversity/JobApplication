@@ -53,7 +53,7 @@ function MobileFormStepper({
           >
             <Typography>{steps[activeStep].label}</Typography>
           </Paper>
-          <Box sx={{ height: 255, maxWidth: 400, width: "100%", p: 2 }}>
+          <Box sx={{ height: 255, width: "100%", p: 2 }}>
             {steps[activeStep].form}
           </Box>
           <MobileStepper

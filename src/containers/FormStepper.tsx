@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DesktopFormStepper from "../components/DesktopFormStepper";
-import MobileFormStepper from "../components/MobileFormStepper";
+import DesktopFormStepper from "../components/Steppers/DesktopFormStepper";
+import MobileFormStepper from "../components/Steppers/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
 import ApplicationDetailsForm from "../components/Forms/ApplicationDetailsForm";
 import EducationDetailsForm from "../components/Forms/EducationDetailsForm";

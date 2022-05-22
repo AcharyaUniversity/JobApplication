@@ -4,6 +4,15 @@ import { responsiveFontSizes } from "@mui/material";
 
 const theme = responsiveFontSizes(
   createTheme({
+    components: {
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            borderRadius: 10,
+          },
+        },
+      },
+    },
     typography: {
       fontFamily: "Rubik, Roboto, sans-serif",
     },
