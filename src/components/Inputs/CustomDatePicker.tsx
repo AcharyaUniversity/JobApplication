@@ -1,7 +1,8 @@
-import { TextField } from "@mui/material";
+import { TextField, Theme } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { makeStyles } from "@mui/styles";
 
 interface Props {
   value: Date | null;
@@ -9,10 +10,21 @@ interface Props {
     value: Date | null,
     keyboardInputValue?: string | undefined
   ) => void;
+  error?: string;
   [x: string]: any;
 }
 
-function CustomDatePicker({ value, handleChange, ...props }: Props) {
+const useStyles = makeStyles((theme: Theme) => ({
+  errorText: {
+    fontSize: 14,
+    margin: "2px 10px",
+    color: theme.palette.error.main,
+  },
+}));
+
+function CustomDatePicker({ value, handleChange, error, ...props }: Props) {
+  const classes = useStyles();
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
@@ -24,6 +36,7 @@ function CustomDatePicker({ value, handleChange, ...props }: Props) {
         )}
         {...props}
       />
+      {error && <p className={classes.errorText}>{error}</p>}
     </LocalizationProvider>
   );
 }

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Box, Grid } from "@mui/material";
-import CustomTextField from "../../components/CustomTextField";
+import CustomTextField from "../../components/Inputs/CustomTextField";
 import { makeStyles } from "@mui/styles";
-import CustomDatePicker from "../../components/CustomDatePicker";
-import CustomRadioButtons from "../../components/CustomRadioButtons";
-import CustomSelect from "../../components/CustomSelect";
+import CustomDatePicker from "../../components/Inputs/CustomDatePicker";
+import CustomRadioButtons from "../../components/Inputs/CustomRadioButtons";
+import CustomSelect from "../../components/Inputs/CustomSelect";
 
 interface IValues {
   name: string;

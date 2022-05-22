@@ -1,4 +1,12 @@
-import { Select, FormControl, MenuItem, Box, InputLabel } from "@mui/material";
+import {
+  Select,
+  FormControl,
+  MenuItem,
+  Box,
+  InputLabel,
+  Theme,
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 interface Props {
   name: string;
@@ -9,12 +17,30 @@ interface Props {
     label: string;
   }[];
   handleChange: (e: any) => void;
+  error?: string;
 }
 
-function CustomSelect({ name, label, value, items, handleChange }: Props) {
+const useStyles = makeStyles((theme: Theme) => ({
+  errorText: {
+    fontSize: 14,
+    margin: "2px 10px",
+    color: theme.palette.error.main,
+  },
+}));
+
+function CustomSelect({
+  name,
+  label,
+  value,
+  items,
+  handleChange,
+  error,
+}: Props) {
+  const classes = useStyles();
+
   return (
     <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+      <FormControl error={!!error} fullWidth>
         <InputLabel>{label}</InputLabel>
         <Select name={name} value={value} label={label} onChange={handleChange}>
           {items.map((obj, index) => (
@@ -24,6 +50,7 @@ function CustomSelect({ name, label, value, items, handleChange }: Props) {
           ))}
         </Select>
       </FormControl>
+      {error && <p className={classes.errorText}>{error}</p>}
     </Box>
   );
 }

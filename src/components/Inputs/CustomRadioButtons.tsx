@@ -4,7 +4,9 @@ import {
   FormControlLabel,
   FormControl,
   FormLabel,
+  Theme,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 interface Props {
   name: string;
@@ -15,7 +17,16 @@ interface Props {
     label: string;
   }[];
   handleChange: (e: any) => void;
+  error?: string;
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  errorText: {
+    fontSize: 14,
+    margin: "2px 10px",
+    color: theme.palette.error.main,
+  },
+}));
 
 function CustomRadioButtons({
   name,
@@ -23,9 +34,12 @@ function CustomRadioButtons({
   value,
   options,
   handleChange,
+  error,
 }: Props) {
+  const classes = useStyles();
+
   return (
-    <FormControl fullWidth>
+    <FormControl error={!!error} fullWidth>
       <FormLabel>{label}</FormLabel>
       <RadioGroup row value={value} onChange={handleChange} name={name}>
         {options.map((obj, index) => (
@@ -37,6 +51,7 @@ function CustomRadioButtons({
           />
         ))}
       </RadioGroup>
+      {error && <p className={classes.errorText}>{error}</p>}
     </FormControl>
   );
 }

@@ -15,6 +15,11 @@ const theme = responsiveFontSizes(
         light: "#FFB95C",
         dark: "#A96900",
       },
+      error: {
+        main: "#DD3730",
+        light: "#FF897A",
+        dark: "#930006",
+      },
     },
     components: {
       MuiOutlinedInput: {
