@@ -22,7 +22,7 @@ export interface IEducationState {
   graduationInstitute: string;
   graduation: string;
   universityName: string;
-  universityScore: 0;
+  universityScore: number;
   yearOfJoining: Date | null;
   yearOfCompletion: Date | null;
 }
@@ -30,9 +30,9 @@ export interface IEducationState {
 export interface IExperienceState {
   employerName: string;
   designation: string;
-  ctcDown: 0;
-  expYears: 0;
-  expMonths: 0;
+  ctcDown: number;
+  expYears: number;
+  expMonths: number;
 }
 
 export interface IAttachmentState {

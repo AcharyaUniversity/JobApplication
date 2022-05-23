@@ -25,6 +25,7 @@ function FormStepper() {
 
   const [applicantErrors, setApplicantErrors] = useState<any>({});
   const [educationErrors, setEducationErrors] = useState<any>({});
+  const [experienceErrors, setExperienceErrors] = useState<any>({});
 
   const steps = [
     {
@@ -49,7 +50,13 @@ function FormStepper() {
     },
     {
       label: "Experience",
-      form: <ExperienceForm />,
+      form: (
+        <ExperienceForm
+          values={values}
+          setValues={setValues}
+          errors={experienceErrors}
+        />
+      ),
     },
     {
       label: "Attachments",
@@ -113,9 +120,11 @@ function FormStepper() {
     temp.universityName = values.education.universityName
       ? ""
       : "This field is required";
-    temp.universityScore = values.education.universityScore
-      ? ""
-      : "This field is required";
+    temp.universityScore =
+      values.education.universityScore >= 0 &&
+      values.education.universityScore <= 100
+        ? ""
+        : "Invalid number";
     temp.yearOfJoining = values.education.yearOfJoining
       ? ""
       : "This field is required";
@@ -129,10 +138,8 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0 && validateApplicant())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1 && validateEducation())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {

@@ -4,7 +4,7 @@ import { makeStyles } from "@mui/styles";
 
 interface Props {
   name: string;
-  value: string;
+  value: any;
   handleChange: (e: any) => void;
   error?: string;
   [x: string]: any;
