@@ -2,8 +2,6 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import CustomTextField from "../../components/Inputs/CustomTextField";
 import { makeStyles } from "@mui/styles";
-import CustomDatePicker from "../../components/Inputs/CustomDatePicker";
-import CustomSelect from "../../components/Inputs/CustomSelect";
 import { IFormState } from "../../states/FormState";
 
 interface Props {
@@ -24,8 +22,8 @@ function ExperienceForm({ values, setValues, errors }: Props) {
   const handleChange = (e: any) => {
     setValues({
       ...values,
-      education: {
-        ...values.education,
+      experience: {
+        ...values.experience,
         [e.target.name]: e.target.value,
       },
     });
@@ -42,14 +40,62 @@ function ExperienceForm({ values, setValues, errors }: Props) {
       >
         {/* first row */}
         <>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
             <CustomTextField
-              name="graduationName"
-              value={values.education.graduationName}
+              name="employerName"
+              value={values.experience.employerName}
               handleChange={handleChange}
               fullWidth
-              label="Graduation Name"
-              error={errors.graduationName}
+              label="Employer Name"
+              error={errors.employerName}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <CustomTextField
+              name="designation"
+              value={values.experience.designation}
+              handleChange={handleChange}
+              fullWidth
+              label="Designation"
+              error={errors.designation}
+              required
+            />
+          </Grid>
+        </>
+
+        {/* second row */}
+        <>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="ctcDown"
+              value={values.experience.ctcDown}
+              handleChange={handleChange}
+              fullWidth
+              label="CTC Down (in ₹)"
+              error={errors.ctcDown}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="expYears"
+              value={values.experience.expYears}
+              handleChange={handleChange}
+              fullWidth
+              label="Experience (years)"
+              error={errors.expYears}
+              required
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="expMonths"
+              value={values.experience.expMonths}
+              handleChange={handleChange}
+              fullWidth
+              label="Experience (months)"
+              error={errors.expMonths}
               required
             />
           </Grid>

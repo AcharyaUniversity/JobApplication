@@ -26,6 +26,7 @@ function FormStepper() {
   const [applicantErrors, setApplicantErrors] = useState<any>({});
   const [educationErrors, setEducationErrors] = useState<any>({});
   const [experienceErrors, setExperienceErrors] = useState<any>({});
+  const [attachmentsErrors, setAttachmentsErrors] = useState<any>({});
 
   const steps = [
     {
@@ -121,6 +122,7 @@ function FormStepper() {
       ? ""
       : "This field is required";
     temp.universityScore =
+      values.education.universityScore &&
       values.education.universityScore >= 0 &&
       values.education.universityScore <= 100
         ? ""
@@ -136,10 +138,50 @@ function FormStepper() {
 
     return Object.values(temp).every((x) => x === "");
   };
+  const validateExperience = () => {
+    let temp: any = {};
+
+    temp.employerName = /^[A-Za-z0-9,.\s]+$/.test(
+      values.experience.employerName
+    )
+      ? ""
+      : "Must contain alphanumeric";
+    temp.designation = /^[A-Za-z\s]+$/.test(values.experience.designation)
+      ? ""
+      : "Must contain only alphabets";
+    temp.ctcDown = /^[0-9]+$/.test(values.experience.ctcDown.toString())
+      ? ""
+      : "Invalid number";
+
+    temp.expYears = /^[0-9]+$/.test(values.experience.expYears.toString())
+      ? ""
+      : "Invalid number";
+
+    temp.expMonths = /^[0-9]+$/.test(values.experience.expMonths.toString())
+      ? ""
+      : "Invalid number";
+
+    setExperienceErrors({ ...temp });
+
+    return Object.values(temp).every((x) => x === "");
+  };
+  const validateAttachments = () => {
+    let temp: any = {};
+
+    temp.resume = values.attachments.resume ? "" : "This field is required";
+    temp.degree = values.attachments.degree ? "" : "This field is required";
+
+    setAttachmentsErrors({ ...temp });
+
+    return Object.values(temp).every((x) => x === "");
+  };
 
   const handleNext = () => {
     if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 3 && validateAttachments)
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {

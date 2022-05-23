@@ -30,9 +30,9 @@ export interface IEducationState {
 export interface IExperienceState {
   employerName: string;
   designation: string;
-  ctcDown: number;
-  expYears: number;
-  expMonths: number;
+  ctcDown: 0;
+  expYears: 0;
+  expMonths: 0;
 }
 
 export interface IAttachmentState {
