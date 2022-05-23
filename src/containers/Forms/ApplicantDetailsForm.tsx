@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import CustomTextField from "../../components/Inputs/CustomTextField";
 import { makeStyles } from "@mui/styles";
 import CustomDatePicker from "../../components/Inputs/CustomDatePicker";
 import CustomRadioButtons from "../../components/Inputs/CustomRadioButtons";
 import CustomSelect from "../../components/Inputs/CustomSelect";
-import { formState } from "../../states/FormState";
-import { useSnapshot } from "valtio";
+import { IFormState } from "../../states/FormState";
 
 interface Props {
+  values: IFormState;
+  setValues: Dispatch<SetStateAction<IFormState>>;
   errors: any;
 }
 
@@ -18,10 +19,18 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ApplicantDetailsForm({ errors }: Props) {
+function ApplicantDetailsForm({ values, setValues, errors }: Props) {
   const classes = useStyles();
 
-  const { applicant } = useSnapshot(formState);
+  const handleChange = (e: any) => {
+    setValues({
+      ...values,
+      applicant: {
+        ...values.applicant,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
 
   return (
     <Box component="form" className={classes.form}>
@@ -37,10 +46,8 @@ function ApplicantDetailsForm({ errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="name"
-              value={applicant.name}
-              handleChange={(e: any) =>
-                (formState.applicant.name = e.target.value)
-              }
+              value={values.applicant.name}
+              handleChange={handleChange}
               fullWidth
               label="Name"
               helperText="As per aadhaar card"
@@ -50,9 +57,12 @@ function ApplicantDetailsForm({ errors }: Props) {
           </Grid>
           <Grid item xs={12} md={4}>
             <CustomDatePicker
-              value={applicant.birthDate}
-              handleChange={(value: Date | null) =>
-                (formState.applicant.birthDate = value)
+              value={values.applicant.birthDate}
+              handleChange={(val: Date | null) =>
+                setValues({
+                  ...values,
+                  applicant: { ...values.applicant, birthDate: val },
+                })
               }
               label="Date of Birth"
               error={errors.birthDate}
@@ -62,14 +72,12 @@ function ApplicantDetailsForm({ errors }: Props) {
             <CustomRadioButtons
               name="gender"
               label="Gender"
-              value={applicant.gender}
+              value={values.applicant.gender}
               options={[
                 { value: "Male", label: "Male" },
                 { value: "Female", label: "Female" },
               ]}
-              handleChange={(e: any) =>
-                (formState.applicant.gender = e.target.value)
-              }
+              handleChange={handleChange}
               required
               error={errors.gender}
             />
@@ -81,10 +89,8 @@ function ApplicantDetailsForm({ errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="phone"
-              value={applicant.phone}
-              handleChange={(e: any) =>
-                (formState.applicant.phone = e.target.value)
-              }
+              value={values.applicant.phone}
+              handleChange={handleChange}
               fullWidth
               label="Mobile number"
               required
@@ -94,10 +100,8 @@ function ApplicantDetailsForm({ errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="email"
-              value={applicant.email}
-              handleChange={(e: any) =>
-                (formState.applicant.email = e.target.value)
-              }
+              value={values.applicant.email}
+              handleChange={handleChange}
               fullWidth
               label="Email ID"
               required
@@ -108,14 +112,12 @@ function ApplicantDetailsForm({ errors }: Props) {
             <CustomRadioButtons
               name="headline"
               label="Resume Headline"
-              value={applicant.headline}
+              value={values.applicant.headline}
               options={[
                 { value: "Teaching", label: "Teaching" },
                 { value: "Non-teaching", label: "Non-teaching" },
               ]}
-              handleChange={(e: any) =>
-                (formState.applicant.headline = e.target.value)
-              }
+              handleChange={handleChange}
               required
               error={errors.headline}
             />
@@ -128,15 +130,13 @@ function ApplicantDetailsForm({ errors }: Props) {
             <CustomSelect
               name="maritalStatus"
               label="Marital Status"
-              value={applicant.maritalStatus}
+              value={values.applicant.maritalStatus}
               items={[
                 { value: "Married", label: "Married" },
                 { value: "Unmarried", label: "Unmarried" },
                 { value: "Divorced", label: "Divorced" },
               ]}
-              handleChange={(e: any) =>
-                (formState.applicant.maritalStatus = e.target.value)
-              }
+              handleChange={handleChange}
               required
               error={errors.maritalStatus}
             />
@@ -144,10 +144,8 @@ function ApplicantDetailsForm({ errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="linkedIn"
-              value={applicant.linkedIn}
-              handleChange={(e: any) =>
-                (formState.applicant.linkedIn = e.target.value)
-              }
+              value={values.applicant.linkedIn}
+              handleChange={handleChange}
               fullWidth
               label="LinkedIn URL"
               error={errors.linkedIn}
@@ -156,10 +154,8 @@ function ApplicantDetailsForm({ errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="link"
-              value={applicant.link}
-              handleChange={(e: any) =>
-                (formState.applicant.link = e.target.value)
-              }
+              value={values.applicant.link}
+              handleChange={handleChange}
               fullWidth
               label="Link"
               placeholder="e.g.: git, drive"
@@ -173,10 +169,8 @@ function ApplicantDetailsForm({ errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="street"
-              value={applicant.street}
-              handleChange={(e: any) =>
-                (formState.applicant.street = e.target.value)
-              }
+              value={values.applicant.street}
+              handleChange={handleChange}
               fullWidth
               label="Street"
               required
@@ -186,10 +180,8 @@ function ApplicantDetailsForm({ errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="locality"
-              value={applicant.locality}
-              handleChange={(e: any) =>
-                (formState.applicant.locality = e.target.value)
-              }
+              value={values.applicant.locality}
+              handleChange={handleChange}
               fullWidth
               label="Locality"
               required
@@ -200,16 +192,14 @@ function ApplicantDetailsForm({ errors }: Props) {
             <CustomSelect
               name="city"
               label="City"
-              value={applicant.city}
+              value={values.applicant.city}
               items={[
                 { value: "Bangalore", label: "Bangalore" },
                 { value: "Mumbai", label: "Mumbai" },
                 { value: "Delhi", label: "Delhi" },
                 { value: "Hyderabad", label: "Hyderabad" },
               ]}
-              handleChange={(e: any) =>
-                (formState.applicant.city = e.target.value)
-              }
+              handleChange={handleChange}
               required
               error={errors.city}
             />
@@ -222,16 +212,14 @@ function ApplicantDetailsForm({ errors }: Props) {
             <CustomSelect
               name="state"
               label="State"
-              value={applicant.state}
+              value={values.applicant.state}
               items={[
                 { value: "Karnataka", label: "Karnataka" },
                 { value: "Maharashtra", label: "Maharashtra" },
                 { value: "Bihar", label: "Bihar" },
                 { value: "Andhra Pradesh", label: "Andhra Pradesh" },
               ]}
-              handleChange={(e: any) =>
-                (formState.applicant.state = e.target.value)
-              }
+              handleChange={handleChange}
               required
               error={errors.state}
             />
@@ -240,7 +228,7 @@ function ApplicantDetailsForm({ errors }: Props) {
             <CustomSelect
               name="country"
               label="Country"
-              value={applicant.country}
+              value={values.applicant.country}
               items={[
                 { value: "India", label: "India" },
                 {
@@ -253,9 +241,7 @@ function ApplicantDetailsForm({ errors }: Props) {
                 },
                 { value: "Qatar", label: "Qatar" },
               ]}
-              handleChange={(e: any) =>
-                (formState.applicant.country = e.target.value)
-              }
+              handleChange={handleChange}
               required
               error={errors.country}
             />
@@ -263,10 +249,8 @@ function ApplicantDetailsForm({ errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="pinCode"
-              value={applicant.pinCode}
-              handleChange={(e: any) =>
-                (formState.applicant.pinCode = e.target.value)
-              }
+              value={values.applicant.pinCode}
+              handleChange={handleChange}
               fullWidth
               label="Pincode"
               required
@@ -279,10 +263,8 @@ function ApplicantDetailsForm({ errors }: Props) {
         <Grid item xs={12}>
           <CustomTextField
             name="skills"
-            value={applicant.skills}
-            handleChange={(e: any) =>
-              (formState.applicant.skills = e.target.value)
-            }
+            value={values.applicant.skills}
+            handleChange={handleChange}
             fullWidth
             label="Key Skills - Domain area"
             required

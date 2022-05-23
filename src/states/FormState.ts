@@ -1,47 +1,52 @@
-import { proxy } from "valtio";
-
-interface IFormState {
-  applicant: {
-    name: string;
-    birthDate: Date | null;
-    gender: string;
-    phone: string;
-    email: string;
-    headline: string;
-    maritalStatus: string;
-    linkedIn: string;
-    link: string;
-    street: string;
-    locality: string;
-    city: string;
-    state: string;
-    country: string;
-    pinCode: string;
-    skills: string;
-  };
-  education: {
-    graduationName: string;
-    graduationInstitute: string;
-    graduation: string;
-    universityName: string;
-    universityScore: 0;
-    yearOfJoining: Date | null;
-    yearOfCompletion: Date | null;
-  };
-  experience: {
-    employerName: string;
-    designation: string;
-    ctcDown: 0;
-    expYears: 0;
-    expMonths: 0;
-  };
-  attachments: {
-    resume: Date | null;
-    degree: Date | null;
-  };
+export interface IApplicantState {
+  name: string;
+  birthDate: Date | null;
+  gender: string;
+  phone: string;
+  email: string;
+  headline: string;
+  maritalStatus: string;
+  linkedIn: string;
+  link: string;
+  street: string;
+  locality: string;
+  city: string;
+  state: string;
+  country: string;
+  pinCode: string;
+  skills: string;
 }
 
-export const formState: IFormState = proxy({
+export interface IEducationState {
+  graduationName: string;
+  graduationInstitute: string;
+  graduation: string;
+  universityName: string;
+  universityScore: 0;
+  yearOfJoining: Date | null;
+  yearOfCompletion: Date | null;
+}
+
+export interface IExperienceState {
+  employerName: string;
+  designation: string;
+  ctcDown: 0;
+  expYears: 0;
+  expMonths: 0;
+}
+
+export interface IAttachmentState {
+  resume: null;
+  degree: null;
+}
+export interface IFormState {
+  applicant: IApplicantState;
+  education: IEducationState;
+  experience: IExperienceState;
+  attachments: IAttachmentState;
+}
+
+export const formState: IFormState = {
   applicant: {
     name: "",
     birthDate: null,
@@ -80,4 +85,4 @@ export const formState: IFormState = proxy({
     resume: null,
     degree: null,
   },
-});
+};

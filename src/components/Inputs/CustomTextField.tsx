@@ -12,7 +12,7 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => ({
   errorText: {
-    fontSize: 14,
+    fontSize: 12,
     margin: "2px 10px",
     color: theme.palette.error.main,
   },

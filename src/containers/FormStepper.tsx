@@ -8,7 +8,6 @@ import ExperienceForm from "./Forms/ExperienceForm";
 import AttachmentsForm from "./Forms/AttachmentsForm";
 import { Paper } from "@mui/material";
 import { formState } from "../states/FormState";
-import { useSnapshot } from "valtio";
 
 const paperStyles = {
   width: "80vw",
@@ -17,27 +16,36 @@ const paperStyles = {
   borderRadius: 3,
 };
 
-let initApplicantErrorValues: any = {};
-for (const key in formState.applicant) initApplicantErrorValues[key] = "";
-
 function FormStepper() {
   const [activeStep, setActiveStep] = useState(0);
 
   const isMobile = useMobileView();
-  const { applicant } = useSnapshot(formState);
 
-  const [applicantErrors, setApplicantErrors] = useState(
-    initApplicantErrorValues
-  );
+  const [values, setValues] = useState(formState);
+
+  const [applicantErrors, setApplicantErrors] = useState<any>({});
+  const [educationErrors, setEducationErrors] = useState<any>({});
 
   const steps = [
     {
       label: "Applicant Details",
-      form: <ApplicantDetailsForm errors={applicantErrors} />,
+      form: (
+        <ApplicantDetailsForm
+          values={values}
+          setValues={setValues}
+          errors={applicantErrors}
+        />
+      ),
     },
     {
       label: "Education Details",
-      form: <EducationDetailsForm />,
+      form: (
+        <EducationDetailsForm
+          values={values}
+          setValues={setValues}
+          errors={educationErrors}
+        />
+      ),
     },
     {
       label: "Experience",
@@ -50,36 +58,80 @@ function FormStepper() {
   ];
 
   const validateApplicant = () => {
-    let temp = initApplicantErrorValues;
-    temp.name = applicant.name ? "" : "This field is required";
-    temp.birthDate = applicant.birthDate ? "" : "This field is required";
-    temp.gender = applicant.gender ? "" : "This field is required";
-    temp.phone = /^[0-9]{10}$/.test(applicant.phone) ? "" : "Invalid phone";
+    let temp: any = {};
+
+    temp.name = /^[A-Za-z\s]+$/.test(values.applicant.name)
+      ? ""
+      : "Must contain only alphabets";
+    temp.birthDate = values.applicant.birthDate ? "" : "This field is required";
+    temp.gender = values.applicant.gender ? "" : "This field is required";
+    temp.phone = /^[0-9]{10}$/.test(values.applicant.phone)
+      ? ""
+      : "Invalid phone";
     temp.email =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        applicant.email
+        values.applicant.email
       )
         ? ""
         : "Invalid email";
-    temp.headline = applicant.headline ? "" : "This field is required";
-    temp.maritalStatus = applicant.maritalStatus
+    temp.headline = values.applicant.headline ? "" : "This field is required";
+    temp.maritalStatus = values.applicant.maritalStatus
       ? ""
       : "This field is required";
-    temp.street = applicant.street ? "" : "This field is required";
-    temp.locality = applicant.locality ? "" : "This field is required";
-    temp.city = applicant.city ? "" : "This field is required";
-    temp.state = applicant.state ? "" : "This field is required";
-    temp.country = applicant.country ? "" : "This field is required";
-    temp.pinCode = applicant.pinCode ? "" : "This field is required";
-    temp.skills = applicant.skills ? "" : "This field is required";
+    temp.street = /^[A-Za-z0-9,.\s]{1,20}$/.test(values.applicant.street)
+      ? ""
+      : "Must contain alphanumeric";
+    temp.locality = /^[A-Za-z0-9,.\s]{1,25}$/.test(values.applicant.locality)
+      ? ""
+      : "Must contain alphanumeric";
+    temp.city = values.applicant.city ? "" : "This field is required";
+    temp.state = values.applicant.state ? "" : "This field is required";
+    temp.country = values.applicant.country ? "" : "This field is required";
+    temp.pinCode = /^[0-9]{6}$/.test(values.applicant.pinCode)
+      ? ""
+      : "Must contain 6 digits";
+    temp.skills = /^[A-Za-z0-9,.\s]{1,100}$/.test(values.applicant.skills)
+      ? ""
+      : "Must contain alphanumeric";
 
     setApplicantErrors({ ...temp });
+
+    return Object.values(temp).every((x) => x === "");
+  };
+  const validateEducation = () => {
+    let temp: any = {};
+
+    temp.graduationName = values.education.graduationName
+      ? ""
+      : "This field is required";
+    temp.graduationInstitute = values.education.graduationInstitute
+      ? ""
+      : "This field is required";
+    temp.graduation = values.education.graduation
+      ? ""
+      : "This field is required";
+    temp.universityName = values.education.universityName
+      ? ""
+      : "This field is required";
+    temp.universityScore = values.education.universityScore
+      ? ""
+      : "This field is required";
+    temp.yearOfJoining = values.education.yearOfJoining
+      ? ""
+      : "This field is required";
+    temp.yearOfCompletion = values.education.yearOfCompletion
+      ? ""
+      : "This field is required";
+
+    setEducationErrors({ ...temp });
 
     return Object.values(temp).every((x) => x === "");
   };
 
   const handleNext = () => {
     if (activeStep === 0 && validateApplicant())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1 && validateEducation())
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
