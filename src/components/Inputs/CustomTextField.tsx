@@ -34,6 +34,7 @@ function CustomTextField({
         name={name}
         value={value}
         onChange={handleChange}
+        size="small"
         {...props}
       />
       {error && <p className={classes.errorText}>{error}</p>}

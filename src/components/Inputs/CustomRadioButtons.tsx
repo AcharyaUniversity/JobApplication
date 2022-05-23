@@ -18,6 +18,7 @@ interface Props {
   }[];
   handleChange: (e: any) => void;
   error?: string;
+  required?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -35,18 +36,27 @@ function CustomRadioButtons({
   options,
   handleChange,
   error,
+  required = false,
 }: Props) {
   const classes = useStyles();
 
   return (
-    <FormControl error={!!error} fullWidth>
+    <FormControl error={!!error} fullWidth required={required}>
       <FormLabel>{label}</FormLabel>
       <RadioGroup row value={value} onChange={handleChange} name={name}>
         {options.map((obj, index) => (
           <FormControlLabel
             key={index}
             value={obj.value}
-            control={<Radio />}
+            control={
+              <Radio
+                sx={{
+                  "& .MuiSvgIcon-root": {
+                    fontSize: 19,
+                  },
+                }}
+              />
+            }
             label={obj.label}
           />
         ))}

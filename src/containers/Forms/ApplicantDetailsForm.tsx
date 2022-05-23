@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Box, Grid } from "@mui/material";
 import CustomTextField from "../../components/Inputs/CustomTextField";
 import { makeStyles } from "@mui/styles";
@@ -7,13 +8,17 @@ import CustomSelect from "../../components/Inputs/CustomSelect";
 import { formState } from "../../states/FormState";
 import { useSnapshot } from "valtio";
 
-const useStyles = makeStyles((theme) => ({
+interface Props {
+  errors: any;
+}
+
+const useStyles = makeStyles(() => ({
   form: {
     padding: "10px 0",
   },
 }));
 
-function ApplicantDetailsForm() {
+function ApplicantDetailsForm({ errors }: Props) {
   const classes = useStyles();
 
   const { applicant } = useSnapshot(formState);
@@ -38,7 +43,9 @@ function ApplicantDetailsForm() {
               }
               fullWidth
               label="Name"
-              helperText="As per SSC certificate"
+              helperText="As per aadhaar card"
+              error={errors.name}
+              required
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -48,6 +55,7 @@ function ApplicantDetailsForm() {
                 (formState.applicant.birthDate = value)
               }
               label="Date of Birth"
+              error={errors.birthDate}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -62,6 +70,8 @@ function ApplicantDetailsForm() {
               handleChange={(e: any) =>
                 (formState.applicant.gender = e.target.value)
               }
+              required
+              error={errors.gender}
             />
           </Grid>
         </>
@@ -77,6 +87,8 @@ function ApplicantDetailsForm() {
               }
               fullWidth
               label="Mobile number"
+              required
+              error={errors.phone}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -88,6 +100,8 @@ function ApplicantDetailsForm() {
               }
               fullWidth
               label="Email ID"
+              required
+              error={errors.email}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -102,11 +116,59 @@ function ApplicantDetailsForm() {
               handleChange={(e: any) =>
                 (formState.applicant.headline = e.target.value)
               }
+              required
+              error={errors.headline}
             />
           </Grid>
         </>
 
         {/* 3rd row */}
+        <>
+          <Grid item xs={12} md={4}>
+            <CustomSelect
+              name="maritalStatus"
+              label="Marital Status"
+              value={applicant.maritalStatus}
+              items={[
+                { value: "Married", label: "Married" },
+                { value: "Unmarried", label: "Unmarried" },
+                { value: "Divorced", label: "Divorced" },
+              ]}
+              handleChange={(e: any) =>
+                (formState.applicant.maritalStatus = e.target.value)
+              }
+              required
+              error={errors.maritalStatus}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="linkedIn"
+              value={applicant.linkedIn}
+              handleChange={(e: any) =>
+                (formState.applicant.linkedIn = e.target.value)
+              }
+              fullWidth
+              label="LinkedIn URL"
+              error={errors.linkedIn}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="link"
+              value={applicant.link}
+              handleChange={(e: any) =>
+                (formState.applicant.link = e.target.value)
+              }
+              fullWidth
+              label="Link"
+              placeholder="e.g.: git, drive"
+              error={errors.link}
+            />
+          </Grid>
+        </>
+
+        {/* 4th row */}
         <>
           <Grid item xs={12} md={4}>
             <CustomTextField
@@ -117,6 +179,8 @@ function ApplicantDetailsForm() {
               }
               fullWidth
               label="Street"
+              required
+              error={errors.street}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -128,6 +192,8 @@ function ApplicantDetailsForm() {
               }
               fullWidth
               label="Locality"
+              required
+              error={errors.locality}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -144,11 +210,13 @@ function ApplicantDetailsForm() {
               handleChange={(e: any) =>
                 (formState.applicant.city = e.target.value)
               }
+              required
+              error={errors.city}
             />
           </Grid>
         </>
 
-        {/* 4th row */}
+        {/* 5th row */}
         <>
           <Grid item xs={12} md={4}>
             <CustomSelect
@@ -164,6 +232,8 @@ function ApplicantDetailsForm() {
               handleChange={(e: any) =>
                 (formState.applicant.state = e.target.value)
               }
+              required
+              error={errors.state}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -186,6 +256,8 @@ function ApplicantDetailsForm() {
               handleChange={(e: any) =>
                 (formState.applicant.country = e.target.value)
               }
+              required
+              error={errors.country}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -197,50 +269,26 @@ function ApplicantDetailsForm() {
               }
               fullWidth
               label="Pincode"
+              required
+              error={errors.pinCode}
             />
           </Grid>
         </>
 
-        {/* 5th row */}
-        <>
-          <Grid item xs={12} md={4}>
-            <CustomTextField
-              name="skills"
-              value={applicant.skills}
-              handleChange={(e: any) =>
-                (formState.applicant.skills = e.target.value)
-              }
-              fullWidth
-              label="Skills"
-              helperText="Domain area"
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <CustomTextField
-              name="linkedIn"
-              value={applicant.linkedIn}
-              handleChange={(e: any) =>
-                (formState.applicant.linkedIn = e.target.value)
-              }
-              fullWidth
-              label="LinkedIn URL"
-              helperText="Optional"
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <CustomTextField
-              name="link"
-              value={applicant.link}
-              handleChange={(e: any) =>
-                (formState.applicant.link = e.target.value)
-              }
-              fullWidth
-              label="Link"
-              helperText="Optional"
-              placeholder="e.g.: git, drive"
-            />
-          </Grid>
-        </>
+        {/* 6th row */}
+        <Grid item xs={12}>
+          <CustomTextField
+            name="skills"
+            value={applicant.skills}
+            handleChange={(e: any) =>
+              (formState.applicant.skills = e.target.value)
+            }
+            fullWidth
+            label="Key Skills - Domain area"
+            required
+            error={errors.skills}
+          />
+        </Grid>
       </Grid>
     </Box>
   );

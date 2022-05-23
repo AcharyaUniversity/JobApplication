@@ -18,6 +18,7 @@ interface Props {
   }[];
   handleChange: (e: any) => void;
   error?: string;
+  required?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -35,14 +36,21 @@ function CustomSelect({
   items,
   handleChange,
   error,
+  required = false,
 }: Props) {
   const classes = useStyles();
 
   return (
     <Box sx={{ minWidth: 120 }}>
-      <FormControl error={!!error} fullWidth>
+      <FormControl size="small" required={required} error={!!error} fullWidth>
         <InputLabel>{label}</InputLabel>
-        <Select name={name} value={value} label={label} onChange={handleChange}>
+        <Select
+          size="small"
+          name={name}
+          value={value}
+          label={label}
+          onChange={handleChange}
+        >
           {items.map((obj, index) => (
             <MenuItem key={index} value={obj.value}>
               {obj.label}

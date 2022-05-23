@@ -1,7 +1,21 @@
-import { Box, MobileStepper, Paper, Typography, Button } from "@mui/material";
+import {
+  Theme,
+  Box,
+  MobileStepper,
+  Paper,
+  Typography,
+  Button,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme: Theme) => ({
+  nextButton: {
+    backgroundColor: `${theme.palette.secondary.main} !important`,
+  },
+}));
 
 interface Props {
   steps: { label: string; form: JSX.Element }[];
@@ -17,6 +31,8 @@ function MobileFormStepper({
   handleBack,
 }: Props) {
   const theme = useTheme();
+
+  const classes = useStyles();
 
   return (
     <Box sx={{ width: "100%", flexGrow: 1 }}>
@@ -59,6 +75,8 @@ function MobileFormStepper({
             activeStep={activeStep}
             nextButton={
               <Button
+                variant="contained"
+                className={classes.nextButton}
                 size="small"
                 onClick={handleNext}
                 disabled={activeStep === steps.length}

@@ -8,6 +8,9 @@ interface IFormState {
     phone: string;
     email: string;
     headline: string;
+    maritalStatus: string;
+    linkedIn: string;
+    link: string;
     street: string;
     locality: string;
     city: string;
@@ -15,8 +18,6 @@ interface IFormState {
     country: string;
     pinCode: string;
     skills: string;
-    linkedIn: string;
-    link: string;
   };
   education: {
     graduationName: string;
@@ -48,6 +49,9 @@ export const formState: IFormState = proxy({
     phone: "",
     email: "",
     headline: "",
+    maritalStatus: "",
+    linkedIn: "",
+    link: "",
     street: "",
     locality: "",
     city: "",
@@ -55,8 +59,6 @@ export const formState: IFormState = proxy({
     country: "",
     pinCode: "",
     skills: "",
-    linkedIn: "",
-    link: "",
   },
   education: {
     graduationName: "",

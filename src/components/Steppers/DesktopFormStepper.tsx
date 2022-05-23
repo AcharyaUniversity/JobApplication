@@ -5,12 +5,16 @@ import {
   StepLabel,
   Button,
   Typography,
+  Theme,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   stepperContainer: {
     padding: "10px 30px",
+  },
+  nextButton: {
+    backgroundColor: `${theme.palette.secondary.main} !important`,
   },
 }));
 
@@ -55,7 +59,11 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
               Back
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleNext}>
+            <Button
+              className={classes.nextButton}
+              variant="contained"
+              onClick={handleNext}
+            >
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>
           </Box>
