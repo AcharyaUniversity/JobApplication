@@ -37,7 +37,7 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
         container
         alignItems="center"
         justifyContent="flex-start"
-        rowSpacing={4}
+        rowSpacing={2}
         columnSpacing={{ xs: 2, md: 4 }}
       >
         {/* first row */}
