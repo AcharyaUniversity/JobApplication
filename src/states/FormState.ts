@@ -23,14 +23,14 @@ export interface IEducationState {
   graduation: string;
   universityName: string;
   universityScore: number;
-  yearOfJoining: Date | null;
-  yearOfCompletion: Date | null;
+  dateOfJoining: Date | null;
+  dateOfCompletion: Date | null;
 }
 
 export interface IExperienceState {
   employerName: string;
   designation: string;
-  ctcDown: 0;
+  ctcDrawn: 0;
   expYears: 0;
   expMonths: 0;
 }
@@ -71,13 +71,13 @@ export const formState: IFormState = {
     graduation: "",
     universityName: "",
     universityScore: 0,
-    yearOfJoining: null,
-    yearOfCompletion: null,
+    dateOfJoining: null,
+    dateOfCompletion: null,
   },
   experience: {
     employerName: "",
     designation: "",
-    ctcDown: 0,
+    ctcDrawn: 0,
     expYears: 0,
     expMonths: 0,
   },

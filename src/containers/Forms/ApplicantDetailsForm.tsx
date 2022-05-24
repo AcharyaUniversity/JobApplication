@@ -66,6 +66,7 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
               }
               label="Date of Birth"
               error={errors.birthDate}
+              maxDate={new Date(`12/31/${new Date().getFullYear() - 18}`)}
             />
           </Grid>
           <Grid item xs={12} md={4}>

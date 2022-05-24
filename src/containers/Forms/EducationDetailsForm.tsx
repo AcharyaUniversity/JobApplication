@@ -43,6 +43,22 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
         {/* first row */}
         <>
           <Grid item xs={12} md={4}>
+            <CustomSelect
+              name="graduation"
+              label="Graduation"
+              value={values.education.graduation}
+              items={[
+                { value: "Value 1", label: "Value 1" },
+                { value: "Value 2", label: "Value 2" },
+                { value: "Value 3", label: "Value 3" },
+                { value: "Value 4", label: "Value 4" },
+              ]}
+              handleChange={handleChange}
+              required
+              error={errors.graduation}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
             <CustomTextField
               name="graduationName"
               value={values.education.graduationName}
@@ -62,22 +78,6 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
               label="Graduation Institute"
               error={errors.graduationInstitute}
               required
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <CustomSelect
-              name="graduation"
-              label="Graduation"
-              value={values.education.graduation}
-              items={[
-                { value: "Value 1", label: "Value 1" },
-                { value: "Value 2", label: "Value 2" },
-                { value: "Value 3", label: "Value 3" },
-                { value: "Value 4", label: "Value 4" },
-              ]}
-              handleChange={handleChange}
-              required
-              error={errors.graduation}
             />
           </Grid>
         </>
@@ -112,28 +112,29 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
         <>
           <Grid item xs={12} md={6}>
             <CustomDatePicker
-              value={values.education.yearOfJoining}
+              value={values.education.dateOfJoining}
               handleChange={(val: Date | null) =>
                 setValues({
                   ...values,
-                  education: { ...values.education, yearOfJoining: val },
+                  education: { ...values.education, dateOfJoining: val },
                 })
               }
-              label="Year of Joining"
-              error={errors.yearOfJoining}
+              label="Date of Joining"
+              error={errors.dateOfJoining}
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <CustomDatePicker
-              value={values.education.yearOfCompletion}
+              value={values.education.dateOfCompletion}
               handleChange={(val: Date | null) =>
                 setValues({
                   ...values,
-                  education: { ...values.education, yearOfCompletion: val },
+                  education: { ...values.education, dateOfCompletion: val },
                 })
               }
-              label="Year of Completion"
-              error={errors.yearOfCompletion}
+              label="Date of Completion"
+              error={errors.dateOfCompletion}
+              minDate={values.education.dateOfJoining}
             />
           </Grid>
         </>

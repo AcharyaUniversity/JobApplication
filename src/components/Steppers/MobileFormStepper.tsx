@@ -92,6 +92,7 @@ function MobileFormStepper({
             backButton={
               <Button
                 size="small"
+                variant="outlined"
                 onClick={handleBack}
                 disabled={activeStep === 0}
               >

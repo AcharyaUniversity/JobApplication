@@ -68,12 +68,12 @@ function ExperienceForm({ values, setValues, errors }: Props) {
         <>
           <Grid item xs={12} md={4}>
             <CustomTextField
-              name="ctcDown"
-              value={values.experience.ctcDown}
+              name="ctcDrawn"
+              value={values.experience.ctcDrawn}
               handleChange={handleChange}
               fullWidth
-              label="CTC Down (in ₹)"
-              error={errors.ctcDown}
+              label="CTC Drawn (in ₹)"
+              error={errors.ctcDrawn}
               required
             />
           </Grid>

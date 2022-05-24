@@ -70,8 +70,12 @@ function FormStepper() {
 
     temp.name = /^[A-Za-z\s]+$/.test(values.applicant.name)
       ? ""
-      : "Must contain only alphabets";
-    temp.birthDate = values.applicant.birthDate ? "" : "This field is required";
+      : "Invalid name";
+    temp.birthDate =
+      values.applicant.birthDate &&
+      values.applicant.birthDate.getFullYear() <= new Date().getFullYear() - 18
+        ? ""
+        : "Must be 18 years or older";
     temp.gender = values.applicant.gender ? "" : "This field is required";
     temp.phone = /^[0-9]{10}$/.test(values.applicant.phone)
       ? ""
@@ -88,19 +92,19 @@ function FormStepper() {
       : "This field is required";
     temp.street = /^[A-Za-z0-9,.\s]{1,20}$/.test(values.applicant.street)
       ? ""
-      : "Must contain alphanumeric";
-    temp.locality = /^[A-Za-z0-9,.\s]{1,25}$/.test(values.applicant.locality)
+      : "Invalid street";
+    temp.locality = /^[A-Za-z0-9,.&\s]{1,25}$/.test(values.applicant.locality)
       ? ""
-      : "Must contain alphanumeric";
+      : "Invalid locality";
     temp.city = values.applicant.city ? "" : "This field is required";
     temp.state = values.applicant.state ? "" : "This field is required";
     temp.country = values.applicant.country ? "" : "This field is required";
     temp.pinCode = /^[0-9]{6}$/.test(values.applicant.pinCode)
       ? ""
-      : "Must contain 6 digits";
-    temp.skills = /^[A-Za-z0-9,.\s]{1,100}$/.test(values.applicant.skills)
+      : "Please enter 6 digits";
+    temp.skills = /^[A-Za-z0-9,.#+\s]{1,100}$/.test(values.applicant.skills)
       ? ""
-      : "Must contain alphanumeric";
+      : "Please enter skills seperated by commas";
 
     setApplicantErrors({ ...temp });
 
@@ -122,17 +126,19 @@ function FormStepper() {
       ? ""
       : "This field is required";
     temp.universityScore =
-      values.education.universityScore &&
       values.education.universityScore >= 0 &&
       values.education.universityScore <= 100
         ? ""
         : "Invalid number";
-    temp.yearOfJoining = values.education.yearOfJoining
+    temp.dateOfJoining = values.education.dateOfJoining
       ? ""
       : "This field is required";
-    temp.yearOfCompletion = values.education.yearOfCompletion
-      ? ""
-      : "This field is required";
+    temp.dateOfCompletion =
+      values.education.dateOfCompletion &&
+      values.education.dateOfJoining &&
+      values.education.dateOfCompletion > values.education.dateOfJoining
+        ? ""
+        : "Completion date must be after joining date";
 
     setEducationErrors({ ...temp });
 
@@ -149,7 +155,7 @@ function FormStepper() {
     temp.designation = /^[A-Za-z\s]+$/.test(values.experience.designation)
       ? ""
       : "Must contain only alphabets";
-    temp.ctcDown = /^[0-9]+$/.test(values.experience.ctcDown.toString())
+    temp.ctcDrawn = /^[0-9]+$/.test(values.experience.ctcDrawn.toString())
       ? ""
       : "Invalid number";
 
@@ -177,10 +183,8 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0 && validateApplicant())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1 && validateEducation())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 2 && validateExperience())
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 3 && validateAttachments())
