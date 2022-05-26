@@ -190,6 +190,7 @@ function FormStepper() {
     if (activeStep === 3 && validateAttachments())
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
+  
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
