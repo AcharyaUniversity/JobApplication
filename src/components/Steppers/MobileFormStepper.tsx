@@ -80,6 +80,7 @@ function MobileFormStepper({
                 size="small"
                 onClick={handleNext}
                 disabled={activeStep === steps.length}
+                sx={{ borderRadius: 2 }}
               >
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 {theme.direction === "rtl" ? (
@@ -95,6 +96,7 @@ function MobileFormStepper({
                 variant="outlined"
                 onClick={handleBack}
                 disabled={activeStep === 0}
+                sx={{ borderRadius: 2 }}
               >
                 {theme.direction === "rtl" ? (
                   <KeyboardArrowRight />

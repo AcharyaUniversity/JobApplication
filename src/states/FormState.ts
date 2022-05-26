@@ -41,7 +41,7 @@ export interface IAttachmentState {
 }
 export interface IFormState {
   applicant: IApplicantState;
-  education: IEducationState;
+  education: IEducationState[];
   experience: IExperienceState;
   attachments: IAttachmentState;
 }
@@ -65,15 +65,17 @@ export const formState: IFormState = {
     pinCode: "",
     skills: "",
   },
-  education: {
-    graduationName: "",
-    graduationInstitute: "",
-    graduation: "",
-    universityName: "",
-    universityScore: 0,
-    dateOfJoining: null,
-    dateOfCompletion: null,
-  },
+  education: [
+    {
+      graduationName: "",
+      graduationInstitute: "",
+      graduation: "",
+      universityName: "",
+      universityScore: 0,
+      dateOfJoining: null,
+      dateOfCompletion: null,
+    },
+  ],
   experience: {
     employerName: "",
     designation: "",

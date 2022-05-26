@@ -32,6 +32,16 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
     });
   };
 
+  const handleDateChange = (key: string, val: Date | null) => {
+    setValues({
+      ...values,
+      applicant: {
+        ...values.applicant,
+        [key]: val,
+      },
+    });
+  };
+
   return (
     <Box component="form" className={classes.form}>
       <Grid
@@ -59,10 +69,7 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
             <CustomDatePicker
               value={values.applicant.birthDate}
               handleChange={(val: Date | null) =>
-                setValues({
-                  ...values,
-                  applicant: { ...values.applicant, birthDate: val },
-                })
+                handleDateChange("birthDate", val)
               }
               label="Date of Birth"
               error={errors.birthDate}
@@ -136,6 +143,8 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
                 { value: "Married", label: "Married" },
                 { value: "Unmarried", label: "Unmarried" },
                 { value: "Divorced", label: "Divorced" },
+                { value: "Widow", label: "Widow" },
+                { value: "Widower", label: "Widower" },
               ]}
               handleChange={handleChange}
               required

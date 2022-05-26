@@ -9,6 +9,7 @@ import { IFormState } from "../../states/FormState";
 interface Props {
   values: IFormState;
   setValues: Dispatch<SetStateAction<IFormState>>;
+  index: number;
   errors: any;
 }
 
@@ -18,16 +19,26 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function EducationDetailsForm({ values, setValues, errors }: Props) {
+function EducationDetailsForm({ values, setValues, index, errors }: Props) {
   const classes = useStyles();
 
   const handleChange = (e: any) => {
     setValues({
       ...values,
-      education: {
-        ...values.education,
-        [e.target.name]: e.target.value,
-      },
+      education: values.education.map((obj, i) => {
+        if (i === index) return { ...obj, [e.target.name]: e.target.value };
+        return obj;
+      }),
+    });
+  };
+
+  const handleDateChange = (key: string, val: Date | null) => {
+    setValues({
+      ...values,
+      education: values.education.map((obj, i) => {
+        if (i === index) return { ...obj, [key]: val };
+        return obj;
+      }),
     });
   };
 
@@ -46,7 +57,7 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
             <CustomSelect
               name="graduation"
               label="Graduation"
-              value={values.education.graduation}
+              value={values.education[index].graduation}
               items={[
                 { value: "Value 1", label: "Value 1" },
                 { value: "Value 2", label: "Value 2" },
@@ -61,7 +72,7 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="graduationName"
-              value={values.education.graduationName}
+              value={values.education[index].graduationName}
               handleChange={handleChange}
               fullWidth
               label="Graduation Name"
@@ -72,7 +83,7 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="graduationInstitute"
-              value={values.education.graduationInstitute}
+              value={values.education[index].graduationInstitute}
               handleChange={handleChange}
               fullWidth
               label="Graduation Institute"
@@ -87,7 +98,7 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
           <Grid item xs={12} md={8}>
             <CustomTextField
               name="universityName"
-              value={values.education.universityName}
+              value={values.education[index].universityName}
               handleChange={handleChange}
               fullWidth
               label="University Name"
@@ -98,7 +109,7 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="universityScore"
-              value={values.education.universityScore}
+              value={values.education[index].universityScore}
               handleChange={handleChange}
               fullWidth
               label="University Score (in %)"
@@ -112,12 +123,9 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
         <>
           <Grid item xs={12} md={6}>
             <CustomDatePicker
-              value={values.education.dateOfJoining}
+              value={values.education[index].dateOfJoining}
               handleChange={(val: Date | null) =>
-                setValues({
-                  ...values,
-                  education: { ...values.education, dateOfJoining: val },
-                })
+                handleDateChange("dateOfJoining", val)
               }
               label="Date of Joining"
               error={errors.dateOfJoining}
@@ -125,16 +133,13 @@ function EducationDetailsForm({ values, setValues, errors }: Props) {
           </Grid>
           <Grid item xs={12} md={6}>
             <CustomDatePicker
-              value={values.education.dateOfCompletion}
+              value={values.education[index].dateOfCompletion}
               handleChange={(val: Date | null) =>
-                setValues({
-                  ...values,
-                  education: { ...values.education, dateOfCompletion: val },
-                })
+                handleDateChange("dateOfCompletion", val)
               }
               label="Date of Completion"
               error={errors.dateOfCompletion}
-              minDate={values.education.dateOfJoining}
+              minDate={values.education[index].dateOfJoining}
             />
           </Grid>
         </>

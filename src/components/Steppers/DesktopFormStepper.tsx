@@ -55,7 +55,7 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
               variant="outlined"
               disabled={activeStep === 0}
               onClick={handleBack}
-              sx={{ mr: 1 }}
+              sx={{ mr: 1, borderRadius: 2 }}
             >
               Back
             </Button>
@@ -64,6 +64,7 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
               className={classes.nextButton}
               variant="contained"
               onClick={handleNext}
+              sx={{ borderRadius: 2 }}
             >
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>

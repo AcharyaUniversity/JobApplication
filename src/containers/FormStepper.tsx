@@ -3,7 +3,7 @@ import DesktopFormStepper from "../components/Steppers/DesktopFormStepper";
 import MobileFormStepper from "../components/Steppers/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
 import ApplicantDetailsForm from "./Forms/ApplicantDetailsForm";
-import EducationDetailsForm from "./Forms/EducationDetailsForm";
+import EducationDetailsContainer from "./Forms/EducationDetailsContainer";
 import ExperienceForm from "./Forms/ExperienceForm";
 import AttachmentsForm from "./Forms/AttachmentsForm";
 import { Paper } from "@mui/material";
@@ -24,7 +24,7 @@ function FormStepper() {
   const [values, setValues] = useState(formState);
 
   const [applicantErrors, setApplicantErrors] = useState<any>({});
-  const [educationErrors, setEducationErrors] = useState<any>({});
+  const [educationErrors, setEducationErrors] = useState<any[]>([{}]);
   const [experienceErrors, setExperienceErrors] = useState<any>({});
   const [attachmentsErrors, setAttachmentsErrors] = useState<any>({});
 
@@ -42,10 +42,11 @@ function FormStepper() {
     {
       label: "Education Details",
       form: (
-        <EducationDetailsForm
+        <EducationDetailsContainer
           values={values}
           setValues={setValues}
           errors={educationErrors}
+          setErrors={setEducationErrors}
         />
       ),
     },
@@ -68,9 +69,7 @@ function FormStepper() {
   const validateApplicant = () => {
     let temp: any = {};
 
-    temp.name = /^[A-Za-z\s]+$/.test(values.applicant.name)
-      ? ""
-      : "Invalid name";
+    temp.name = values.applicant.name ? "" : "This field is required";
     temp.birthDate =
       values.applicant.birthDate &&
       values.applicant.birthDate.getFullYear() <= new Date().getFullYear() - 18
@@ -90,10 +89,10 @@ function FormStepper() {
     temp.maritalStatus = values.applicant.maritalStatus
       ? ""
       : "This field is required";
-    temp.street = /^[A-Za-z0-9,.\s]{1,20}$/.test(values.applicant.street)
+    temp.street = /^.{1,20}$/.test(values.applicant.street)
       ? ""
       : "Invalid street";
-    temp.locality = /^[A-Za-z0-9,.&\s]{1,25}$/.test(values.applicant.locality)
+    temp.locality = /^.{1,25}$/.test(values.applicant.locality)
       ? ""
       : "Invalid locality";
     temp.city = values.applicant.city ? "" : "This field is required";
@@ -102,7 +101,7 @@ function FormStepper() {
     temp.pinCode = /^[0-9]{6}$/.test(values.applicant.pinCode)
       ? ""
       : "Please enter 6 digits";
-    temp.skills = /^[A-Za-z0-9,.#+\s]{1,100}$/.test(values.applicant.skills)
+    temp.skills = /^.{1,100}$/.test(values.applicant.skills)
       ? ""
       : "Please enter skills seperated by commas";
 
@@ -111,50 +110,53 @@ function FormStepper() {
     return Object.values(temp).every((x) => x === "");
   };
   const validateEducation = () => {
-    let temp: any = {};
+    let flag = true;
 
-    temp.graduationName = values.education.graduationName
-      ? ""
-      : "This field is required";
-    temp.graduationInstitute = values.education.graduationInstitute
-      ? ""
-      : "This field is required";
-    temp.graduation = values.education.graduation
-      ? ""
-      : "This field is required";
-    temp.universityName = values.education.universityName
-      ? ""
-      : "This field is required";
-    temp.universityScore =
-      values.education.universityScore >= 0 &&
-      values.education.universityScore <= 100
+    values.education.forEach((obj, index) => {
+      let temp: any = {};
+
+      temp.graduationName = obj.graduationName ? "" : "This field is required";
+      temp.graduationInstitute = obj.graduationInstitute
         ? ""
-        : "Invalid number";
-    temp.dateOfJoining = values.education.dateOfJoining
-      ? ""
-      : "This field is required";
-    temp.dateOfCompletion =
-      values.education.dateOfCompletion &&
-      values.education.dateOfJoining &&
-      values.education.dateOfCompletion > values.education.dateOfJoining
-        ? ""
-        : "Completion date must be after joining date";
+        : "This field is required";
+      temp.graduation = obj.graduation ? "" : "This field is required";
+      temp.universityName = obj.universityName ? "" : "This field is required";
+      temp.universityScore =
+        obj.universityScore >= 0 && obj.universityScore <= 100
+          ? ""
+          : "Invalid number";
+      temp.dateOfJoining = obj.dateOfJoining ? "" : "This field is required";
+      temp.dateOfCompletion =
+        obj.dateOfJoining &&
+        obj.dateOfCompletion &&
+        obj.dateOfCompletion > obj.dateOfJoining
+          ? ""
+          : "Completion date must be after joining date";
 
-    setEducationErrors({ ...temp });
+      setEducationErrors(
+        educationErrors.map((o, i) => {
+          if (i === index) return temp;
+          return o;
+        })
+      );
 
-    return Object.values(temp).every((x) => x === "");
+      if (!Object.values(temp).every((x) => x === "")) {
+        flag = false;
+        return;
+      }
+    });
+
+    return flag;
   };
   const validateExperience = () => {
     let temp: any = {};
 
-    temp.employerName = /^[A-Za-z0-9,.\s]+$/.test(
-      values.experience.employerName
-    )
+    temp.employerName = values.experience.employerName
       ? ""
-      : "Must contain alphanumeric";
-    temp.designation = /^[A-Za-z\s]+$/.test(values.experience.designation)
+      : "This field is required";
+    temp.designation = values.experience.designation
       ? ""
-      : "Must contain only alphabets";
+      : "This field is required";
     temp.ctcDrawn = /^[0-9]+$/.test(values.experience.ctcDrawn.toString())
       ? ""
       : "Invalid number";
@@ -184,7 +186,8 @@ function FormStepper() {
 
   const handleNext = () => {
     if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1 && validateEducation())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 2 && validateExperience())
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 3 && validateAttachments())
