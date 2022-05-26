@@ -23,23 +23,23 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
   const classes = useStyles();
 
   const handleChange = (e: any) => {
-    setValues({
-      ...values,
-      education: values.education.map((obj, i) => {
+    setValues((prev) => ({
+      ...prev,
+      education: prev.education.map((obj, i) => {
         if (i === index) return { ...obj, [e.target.name]: e.target.value };
         return obj;
       }),
-    });
+    }));
   };
 
   const handleDateChange = (key: string, val: Date | null) => {
-    setValues({
-      ...values,
-      education: values.education.map((obj, i) => {
+    setValues((prev) => ({
+      ...prev,
+      education: prev.education.map((obj, i) => {
         if (i === index) return { ...obj, [key]: val };
         return obj;
       }),
-    });
+    }));
   };
 
   return (

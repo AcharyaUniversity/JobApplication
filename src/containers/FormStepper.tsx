@@ -115,34 +115,37 @@ function FormStepper() {
     values.education.forEach((obj, index) => {
       let temp: any = {};
 
+      temp.graduation = obj.graduation ? "" : "This field is required";
       temp.graduationName = obj.graduationName ? "" : "This field is required";
       temp.graduationInstitute = obj.graduationInstitute
         ? ""
         : "This field is required";
-      temp.graduation = obj.graduation ? "" : "This field is required";
       temp.universityName = obj.universityName ? "" : "This field is required";
       temp.universityScore =
-        obj.universityScore >= 0 && obj.universityScore <= 100
+        /^[0-9]+$/.test(obj.universityScore.toString()) &&
+        obj.universityScore >= 0 &&
+        obj.universityScore <= 100
           ? ""
-          : "Invalid number";
+          : "Invalid percentage";
       temp.dateOfJoining = obj.dateOfJoining ? "" : "This field is required";
       temp.dateOfCompletion =
         obj.dateOfJoining &&
         obj.dateOfCompletion &&
-        obj.dateOfCompletion > obj.dateOfJoining
+        obj.dateOfCompletion >= obj.dateOfJoining
           ? ""
           : "Completion date must be after joining date";
 
-      setEducationErrors(
-        educationErrors.map((o, i) => {
-          if (i === index) return temp;
+      setEducationErrors((prev) =>
+        prev.map((o, i) => {
+          if (i === index) {
+            return temp;
+          }
           return o;
         })
       );
 
       if (!Object.values(temp).every((x) => x === "")) {
         flag = false;
-        return;
       }
     });
 

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { Box, Grid, Button, Paper } from "@mui/material";
+import { Grid, Button, Paper, Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import EducationDetailsForm from "./EducationDetailsForm";
 import { IFormState } from "../../states/FormState";
@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   formContainer: {
     alignItems: "center",
     justifyContent: "space-between",
-    borderRadius: "17px !important",
+    borderRadius: "13px !important",
     padding: "20px",
   },
 }));
@@ -41,21 +41,21 @@ function EducationDetailsContainer({
   const classes = useStyles();
 
   const handleAdd = () => {
-    setValues({
-      ...values,
-      education: values.education.concat(initValues),
-    });
-    setErrors(errors.concat({}));
+    setValues((prev) => ({
+      ...prev,
+      education: prev.education.concat(initValues),
+    }));
+    setErrors((prev) => prev.concat({}));
   };
 
   const handleRemove = (index: number) => {
     let array: any[] = values.education;
     array.splice(index, 1);
 
-    setValues({
-      ...values,
+    setValues((prev) => ({
+      ...prev,
       education: array,
-    });
+    }));
 
     array = errors;
     array.splice(index, 1);
@@ -64,10 +64,10 @@ function EducationDetailsContainer({
 
   return (
     <>
-      <Grid container justifyContent="flex-end" rowSpacing={4} mt={0}>
+      <Grid container justifyContent="flex-end" rowSpacing={2} mt={0}>
         {values.education.map((obj, index) => (
           <Grid key={index} item xs={12}>
-            <Paper elevation={4} className={classes.formContainer}>
+            <Paper elevation={3} className={classes.formContainer}>
               <Grid container>
                 <Grid item xs={10} style={{ paddingLeft: 10 }}>
                   <p style={{ fontSize: "1.3rem", fontWeight: 500 }}>
@@ -96,7 +96,7 @@ function EducationDetailsContainer({
                     values={values}
                     setValues={setValues}
                     index={index}
-                    errors={errors}
+                    errors={errors[index]}
                   />
                 </Grid>
               </Grid>
@@ -105,14 +105,16 @@ function EducationDetailsContainer({
         ))}
 
         <Grid item xs={2} textAlign="right">
-          <Button
-            onClick={handleAdd}
-            variant="contained"
-            color="success"
-            sx={{ borderRadius: 2 }}
-          >
-            <AddIcon />
-          </Button>
+          <Tooltip title="Add entry">
+            <Button
+              onClick={handleAdd}
+              variant="contained"
+              color="success"
+              sx={{ borderRadius: 2 }}
+            >
+              <AddIcon />
+            </Button>
+          </Tooltip>
         </Grid>
       </Grid>
     </>
