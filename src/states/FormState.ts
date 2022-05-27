@@ -42,7 +42,7 @@ export interface IAttachmentState {
 export interface IFormState {
   applicant: IApplicantState;
   education: IEducationState[];
-  experience: IExperienceState;
+  experience: IExperienceState[];
   attachments: IAttachmentState;
 }
 
@@ -76,13 +76,15 @@ export const formState: IFormState = {
       dateOfCompletion: null,
     },
   ],
-  experience: {
-    employerName: "",
-    designation: "",
-    ctcDrawn: 0,
-    expYears: 0,
-    expMonths: 0,
-  },
+  experience: [
+    {
+      employerName: "",
+      designation: "",
+      ctcDrawn: 0,
+      expYears: 0,
+      expMonths: 0,
+    },
+  ],
   attachments: {
     resume: null,
     degree: null,

@@ -3,9 +3,10 @@ import DesktopFormStepper from "../components/Steppers/DesktopFormStepper";
 import MobileFormStepper from "../components/Steppers/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
 import ApplicantDetailsForm from "./Forms/ApplicantDetailsForm";
-import EducationDetailsContainer from "./Forms/EducationDetailsContainer";
+import EducationDetailsForm from "./Forms/EducationDetailsForm";
 import ExperienceForm from "./Forms/ExperienceForm";
 import AttachmentsForm from "./Forms/AttachmentsForm";
+import MultipleFormsContainer from "./MultipleFormsContainer";
 import { Paper } from "@mui/material";
 import { formState } from "../states/FormState";
 
@@ -25,7 +26,7 @@ function FormStepper() {
 
   const [applicantErrors, setApplicantErrors] = useState<any>({});
   const [educationErrors, setEducationErrors] = useState<any[]>([{}]);
-  const [experienceErrors, setExperienceErrors] = useState<any>({});
+  const [experienceErrors, setExperienceErrors] = useState<any[]>([{}]);
   const [attachmentsErrors, setAttachmentsErrors] = useState<any>({});
 
   const steps = [
@@ -42,21 +43,40 @@ function FormStepper() {
     {
       label: "Education Details",
       form: (
-        <EducationDetailsContainer
+        <MultipleFormsContainer
           values={values}
           setValues={setValues}
           errors={educationErrors}
           setErrors={setEducationErrors}
+          tab="education"
+          initValues={{
+            graduationName: "",
+            graduationInstitute: "",
+            graduation: "",
+            universityName: "",
+            universityScore: 0,
+            dateOfJoining: null,
+            dateOfCompletion: null,
+          }}
         />
       ),
     },
     {
       label: "Experience",
       form: (
-        <ExperienceForm
+        <MultipleFormsContainer
           values={values}
           setValues={setValues}
           errors={experienceErrors}
+          setErrors={setExperienceErrors}
+          tab="experience"
+          initValues={{
+            employerName: "",
+            designation: "",
+            ctcDrawn: 0,
+            expYears: 0,
+            expMonths: 0,
+          }}
         />
       ),
     },
@@ -152,29 +172,33 @@ function FormStepper() {
     return flag;
   };
   const validateExperience = () => {
-    let temp: any = {};
-
-    temp.employerName = values.experience.employerName
-      ? ""
-      : "This field is required";
-    temp.designation = values.experience.designation
-      ? ""
-      : "This field is required";
-    temp.ctcDrawn = /^[0-9]+$/.test(values.experience.ctcDrawn.toString())
-      ? ""
-      : "Invalid number";
-
-    temp.expYears = /^[0-9]+$/.test(values.experience.expYears.toString())
-      ? ""
-      : "Invalid number";
-
-    temp.expMonths = /^[0-9]+$/.test(values.experience.expMonths.toString())
-      ? ""
-      : "Invalid number";
-
-    setExperienceErrors({ ...temp });
-
-    return Object.values(temp).every((x) => x === "");
+    let flag = true;
+    values.experience.forEach((obj, index) => {
+      let temp: any = {};
+      temp.employerName = obj.employerName ? "" : "This field is required";
+      temp.designation = obj.designation ? "" : "This field is required";
+      temp.ctcDrawn = /^[0-9]+$/.test(obj.ctcDrawn.toString())
+        ? ""
+        : "Invalid number";
+      temp.expYears = /^[0-9]+$/.test(obj.expYears.toString())
+        ? ""
+        : "Invalid number";
+      temp.expMonths = /^[0-9]+$/.test(obj.expMonths.toString())
+        ? ""
+        : "Invalid number";
+      setExperienceErrors((prev) =>
+        prev.map((o, i) => {
+          if (i === index) {
+            return temp;
+          }
+          return o;
+        })
+      );
+      if (!Object.values(temp).every((x) => x === "")) {
+        flag = false;
+      }
+    });
+    return flag;
   };
   const validateAttachments = () => {
     let temp: any = {};
@@ -188,7 +212,8 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 0 && validateApplicant())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 1 && validateEducation())
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 2 && validateExperience())

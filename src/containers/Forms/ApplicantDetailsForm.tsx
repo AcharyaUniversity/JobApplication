@@ -23,23 +23,23 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
   const classes = useStyles();
 
   const handleChange = (e: any) => {
-    setValues({
-      ...values,
+    setValues((prev) => ({
+      ...prev,
       applicant: {
-        ...values.applicant,
+        ...prev.applicant,
         [e.target.name]: e.target.value,
       },
-    });
+    }));
   };
 
   const handleDateChange = (key: string, val: Date | null) => {
-    setValues({
-      ...values,
+    setValues((prev) => ({
+      ...prev,
       applicant: {
-        ...values.applicant,
+        ...prev.applicant,
         [key]: val,
       },
-    });
+    }));
   };
 
   return (

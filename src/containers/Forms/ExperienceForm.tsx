@@ -7,6 +7,7 @@ import { IFormState } from "../../states/FormState";
 interface Props {
   values: IFormState;
   setValues: Dispatch<SetStateAction<IFormState>>;
+  index: number;
   errors: any;
 }
 
@@ -16,17 +17,17 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ExperienceForm({ values, setValues, errors }: Props) {
+function ExperienceForm({ values, setValues, index, errors }: Props) {
   const classes = useStyles();
 
   const handleChange = (e: any) => {
-    setValues({
-      ...values,
-      experience: {
-        ...values.experience,
-        [e.target.name]: e.target.value,
-      },
-    });
+    setValues((prev) => ({
+      ...prev,
+      experience: prev.experience.map((obj, i) => {
+        if (i === index) return { ...obj, [e.target.name]: e.target.value };
+        return obj;
+      }),
+    }));
   };
 
   return (
@@ -43,7 +44,7 @@ function ExperienceForm({ values, setValues, errors }: Props) {
           <Grid item xs={12} md={6}>
             <CustomTextField
               name="employerName"
-              value={values.experience.employerName}
+              value={values.experience[index].employerName}
               handleChange={handleChange}
               fullWidth
               label="Employer Name"
@@ -54,7 +55,7 @@ function ExperienceForm({ values, setValues, errors }: Props) {
           <Grid item xs={12} md={6}>
             <CustomTextField
               name="designation"
-              value={values.experience.designation}
+              value={values.experience[index].designation}
               handleChange={handleChange}
               fullWidth
               label="Designation"
@@ -69,7 +70,7 @@ function ExperienceForm({ values, setValues, errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="ctcDrawn"
-              value={values.experience.ctcDrawn}
+              value={values.experience[index].ctcDrawn}
               handleChange={handleChange}
               fullWidth
               label="CTC Drawn (in ₹)"
@@ -80,7 +81,7 @@ function ExperienceForm({ values, setValues, errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="expYears"
-              value={values.experience.expYears}
+              value={values.experience[index].expYears}
               handleChange={handleChange}
               fullWidth
               label="Experience (years)"
@@ -91,7 +92,7 @@ function ExperienceForm({ values, setValues, errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomTextField
               name="expMonths"
-              value={values.experience.expMonths}
+              value={values.experience[index].expMonths}
               handleChange={handleChange}
               fullWidth
               label="Experience (months)"
