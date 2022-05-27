@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Grid, Button, Paper, Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import EducationDetailsForm from "./Forms/EducationDetailsForm";

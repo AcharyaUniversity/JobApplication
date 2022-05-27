@@ -3,8 +3,6 @@ import DesktopFormStepper from "../components/Steppers/DesktopFormStepper";
 import MobileFormStepper from "../components/Steppers/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
 import ApplicantDetailsForm from "./Forms/ApplicantDetailsForm";
-import EducationDetailsForm from "./Forms/EducationDetailsForm";
-import ExperienceForm from "./Forms/ExperienceForm";
 import AttachmentsForm from "./Forms/AttachmentsForm";
 import MultipleFormsContainer from "./MultipleFormsContainer";
 import { Paper } from "@mui/material";
@@ -212,10 +210,8 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0 && validateApplicant())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1 && validateEducation())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 2 && validateExperience())
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 3 && validateAttachments())
