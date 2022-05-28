@@ -16,7 +16,7 @@ const paperStyles = {
 };
 
 function FormStepper() {
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(3);
 
   const isMobile = useMobileView();
 
@@ -140,7 +140,7 @@ function FormStepper() {
         : "This field is required";
       temp.universityName = obj.universityName ? "" : "This field is required";
       temp.universityScore =
-        /^[0-9]+$/.test(obj.universityScore.toString()) &&
+        /^([0-9]*[.])?[0-9]+$/.test(obj.universityScore.toString()) &&
         obj.universityScore >= 0 &&
         obj.universityScore <= 100
           ? ""
@@ -175,13 +175,13 @@ function FormStepper() {
       let temp: any = {};
       temp.employerName = obj.employerName ? "" : "This field is required";
       temp.designation = obj.designation ? "" : "This field is required";
-      temp.ctcDrawn = /^[0-9]+$/.test(obj.ctcDrawn.toString())
+      temp.ctcDrawn = /^([0-9]*[.])?[0-9]+$/.test(obj.ctcDrawn.toString())
         ? ""
         : "Invalid number";
-      temp.expYears = /^[0-9]+$/.test(obj.expYears.toString())
+      temp.expYears = /^([0-9]*[.])?[0-9]+$/.test(obj.expYears.toString())
         ? ""
         : "Invalid number";
-      temp.expMonths = /^[0-9]+$/.test(obj.expMonths.toString())
+      temp.expMonths = /^([0-9]*[.])?[0-9]+$/.test(obj.expMonths.toString())
         ? ""
         : "Invalid number";
       setExperienceErrors((prev) =>
@@ -212,12 +212,10 @@ function FormStepper() {
   const handleNext = () => {
     if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 2 && validateExperience())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2) setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 3 && validateAttachments())
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-  
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
