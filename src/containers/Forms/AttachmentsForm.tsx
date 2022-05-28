@@ -34,7 +34,7 @@ function AttachmentsForm({ values, setValues, errors }) {
     }));
   }, [files]);
 
-  console.log(values.attachments);
+  console.log(errors);
 
   return (
     <Grid
@@ -51,10 +51,20 @@ function AttachmentsForm({ values, setValues, errors }) {
       </Grid>
 
       <Grid item xs={12} md={5}>
-        <Dropfileinput index={0} files={files} setFiles={setFiles} />
+        <Dropfileinput
+          index={0}
+          files={files}
+          setFiles={setFiles}
+          error={errors.resume}
+        />
       </Grid>
       <Grid item xs={12} md={5}>
-        <Dropfileinput index={1} files={files} setFiles={setFiles} />
+        <Dropfileinput
+          index={1}
+          files={files}
+          setFiles={setFiles}
+          error={errors.degree}
+        />
       </Grid>
     </Grid>
   );

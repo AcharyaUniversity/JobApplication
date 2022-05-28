@@ -16,7 +16,7 @@ const paperStyles = {
 };
 
 function FormStepper() {
-  const [activeStep, setActiveStep] = useState(3);
+  const [activeStep, setActiveStep] = useState(0);
 
   const isMobile = useMobileView();
 
@@ -84,7 +84,7 @@ function FormStepper() {
         <AttachmentsForm
           values={values}
           setValues={setValues}
-          errors={applicantErrors}
+          errors={attachmentsErrors}
         />
       ),
     },
@@ -207,8 +207,16 @@ function FormStepper() {
   const validateAttachments = () => {
     let temp: any = {};
 
-    temp.resume = values.attachments.resume ? "" : "This field is required";
-    temp.degree = values.attachments.degree ? "" : "This field is required";
+    const res: any = values.attachments.resume;
+    const deg: any = values.attachments.degree;
+    temp.resume =
+      res && res.name.endsWith(".pdf") && res.size < 2000000
+        ? ""
+        : "Please upload a PDF upto 5MB";
+    temp.degree =
+      deg && deg.name.endsWith(".pdf") && deg.size < 2000000
+        ? ""
+        : "Please upload a PDF upto 5MB";
 
     setAttachmentsErrors({ ...temp });
 
@@ -216,9 +224,12 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 2) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 0 && validateApplicant())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1 && validateEducation())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2 && validateExperience())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 3 && validateAttachments())
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };

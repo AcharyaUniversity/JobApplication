@@ -9,9 +9,10 @@ interface Props {
   index: number;
   files: any[];
   setFiles: React.Dispatch<React.SetStateAction<any[]>>;
+  error?: string;
 }
 
-const Dropfileinput = ({ index, files, setFiles }: Props) => {
+const Dropfileinput = ({ index, files, setFiles, error }: Props) => {
   const wrapperRef = useRef(null);
   const classes = useStyles();
 
@@ -41,8 +42,22 @@ const Dropfileinput = ({ index, files, setFiles }: Props) => {
     );
   };
 
+  const calcFileSize = (file: any): string => {
+    const ext = new Array("Bytes", "KB", "MB", "GB");
+    let fSize = file.size;
+
+    let i = 0;
+    while (fSize > 900) {
+      fSize /= 1000;
+      i++;
+    }
+
+    return Math.round(fSize * 100) / 100 + " " + ext[i];
+  };
+
   return (
     <>
+      {/* file input area */}
       <div
         className={classes.dropFileInput}
         ref={wrapperRef}
@@ -56,7 +71,7 @@ const Dropfileinput = ({ index, files, setFiles }: Props) => {
           onChange={handleFileDrop}
         />
         <CloudUploadIcon sx={{ color: "#3346bd", fontSize: 75 }} />
-        <p className={classes.smallText}>pdf - smaller than 5MB</p>
+        <p className={classes.smallText}>pdf - smaller than 2 MB</p>
         <p className={classes.bottomText}>
           Drop your
           {index === 0 && <span style={{ fontWeight: 500 }}> resume </span>}
@@ -65,6 +80,8 @@ const Dropfileinput = ({ index, files, setFiles }: Props) => {
           <span style={{ color: "#4A57A9", fontWeight: 500 }}> browse</span>
         </p>
       </div>
+
+      {/* show preview */}
       {files[index] && (
         <Grid container className={classes.previewContainer}>
           <Grid item xs={1}>
@@ -72,7 +89,7 @@ const Dropfileinput = ({ index, files, setFiles }: Props) => {
           </Grid>
           <Grid item xs={10} pl={1} pr={1}>
             <p className={classes.fileName}>{files[index].name}</p>
-            <p className={classes.fileSize}>123.54 kb</p>
+            <p className={classes.fileSize}>{calcFileSize(files[index])}</p>
           </Grid>
           <Grid item xs={1}>
             <IconButton size="small" onClick={handleFileRemove}>
@@ -81,6 +98,9 @@ const Dropfileinput = ({ index, files, setFiles }: Props) => {
           </Grid>
         </Grid>
       )}
+
+      {/* error */}
+      {error && <p className={classes.error}>{error}</p>}
     </>
   );
 };

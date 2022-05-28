@@ -66,4 +66,9 @@ export const useStyles = makeStyles((theme: Theme) => ({
     fontSize: "0.8rem",
     margin: "5px 0",
   },
+  error: {
+    color: theme.palette.error.main,
+    fontSize: "0.9rem",
+    margin: 10,
+  },
 }));
