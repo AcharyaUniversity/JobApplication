@@ -34,8 +34,6 @@ function AttachmentsForm({ values, setValues, errors }) {
     }));
   }, [files]);
 
-  console.log(errors);
-
   return (
     <Grid
       container

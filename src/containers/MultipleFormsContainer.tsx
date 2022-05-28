@@ -59,6 +59,14 @@ function MultipleFormsContainer({
 
   return (
     <>
+      {tab === "experience" && values[tab].length === 0 && (
+        <p
+          style={{ fontSize: "1.3rem", textAlign: "center", margin: "30px 0" }}
+        >
+          You have not entered any previous expereince.
+          <br /> You can click on the ADD button to add an expereince.
+        </p>
+      )}
       <Grid container justifyContent="flex-end" rowSpacing={2} mt={0}>
         {values[tab].map((obj: unknown, index: number) => (
           <Grid key={index} item xs={12}>
@@ -82,7 +90,7 @@ function MultipleFormsContainer({
                       minHeight: "35px",
                       margin: "10px 0",
                     }}
-                    disabled={values[tab].length <= 1}
+                    disabled={values[tab].length <= 1 && tab === "education"}
                     onClick={() => handleRemove(index)}
                   >
                     <RemoveIcon />
