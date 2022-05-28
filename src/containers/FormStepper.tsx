@@ -10,7 +10,7 @@ import { formState } from "../states/FormState";
 
 const paperStyles = {
   width: "80vw",
-  margin: "50px auto",
+  margin: "30px auto",
   padding: "20px",
   borderRadius: 3,
 };
