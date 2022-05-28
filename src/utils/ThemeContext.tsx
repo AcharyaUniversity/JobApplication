@@ -34,6 +34,14 @@ const theme = responsiveFontSizes(
           },
         },
       },
+      MuiStepLabel: {
+        styleOverrides: {
+          label: {
+            color: "#000",
+            fontWeight: 500,
+          },
+        },
+      },
     },
     typography: {
       fontFamily: "Rubik, Open Sans, Roboto, sans-serif",
