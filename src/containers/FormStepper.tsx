@@ -80,7 +80,13 @@ function FormStepper() {
     },
     {
       label: "Attachments",
-      form: <AttachmentsForm />,
+      form: (
+        <AttachmentsForm
+          values={values}
+          setValues={setValues}
+          errors={applicantErrors}
+        />
+      ),
     },
   ];
 

@@ -41,10 +41,6 @@ const Dropfileinput = ({ index, files, setFiles }: Props) => {
     );
   };
 
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
-
   return (
     <>
       <div
@@ -63,8 +59,8 @@ const Dropfileinput = ({ index, files, setFiles }: Props) => {
         <p className={classes.smallText}>pdf - smaller than 5MB</p>
         <p className={classes.bottomText}>
           Drop your
-          {index === 0 && <> resume </>}
-          {index === 1 && <> degree </>}
+          {index === 0 && <span style={{ fontWeight: 500 }}> resume </span>}
+          {index === 1 && <span style={{ fontWeight: 500 }}> degree </span>}
           here or
           <span style={{ color: "#4A57A9", fontWeight: 500 }}> browse</span>
         </p>
@@ -78,8 +74,8 @@ const Dropfileinput = ({ index, files, setFiles }: Props) => {
             <p className={classes.fileName}>{files[index].name}</p>
             <p className={classes.fileSize}>123.54 kb</p>
           </Grid>
-          <Grid item xs={1} style={{ padding: 0, textAlign: "right" }}>
-            <IconButton onClick={handleFileRemove}>
+          <Grid item xs={1}>
+            <IconButton size="small" onClick={handleFileRemove}>
               <CloseIcon />
             </IconButton>
           </Grid>

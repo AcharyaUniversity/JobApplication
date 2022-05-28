@@ -1,7 +1,14 @@
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { Grid, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Dropfileinput from "../../components/Inputs/FileInput/Dropfileinput";
+import { IFormState } from "../../states/FormState";
+
+interface Props {
+  values: IFormState;
+  setValues: Dispatch<SetStateAction<IFormState>>;
+  errors: any;
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   titleText: {
@@ -15,10 +22,19 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function AttachmentsForm() {
+function AttachmentsForm({ values, setValues, errors }) {
   const classes = useStyles();
 
   const [files, setFiles] = useState<any[]>([null, null]);
+
+  useEffect(() => {
+    setValues((prev: IFormState) => ({
+      ...prev,
+      attachments: { resume: files[0], degree: files[1] },
+    }));
+  }, [files]);
+
+  console.log(values.attachments);
 
   return (
     <Grid
