@@ -212,11 +212,11 @@ function FormStepper() {
     temp.resume =
       res && res.name.endsWith(".pdf") && res.size < 2000000
         ? ""
-        : "Please upload a PDF upto 5MB";
+        : "Please upload a PDF upto 2 MB";
     temp.degree =
       deg && deg.name.endsWith(".pdf") && deg.size < 2000000
         ? ""
-        : "Please upload a PDF upto 5MB";
+        : "Please upload a PDF upto 2 MB";
 
     setAttachmentsErrors({ ...temp });
 
