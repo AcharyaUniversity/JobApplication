@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Grid, IconButton } from "@mui/material";
 import { useStyles } from "./styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";

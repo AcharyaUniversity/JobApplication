@@ -59,10 +59,14 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
               label="Graduation"
               value={values.education[index].graduation}
               items={[
-                { value: "Value 1", label: "Value 1" },
-                { value: "Value 2", label: "Value 2" },
-                { value: "Value 3", label: "Value 3" },
-                { value: "Value 4", label: "Value 4" },
+                { value: "IIT", label: "IIT" },
+                { value: "Diploma", label: "Diploma" },
+                { value: "UG", label: "UG" },
+                { value: "PG", label: "PG" },
+                { value: "Ph.D.", label: "Ph.D." },
+                { value: "NET/SLET", label: "NET/SLET" },
+                { value: "MPhil", label: "MPhil" },
+                { value: "Other", label: "Other" },
               ]}
               handleChange={handleChange}
               required

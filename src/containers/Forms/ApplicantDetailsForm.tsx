@@ -177,25 +177,31 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
         {/* 4th row */}
         <>
           <Grid item xs={12} md={4}>
-            <CustomTextField
-              name="street"
-              value={values.applicant.street}
+            <CustomSelect
+              name="country"
+              label="Country"
+              value={values.applicant.country}
+              items={[{ value: "India", label: "India" }]}
               handleChange={handleChange}
-              fullWidth
-              label="Street"
               required
-              error={errors.street}
+              error={errors.country}
+              disabled
             />
           </Grid>
           <Grid item xs={12} md={4}>
-            <CustomTextField
-              name="locality"
-              value={values.applicant.locality}
+            <CustomSelect
+              name="state"
+              label="State"
+              value={values.applicant.state}
+              items={[
+                { value: "Karnataka", label: "Karnataka" },
+                { value: "Maharashtra", label: "Maharashtra" },
+                { value: "Bihar", label: "Bihar" },
+                { value: "Andhra Pradesh", label: "Andhra Pradesh" },
+              ]}
               handleChange={handleChange}
-              fullWidth
-              label="Locality"
               required
-              error={errors.locality}
+              error={errors.state}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -219,41 +225,25 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
         {/* 5th row */}
         <>
           <Grid item xs={12} md={4}>
-            <CustomSelect
-              name="state"
-              label="State"
-              value={values.applicant.state}
-              items={[
-                { value: "Karnataka", label: "Karnataka" },
-                { value: "Maharashtra", label: "Maharashtra" },
-                { value: "Bihar", label: "Bihar" },
-                { value: "Andhra Pradesh", label: "Andhra Pradesh" },
-              ]}
+            <CustomTextField
+              name="locality"
+              value={values.applicant.locality}
               handleChange={handleChange}
+              fullWidth
+              label="Locality"
               required
-              error={errors.state}
+              error={errors.locality}
             />
           </Grid>
           <Grid item xs={12} md={4}>
-            <CustomSelect
-              name="country"
-              label="Country"
-              value={values.applicant.country}
-              items={[
-                { value: "India", label: "India" },
-                {
-                  value: "United Arab Emirates",
-                  label: "United Arab Emirates",
-                },
-                {
-                  value: "United States of America",
-                  label: "United States of America",
-                },
-                { value: "Qatar", label: "Qatar" },
-              ]}
+            <CustomTextField
+              name="street"
+              value={values.applicant.street}
               handleChange={handleChange}
+              fullWidth
+              label="Street"
               required
-              error={errors.country}
+              error={errors.street}
             />
           </Grid>
           <Grid item xs={12} md={4}>

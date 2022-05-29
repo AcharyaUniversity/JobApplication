@@ -19,6 +19,7 @@ interface Props {
   handleChange: (e: any) => void;
   error?: string;
   required?: boolean;
+  disabled?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -37,6 +38,7 @@ function CustomSelect({
   handleChange,
   error,
   required = false,
+  disabled = false,
 }: Props) {
   const classes = useStyles();
 
@@ -45,6 +47,7 @@ function CustomSelect({
       <FormControl size="small" required={required} error={!!error} fullWidth>
         <InputLabel>{label}</InputLabel>
         <Select
+          disabled={disabled}
           size="small"
           name={name}
           value={value}

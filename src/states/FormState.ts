@@ -61,7 +61,7 @@ export const formState: IFormState = {
     locality: "",
     city: "",
     state: "",
-    country: "",
+    country: "India",
     pinCode: "",
     skills: "",
   },

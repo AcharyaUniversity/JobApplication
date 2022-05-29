@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DesktopFormStepper from "../components/Steppers/DesktopFormStepper";
 import MobileFormStepper from "../components/Steppers/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
@@ -15,6 +15,8 @@ const paperStyles = {
   borderRadius: 3,
 };
 
+let formData = new FormData();
+
 function FormStepper() {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -26,6 +28,10 @@ function FormStepper() {
   const [educationErrors, setEducationErrors] = useState<any[]>([{}]);
   const [experienceErrors, setExperienceErrors] = useState<any[]>([{}]);
   const [attachmentsErrors, setAttachmentsErrors] = useState<any>({});
+
+  useEffect(() => {
+    for (let key in values) formData.set(key, values[key]);
+  }, [values]);
 
   const steps = [
     {
@@ -224,18 +230,23 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0 && validateApplicant())
+    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 3) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1 && validateEducation())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 2 && validateExperience())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 3 && validateAttachments())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      handleSubmit();
+    }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleSubmit = () => {
+    console.log("form submit");
+    console.log(Array.from(formData));
+    console.log(values);
   };
 
   return (
