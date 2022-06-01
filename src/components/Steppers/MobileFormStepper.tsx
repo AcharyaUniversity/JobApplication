@@ -10,6 +10,7 @@ import { useTheme } from "@mui/material/styles";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { makeStyles } from "@mui/styles";
+import Complete from "../Complete";
 
 const useStyles = makeStyles((theme: Theme) => ({
   nextButton: {
@@ -37,22 +38,7 @@ function MobileFormStepper({
   return (
     <Box sx={{ width: "100%", flexGrow: 1 }}>
       {activeStep === steps.length ? (
-        <>
-          <Paper
-            square
-            elevation={0}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              pl: 2,
-              bgcolor: "red",
-            }}
-          >
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              All steps completed - you&apos;re finished
-            </Typography>
-          </Paper>
-        </>
+        <Complete />
       ) : (
         <>
           <Paper
