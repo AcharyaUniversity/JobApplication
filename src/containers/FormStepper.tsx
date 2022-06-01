@@ -10,9 +10,9 @@ import { formState } from "../states/FormState";
 
 const paperStyles = {
   width: "90vw",
-  margin: "0 auto 30px auto",
+  margin: "25px auto",
   padding: "20px",
-  backgroundColor: "#f6f6ff",
+  backgroundColor: "#efefff",
   borderRadius: 3,
 };
 
@@ -231,13 +231,10 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0 && validateApplicant())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1 && validateEducation())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 2 && validateExperience())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 3 && validateAttachments()) {
+    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 3) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       handleSubmit();
     }

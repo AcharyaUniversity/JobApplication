@@ -10,7 +10,10 @@ function Complete() {
       <h2 style={{ margin: "5px 0", fontWeight: 500, fontSize: "2rem" }}>
         Thank you
       </h2>
-      <p>Your application has been submitted</p>
+      <p>
+        Your application was submitted with the reference number xxxxxx. <br />
+        Please check mail for more information.
+      </p>
     </div>
   );
 }

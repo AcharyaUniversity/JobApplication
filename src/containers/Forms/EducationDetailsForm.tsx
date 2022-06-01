@@ -133,6 +133,7 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
               }
               label="Date of Joining"
               error={errors.dateOfJoining}
+              maxDate={new Date()}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -144,6 +145,7 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
               label="Date of Completion"
               error={errors.dateOfCompletion}
               minDate={values.education[index].dateOfJoining}
+              maxDate={new Date()}
             />
           </Grid>
         </>

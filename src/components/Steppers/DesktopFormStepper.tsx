@@ -1,12 +1,4 @@
-import {
-  Box,
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-  Typography,
-  Theme,
-} from "@mui/material";
+import { Box, Stepper, Step, StepLabel, Button, Theme } from "@mui/material";
 import { StepIconProps } from "@mui/material/StepIcon";
 import StepConnector, {
   stepConnectorClasses,
@@ -61,7 +53,6 @@ const ColorlibStepIconRoot = styled("div")<{
   ownerState: { completed?: boolean; active?: boolean };
 }>(({ theme, ownerState }) => ({
   backgroundColor: "#fff",
-  zIndex: 1,
   color: theme.palette.primary.main,
   width: 40,
   height: 40,
@@ -69,11 +60,13 @@ const ColorlibStepIconRoot = styled("div")<{
   borderRadius: "50%",
   justifyContent: "center",
   alignItems: "center",
-  transition: "all 0.5s ease",
+  transition: "all 0.2s ease",
+  zIndex: 1,
   ...(ownerState.active && {
     backgroundColor: theme.palette.primary.main,
     color: "#fff",
     boxShadow: "0 5px 10px 2px rgba(0,0,0,.2)",
+    transform: "scale(1.15)",
   }),
   ...(ownerState.completed && {
     backgroundColor: theme.palette.success.main,
@@ -115,7 +108,7 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
         {steps.map((obj) => (
           <Step key={obj.label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>
-              {obj.label}
+              <span style={{ fontSize: "0.85rem" }}>{obj.label}</span>
             </StepLabel>
           </Step>
         ))}

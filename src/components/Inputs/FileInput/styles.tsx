@@ -8,13 +8,13 @@ export const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: "#f7f7ff",
     height: 200,
     border: `3px dashed ${theme.palette.primary.main}`,
     borderRadius: 20,
 
     "&:hover, &.dragover": {
-      opacity: 0.75,
+      opacity: 0.7,
     },
   },
   input: {

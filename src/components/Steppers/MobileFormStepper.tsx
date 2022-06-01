@@ -45,7 +45,7 @@ function MobileFormStepper({
               display: "flex",
               alignItems: "center",
               pl: 2,
-              bgcolor: "background.default",
+              bgcolor: "red",
             }}
           >
             <Typography sx={{ mt: 2, mb: 1 }}>
@@ -62,7 +62,7 @@ function MobileFormStepper({
               display: "flex",
               alignItems: "center",
               pl: 2,
-              bgcolor: "background.default",
+              bgcolor: "transparent",
             }}
           >
             <Typography>{steps[activeStep].label}</Typography>
@@ -73,6 +73,7 @@ function MobileFormStepper({
             steps={steps.length}
             position="static"
             activeStep={activeStep}
+            style={{ backgroundColor: "transparent" }}
             nextButton={
               <Button
                 variant="contained"

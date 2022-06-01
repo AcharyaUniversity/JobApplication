@@ -10,7 +10,6 @@ function App() {
     <ThemeContext>
       <ViewContext>
         <Header />
-        <Title />
         <FormStepper />
       </ViewContext>
     </ThemeContext>
