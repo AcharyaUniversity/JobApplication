@@ -5,7 +5,7 @@ import EducationDetailsForm from "./Forms/EducationDetailsForm";
 import ExperienceForm from "./Forms/ExperienceForm";
 import { IFormState } from "../states/FormState";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Props {
   values: any;
@@ -61,17 +61,20 @@ function MultipleFormsContainer({
     <>
       {tab === "experience" && values[tab].length === 0 && (
         <p
-          style={{ fontSize: "1.3rem", textAlign: "center", margin: "30px 0" }}
+          style={{
+            fontSize: "1.3rem",
+            textAlign: "center",
+            margin: "30px 0",
+          }}
         >
-          You have not entered any previous expereince.
-          <br /> You can click on the ADD button to add an expereince.
+          You can click on the ADD button to add an expereince.
         </p>
       )}
       <Grid container justifyContent="flex-end" rowSpacing={2} mt={0}>
         {values[tab].map((obj: unknown, index: number) => (
           <Grid key={index} item xs={12}>
             <Paper
-              elevation={3}
+              variant="outlined"
               className={classes.formContainer}
               sx={{ backgroundColor: "transparent" }}
             >
@@ -97,7 +100,7 @@ function MultipleFormsContainer({
                     disabled={values[tab].length <= 1 && tab === "education"}
                     onClick={() => handleRemove(index)}
                   >
-                    <RemoveIcon />
+                    <DeleteIcon />
                   </Button>
                 </Grid>
 
@@ -133,8 +136,9 @@ function MultipleFormsContainer({
               variant="contained"
               color="success"
               sx={{ borderRadius: 2 }}
+              startIcon={<AddIcon />}
             >
-              <AddIcon />
+              ADD
             </Button>
           </Tooltip>
         </Grid>
