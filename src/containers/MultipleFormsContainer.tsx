@@ -70,7 +70,11 @@ function MultipleFormsContainer({
       <Grid container justifyContent="flex-end" rowSpacing={2} mt={0}>
         {values[tab].map((obj: unknown, index: number) => (
           <Grid key={index} item xs={12}>
-            <Paper elevation={3} className={classes.formContainer}>
+            <Paper
+              elevation={3}
+              className={classes.formContainer}
+              sx={{ backgroundColor: "transparent" }}
+            >
               <Grid container>
                 <Grid item xs={10} style={{ paddingLeft: 10 }}>
                   <p style={{ fontSize: "1.3rem", fontWeight: 500 }}>

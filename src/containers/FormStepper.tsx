@@ -9,9 +9,10 @@ import { Paper } from "@mui/material";
 import { formState } from "../states/FormState";
 
 const paperStyles = {
-  width: "80vw",
-  margin: "30px auto",
+  width: "90vw",
+  margin: "0 auto 30px auto",
   padding: "20px",
+  backgroundColor: "#f6f6ff",
   borderRadius: 3,
 };
 
@@ -230,10 +231,13 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 2) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 3) {
+    if (activeStep === 0 && validateApplicant())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1 && validateEducation())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2 && validateExperience())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 3 && validateAttachments()) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       handleSubmit();
     }

@@ -38,14 +38,14 @@ function AttachmentsForm({ values, setValues, errors }) {
     <Grid
       container
       rowSpacing={2}
-      columnSpacing={0}
+      columnSpacing={10}
       alignItems="baseline"
-      justifyContent="space-around"
+      justifyContent="space-evenly"
       mt={0}
       mb={2}
     >
       <Grid item xs={12} className={classes.titleText}>
-        <p>Please attach your latest resume and degree certificate</p>
+        <p>Please attach your latest resume and highest degree certificate</p>
       </Grid>
 
       <Grid item xs={12} md={5}>

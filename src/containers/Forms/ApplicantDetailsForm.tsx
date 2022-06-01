@@ -185,7 +185,6 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
               handleChange={handleChange}
               required
               error={errors.country}
-              disabled
             />
           </Grid>
           <Grid item xs={12} md={4}>

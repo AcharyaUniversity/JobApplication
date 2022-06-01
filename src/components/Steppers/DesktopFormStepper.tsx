@@ -17,6 +17,7 @@ import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
 import LocalPoliceRoundedIcon from "@mui/icons-material/LocalPoliceRounded";
 import FilePresentRoundedIcon from "@mui/icons-material/FilePresentRounded";
+import Complete from "../Complete";
 
 interface Props {
   steps: { label: string; form: JSX.Element }[];
@@ -40,6 +41,7 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
     border: 0,
     borderRadius: 5,
     backgroundColor: "grey",
+    transition: "all 0.2s linear",
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
@@ -67,6 +69,7 @@ const ColorlibStepIconRoot = styled("div")<{
   borderRadius: "50%",
   justifyContent: "center",
   alignItems: "center",
+  transition: "all 0.5s ease",
   ...(ownerState.active && {
     backgroundColor: theme.palette.primary.main,
     color: "#fff",
@@ -119,11 +122,7 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
       </Stepper>
 
       {activeStep === steps.length ? (
-        <>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
-        </>
+        <Complete />
       ) : (
         <>
           <Box sx={{ width: "100%", p: 2 }}>{steps[activeStep].form}</Box>
@@ -144,7 +143,7 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
               onClick={handleNext}
               sx={{ borderRadius: 2 }}
             >
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              {activeStep === steps.length - 1 ? "Submit" : "Next"}
             </Button>
           </Box>
         </>

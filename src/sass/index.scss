@@ -1,8 +1,6 @@
 @import "config";
 
 body {
-  background-color: $primary-light;
-
   .MuiStepLabel-label.Mui-completed {
     color: $success-dark !important;
   }
