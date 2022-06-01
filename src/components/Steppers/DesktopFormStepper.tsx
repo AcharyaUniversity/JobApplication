@@ -78,10 +78,10 @@ function ColorlibStepIcon(props: StepIconProps) {
   const { active, completed, className } = props;
 
   const icons: { [index: string]: React.ReactElement } = {
-    1: <PersonAddAltRoundedIcon />,
-    2: <SchoolRoundedIcon />,
-    3: <LocalPoliceRoundedIcon />,
-    4: <FilePresentRoundedIcon />,
+    1: <PersonAddAltRoundedIcon fontSize="small" />,
+    2: <SchoolRoundedIcon fontSize="small" />,
+    3: <LocalPoliceRoundedIcon fontSize="small" />,
+    4: <FilePresentRoundedIcon fontSize="small" />,
   };
 
   return (
