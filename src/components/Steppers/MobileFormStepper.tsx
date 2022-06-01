@@ -67,9 +67,9 @@ function MobileFormStepper({
                 size="small"
                 onClick={handleNext}
                 disabled={activeStep === steps.length}
-                sx={{ borderRadius: 2 }}
+                sx={{ borderRadius: 2, textTransform: "none", fontWeight: 600 }}
               >
-                {activeStep === steps.length - 1 ? "Submit" : "Next"}
+                {activeStep === steps.length - 1 ? "Submit" : "Save & continue"}
                 {theme.direction === "rtl" ? (
                   <KeyboardArrowLeft />
                 ) : (

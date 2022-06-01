@@ -231,10 +231,13 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 2) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 3) {
+    if (activeStep === 0 && validateApplicant())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1 && validateEducation())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2 && validateExperience())
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 3 && validateAttachments()) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       handleSubmit();
     }

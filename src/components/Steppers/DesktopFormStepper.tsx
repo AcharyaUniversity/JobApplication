@@ -9,6 +9,7 @@ import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
 import LocalPoliceRoundedIcon from "@mui/icons-material/LocalPoliceRounded";
 import FilePresentRoundedIcon from "@mui/icons-material/FilePresentRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import Complete from "../Complete";
 
 interface Props {
@@ -21,6 +22,7 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) => ({
   stepperContainer: {
     padding: "10px 30px",
+    userSelect: "none",
   },
   nextButton: {
     backgroundColor: `${theme.palette.secondary.main} !important`,
@@ -134,9 +136,16 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
               className={classes.nextButton}
               variant="contained"
               onClick={handleNext}
-              sx={{ borderRadius: 2 }}
+              sx={{
+                fontWeight: 600,
+                textTransform: "none",
+                borderRadius: 2,
+              }}
+              endIcon={
+                <ArrowCircleRightRoundedIcon sx={{ color: "#a96900" }} />
+              }
             >
-              {activeStep === steps.length - 1 ? "Submit" : "Next"}
+              {activeStep === steps.length - 1 ? "Submit" : "Save & continue"}
             </Button>
           </Box>
         </>
