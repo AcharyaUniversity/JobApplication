@@ -13,6 +13,12 @@ import { makeStyles } from "@mui/styles";
 import Complete from "../Complete";
 
 const useStyles = makeStyles((theme: Theme) => ({
+  label: {
+    margin: "auto !important",
+    fontSize: "1.4rem !important",
+    fontWeight: "500 !important",
+    color: theme.palette.primary.dark,
+  },
   nextButton: {
     backgroundColor: `${theme.palette.secondary.main} !important`,
   },
@@ -51,7 +57,9 @@ function MobileFormStepper({
               bgcolor: "transparent",
             }}
           >
-            <Typography>{steps[activeStep].label}</Typography>
+            <Typography className={classes.label}>
+              {steps[activeStep].label}
+            </Typography>
           </Paper>
           <Box sx={{ width: "100%", p: 2 }}>{steps[activeStep].form}</Box>
           <MobileStepper
@@ -69,7 +77,7 @@ function MobileFormStepper({
                 disabled={activeStep === steps.length}
                 sx={{ borderRadius: 2, textTransform: "none", fontWeight: 600 }}
               >
-                {activeStep === steps.length - 1 ? "Submit" : "Save & continue"}
+                {activeStep === steps.length - 1 ? "Submit" : "Next"}
                 {theme.direction === "rtl" ? (
                   <KeyboardArrowLeft />
                 ) : (

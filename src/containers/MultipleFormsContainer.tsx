@@ -67,7 +67,7 @@ function MultipleFormsContainer({
             margin: "30px 0",
           }}
         >
-          You can click on the ADD button to add an expereince.
+          You can click on the ADD button to add an expereince
         </p>
       )}
       <Grid container justifyContent="flex-end" rowSpacing={2} mt={0}>
@@ -92,15 +92,15 @@ function MultipleFormsContainer({
                     color="error"
                     sx={{
                       borderRadius: 2,
-                      minWidth: "40px",
+                      minWidth: "37px",
                       padding: 0,
-                      minHeight: "35px",
+                      minHeight: "34px",
                       margin: "10px 0",
                     }}
                     disabled={values[tab].length <= 1 && tab === "education"}
                     onClick={() => handleRemove(index)}
                   >
-                    <DeleteIcon />
+                    <DeleteIcon fontSize="small" />
                   </Button>
                 </Grid>
 

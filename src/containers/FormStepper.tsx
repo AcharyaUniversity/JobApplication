@@ -5,16 +5,21 @@ import { useMobileView } from "../utils/ViewContext";
 import ApplicantDetailsForm from "./Forms/ApplicantDetailsForm";
 import AttachmentsForm from "./Forms/AttachmentsForm";
 import MultipleFormsContainer from "./MultipleFormsContainer";
-import { Paper } from "@mui/material";
+import { Paper, Theme } from "@mui/material";
 import { formState } from "../states/FormState";
+import { makeStyles } from "@mui/styles";
 
-const paperStyles = {
-  width: "90vw",
-  margin: "25px auto",
-  padding: "20px",
-  backgroundColor: "#efefff",
-  borderRadius: 3,
-};
+const useStyles = makeStyles((theme: Theme) => ({
+  paper: {
+    width: "80vw",
+    margin: "25px auto",
+    padding: "20px",
+
+    [theme.breakpoints.down("md")]: {
+      width: "90vw",
+    },
+  },
+}));
 
 let formData = new FormData();
 
@@ -29,6 +34,8 @@ function FormStepper() {
   const [educationErrors, setEducationErrors] = useState<any[]>([{}]);
   const [experienceErrors, setExperienceErrors] = useState<any[]>([{}]);
   const [attachmentsErrors, setAttachmentsErrors] = useState<any>({});
+
+  const classes = useStyles();
 
   useEffect(() => {
     for (let key in values) formData.set(key, values[key]);
@@ -254,7 +261,7 @@ function FormStepper() {
   };
 
   return (
-    <Paper elevation={4} sx={paperStyles}>
+    <Paper elevation={2} sx={{ borderRadius: 3 }} className={classes.paper}>
       {isMobile ? (
         <MobileFormStepper
           steps={steps}

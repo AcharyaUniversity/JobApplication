@@ -177,6 +177,43 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
         {/* 4th row */}
         <>
           <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="locality"
+              value={values.applicant.locality}
+              handleChange={handleChange}
+              fullWidth
+              label="Locality"
+              required
+              error={errors.locality}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="street"
+              value={values.applicant.street}
+              handleChange={handleChange}
+              fullWidth
+              label="Street"
+              required
+              error={errors.street}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
+              name="pinCode"
+              value={values.applicant.pinCode}
+              handleChange={handleChange}
+              fullWidth
+              label="Pincode"
+              required
+              error={errors.pinCode}
+            />
+          </Grid>
+        </>
+
+        {/* 5th row */}
+        <>
+          <Grid item xs={12} md={4}>
             <CustomSelect
               name="country"
               label="Country"
@@ -217,43 +254,6 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
               handleChange={handleChange}
               required
               error={errors.city}
-            />
-          </Grid>
-        </>
-
-        {/* 5th row */}
-        <>
-          <Grid item xs={12} md={4}>
-            <CustomTextField
-              name="locality"
-              value={values.applicant.locality}
-              handleChange={handleChange}
-              fullWidth
-              label="Locality"
-              required
-              error={errors.locality}
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <CustomTextField
-              name="street"
-              value={values.applicant.street}
-              handleChange={handleChange}
-              fullWidth
-              label="Street"
-              required
-              error={errors.street}
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <CustomTextField
-              name="pinCode"
-              value={values.applicant.pinCode}
-              handleChange={handleChange}
-              fullWidth
-              label="Pincode"
-              required
-              error={errors.pinCode}
             />
           </Grid>
         </>
