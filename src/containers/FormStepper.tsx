@@ -161,7 +161,7 @@ function FormStepper() {
       temp.universityName = obj.universityName ? "" : "This field is required";
       temp.universityScore =
         /^([0-9]*[.])?[0-9]+$/.test(obj.universityScore.toString()) &&
-        obj.universityScore >= 0 &&
+        obj.universityScore > 0 &&
         obj.universityScore <= 100
           ? ""
           : "Invalid percentage";
