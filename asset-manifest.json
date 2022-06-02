@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/erp-application/static/css/main.2bf2ad2f.css",
-    "main.js": "/erp-application/static/js/main.cbe4810d.js",
+    "main.css": "/erp-application/static/css/main.a62f0712.css",
+    "main.js": "/erp-application/static/js/main.8b082adf.js",
     "static/js/787.b0600376.chunk.js": "/erp-application/static/js/787.b0600376.chunk.js",
     "index.html": "/erp-application/index.html",
-    "main.2bf2ad2f.css.map": "/erp-application/static/css/main.2bf2ad2f.css.map",
-    "main.cbe4810d.js.map": "/erp-application/static/js/main.cbe4810d.js.map",
+    "main.a62f0712.css.map": "/erp-application/static/css/main.a62f0712.css.map",
+    "main.8b082adf.js.map": "/erp-application/static/js/main.8b082adf.js.map",
     "787.b0600376.chunk.js.map": "/erp-application/static/js/787.b0600376.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2bf2ad2f.css",
-    "static/js/main.cbe4810d.js"
+    "static/css/main.a62f0712.css",
+    "static/js/main.8b082adf.js"
   ]
 }
