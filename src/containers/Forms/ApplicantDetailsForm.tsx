@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Box, Grid } from "@mui/material";
 import CustomTextField from "../../components/Inputs/CustomTextField";
 import { makeStyles } from "@mui/styles";
@@ -21,6 +21,27 @@ const useStyles = makeStyles(() => ({
 
 function ApplicantDetailsForm({ values, setValues, errors }: Props) {
   const classes = useStyles();
+
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([
+    { value: 0, label: "Please select a country" },
+  ]);
+  const [cities, setCities] = useState([
+    { value: 0, label: "Please select a state" },
+  ]);
+
+  // make countries array
+  useEffect(() => {
+    fetch("https://www.stageapi-acharyainstitutes.in/api/Country")
+      .then((res) => res.json())
+      .then((data) =>
+        setCountries(
+          data.map((obj: any) => {
+            return { value: obj.id, label: obj.name };
+          })
+        )
+      );
+  }, []);
 
   const handleChange = (e: any) => {
     setValues((prev) => ({
@@ -218,8 +239,12 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
               name="country"
               label="Country"
               value={values.applicant.country}
-              items={[{ value: "India", label: "India" }]}
+              items={[
+                { value: 0, label: "Please select a country" },
+                ...countries,
+              ]}
               handleChange={handleChange}
+              firstDisabled
               required
               error={errors.country}
             />
@@ -230,6 +255,7 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
               label="State"
               value={values.applicant.state}
               items={[
+                { value: 0, label: "Karnataka" },
                 { value: "Karnataka", label: "Karnataka" },
                 { value: "Maharashtra", label: "Maharashtra" },
                 { value: "Bihar", label: "Bihar" },
@@ -246,6 +272,8 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
               label="City"
               value={values.applicant.city}
               items={[
+                { value: 0, label: "Karnataka" },
+
                 { value: "Bangalore", label: "Bangalore" },
                 { value: "Mumbai", label: "Mumbai" },
                 { value: "Delhi", label: "Delhi" },

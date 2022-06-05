@@ -11,12 +11,13 @@ import { makeStyles } from "@mui/styles";
 interface Props {
   name: string;
   label: string;
-  value: string;
+  value: any;
   items: {
-    value: string;
+    value: any;
     label: string;
   }[];
   handleChange: (e: any) => void;
+  firstDisabled?: boolean;
   error?: string;
   required?: boolean;
   disabled?: boolean;
@@ -36,6 +37,7 @@ function CustomSelect({
   value,
   items,
   handleChange,
+  firstDisabled = false,
   error,
   required = false,
   disabled = false,
@@ -53,12 +55,25 @@ function CustomSelect({
           value={value}
           label={label}
           onChange={handleChange}
+          MenuProps={{
+            style: {
+              maxHeight: 300,
+            },
+          }}
         >
-          {items.map((obj, index) => (
-            <MenuItem key={index} value={obj.value}>
-              {obj.label}
-            </MenuItem>
-          ))}
+          {items.map((obj, index) => {
+            if (index === 0 && firstDisabled)
+              return (
+                <MenuItem disabled key={index} value={obj.value}>
+                  {obj.label}
+                </MenuItem>
+              );
+            return (
+              <MenuItem key={index} value={obj.value}>
+                {obj.label}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
       {error && <p className={classes.errorText}>{error}</p>}
