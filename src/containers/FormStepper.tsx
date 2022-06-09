@@ -35,6 +35,12 @@ function FormStepper() {
   const [experienceErrors, setExperienceErrors] = useState<any[]>([{}]);
   const [attachmentsErrors, setAttachmentsErrors] = useState<any>({});
 
+  const [countries, setCountries] = useState<{ id: number; name: string }[]>(
+    []
+  );
+  const [states, setStates] = useState<{ id: number; name: string }[]>([]);
+  const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
+
   const classes = useStyles();
 
   useEffect(() => {
@@ -49,6 +55,12 @@ function FormStepper() {
           values={values}
           setValues={setValues}
           errors={applicantErrors}
+          countries={countries}
+          setCountries={setCountries}
+          states={states}
+          setStates={setStates}
+          cities={cities}
+          setCities={setCities}
         />
       ),
     },
@@ -133,9 +145,15 @@ function FormStepper() {
     temp.locality = /^.{1,25}$/.test(values.applicant.locality)
       ? ""
       : "Invalid locality";
-    temp.city = values.applicant.city ? "" : "This field is required";
-    temp.state = values.applicant.state ? "" : "This field is required";
     temp.country = values.applicant.country ? "" : "This field is required";
+    temp.state =
+      states.length === 0 || values.applicant.state
+        ? ""
+        : "This field is required";
+    temp.city =
+      cities.length === 0 || values.applicant.city
+        ? ""
+        : "This field is required";
     temp.pinCode = /^[0-9]{6}$/.test(values.applicant.pinCode)
       ? ""
       : "Please enter 6 digits";

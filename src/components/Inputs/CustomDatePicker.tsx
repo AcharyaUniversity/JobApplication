@@ -37,7 +37,6 @@ function CustomDatePicker({ value, handleChange, error, ...props }: Props) {
             size="small"
             fullWidth
             helperText="dd/mm/yyyy"
-            sx={{ outline: "1px solid red" }}
             {...params}
           />
         )}

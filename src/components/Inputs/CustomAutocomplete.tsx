@@ -51,13 +51,13 @@ function CustomAutocomplete({
         renderInput={(params) => (
           <TextField
             {...params}
-            error={!!error && !!required}
+            error={!!error}
             required={required}
             label={label}
           />
         )}
       />
-      {error && required && <p className={classes.errorText}>{error}</p>}
+      {error && <p className={classes.errorText}>{error}</p>}
     </>
   );
 }

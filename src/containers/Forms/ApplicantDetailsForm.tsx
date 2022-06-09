@@ -12,6 +12,12 @@ interface Props {
   values: IFormState;
   setValues: Dispatch<SetStateAction<IFormState>>;
   errors: any;
+  countries: { id: number; name: string }[];
+  setCountries: Dispatch<SetStateAction<{ id: number; name: string }[]>>;
+  states: { id: number; name: string }[];
+  setStates: Dispatch<SetStateAction<{ id: number; name: string }[]>>;
+  cities: { id: number; name: string }[];
+  setCities: Dispatch<SetStateAction<{ id: number; name: string }[]>>;
 }
 
 const useStyles = makeStyles(() => ({
@@ -20,18 +26,23 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ApplicantDetailsForm({ values, setValues, errors }: Props) {
+function ApplicantDetailsForm({
+  values,
+  setValues,
+  errors,
+  countries,
+  setCountries,
+  states,
+  setStates,
+  cities,
+  setCities,
+}: Props) {
   const classes = useStyles();
 
-  const [countries, setCountries] = useState<{ id: number; name: string }[]>(
-    []
-  );
   const [country, setCountry] = useState<{ id: number; name: string }>(null);
 
-  const [states, setStates] = useState<{ id: number; name: string }[]>([]);
   const [state, setState] = useState<{ id: number; name: string }>(null);
 
-  const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
   const [city, setCity] = useState<{ id: number; name: string }>(null);
 
   // make countries array
