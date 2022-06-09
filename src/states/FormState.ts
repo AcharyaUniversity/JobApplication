@@ -10,9 +10,9 @@ export interface IApplicantState {
   link: string;
   street: string;
   locality: string;
-  city: number;
-  state: number;
-  country: number;
+  city: string;
+  state: string;
+  country: string;
   pinCode: string;
   skills: string;
 }
@@ -59,9 +59,9 @@ export const formState: IFormState = {
     link: "",
     street: "",
     locality: "",
-    city: 0,
-    state: 0,
-    country: 0,
+    city: "",
+    state: "",
+    country: "",
     pinCode: "",
     skills: "",
   },

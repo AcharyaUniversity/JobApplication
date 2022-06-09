@@ -1,10 +1,11 @@
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Autocomplete, TextField } from "@mui/material";
 import CustomTextField from "../../components/Inputs/CustomTextField";
 import { makeStyles } from "@mui/styles";
 import CustomDatePicker from "../../components/Inputs/CustomDatePicker";
 import CustomRadioButtons from "../../components/Inputs/CustomRadioButtons";
 import CustomSelect from "../../components/Inputs/CustomSelect";
+import CustomAutocomplete from "../../components/Inputs/CustomAutocomplete";
 import { IFormState } from "../../states/FormState";
 
 interface Props {
@@ -22,26 +23,47 @@ const useStyles = makeStyles(() => ({
 function ApplicantDetailsForm({ values, setValues, errors }: Props) {
   const classes = useStyles();
 
-  const [countries, setCountries] = useState([]);
-  const [states, setStates] = useState([
-    { value: 0, label: "Please select a country" },
-  ]);
-  const [cities, setCities] = useState([
-    { value: 0, label: "Please select a state" },
-  ]);
+  const [countries, setCountries] = useState<{ id: number; name: string }[]>(
+    []
+  );
+  const [country, setCountry] = useState<{ id: number; name: string }>(null);
+
+  const [states, setStates] = useState<{ id: number; name: string }[]>([]);
+  const [state, setState] = useState<{ id: number; name: string }>(null);
+
+  const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
+  const [city, setCity] = useState<{ id: number; name: string }>(null);
 
   // make countries array
   useEffect(() => {
-    fetch("https://www.stageapi-acharyainstitutes.in/api/Country")
+    fetch(`https://www.stageapi-acharyainstitutes.in/api/Country`)
       .then((res) => res.json())
-      .then((data) =>
-        setCountries(
-          data.map((obj: any) => {
-            return { value: obj.id, label: obj.name };
-          })
-        )
-      );
+      .then((data) => {
+        setCountries(data.map((obj: any) => ({ id: obj.id, name: obj.name })));
+      });
   }, []);
+  // make states array
+  useEffect(() => {
+    if (country)
+      fetch(
+        `https://www.stageapi-acharyainstitutes.in/api/State1/${country.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setStates(data.map((obj: any) => ({ id: obj.id, name: obj.name })));
+        });
+  }, [country]);
+  // make cities array
+  useEffect(() => {
+    if (country && state)
+      fetch(
+        `https://www.stageapi-acharyainstitutes.in/api/City1/${state.id}/${country.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setCities(data.map((obj: any) => ({ id: obj.id, name: obj.name })));
+        });
+  }, [country, state]);
 
   const handleChange = (e: any) => {
     setValues((prev) => ({
@@ -62,6 +84,40 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
       },
     }));
   };
+
+  useEffect(() => {
+    if (country) {
+      setValues((prev) => ({
+        ...prev,
+        applicant: {
+          ...prev.applicant,
+          country: country.name,
+          state: "",
+          city: "",
+        },
+      }));
+      setState(null);
+      setCity(null);
+    }
+  }, [country]);
+
+  useEffect(() => {
+    if (state) {
+      setValues((prev) => ({
+        ...prev,
+        applicant: { ...prev.applicant, state: state.name, city: "" },
+      }));
+      setCity(null);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    if (city)
+      setValues((prev) => ({
+        ...prev,
+        applicant: { ...prev.applicant, city: city.name },
+      }));
+  }, [city]);
 
   return (
     <Box component="form" className={classes.form}>
@@ -235,52 +291,32 @@ function ApplicantDetailsForm({ values, setValues, errors }: Props) {
         {/* 5th row */}
         <>
           <Grid item xs={12} md={4}>
-            <CustomSelect
-              name="country"
+            <CustomAutocomplete
               label="Country"
+              options={countries}
               value={values.applicant.country}
-              items={[
-                { value: 0, label: "Please select a country" },
-                ...countries,
-              ]}
-              handleChange={handleChange}
-              firstDisabled
+              setValue={setCountry}
               required
               error={errors.country}
             />
           </Grid>
           <Grid item xs={12} md={4}>
-            <CustomSelect
-              name="state"
+            <CustomAutocomplete
               label="State"
+              options={states}
               value={values.applicant.state}
-              items={[
-                { value: 0, label: "Karnataka" },
-                { value: "Karnataka", label: "Karnataka" },
-                { value: "Maharashtra", label: "Maharashtra" },
-                { value: "Bihar", label: "Bihar" },
-                { value: "Andhra Pradesh", label: "Andhra Pradesh" },
-              ]}
-              handleChange={handleChange}
-              required
+              setValue={setState}
+              required={states.length > 0}
               error={errors.state}
             />
           </Grid>
           <Grid item xs={12} md={4}>
-            <CustomSelect
-              name="city"
+            <CustomAutocomplete
               label="City"
+              options={cities}
               value={values.applicant.city}
-              items={[
-                { value: 0, label: "Karnataka" },
-
-                { value: "Bangalore", label: "Bangalore" },
-                { value: "Mumbai", label: "Mumbai" },
-                { value: "Delhi", label: "Delhi" },
-                { value: "Hyderabad", label: "Hyderabad" },
-              ]}
-              handleChange={handleChange}
-              required
+              setValue={setCity}
+              required={cities.length > 0}
               error={errors.city}
             />
           </Grid>
