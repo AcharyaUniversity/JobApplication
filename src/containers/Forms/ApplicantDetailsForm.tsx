@@ -45,6 +45,26 @@ function ApplicantDetailsForm({
 
   const [city, setCity] = useState<{ id: number; name: string }>(null);
 
+  const handleChange = (e: any) => {
+    setValues((prev) => ({
+      ...prev,
+      applicant: {
+        ...prev.applicant,
+        [e.target.name]: e.target.value,
+      },
+    }));
+  };
+
+  const handleDateChange = (key: string, val: Date | null) => {
+    setValues((prev) => ({
+      ...prev,
+      applicant: {
+        ...prev.applicant,
+        [key]: val,
+      },
+    }));
+  };
+
   // make countries array
   useEffect(() => {
     fetch(`https://www.stageapi-acharyainstitutes.in/api/Country`)
@@ -76,26 +96,6 @@ function ApplicantDetailsForm({
         });
   }, [country, state]);
 
-  const handleChange = (e: any) => {
-    setValues((prev) => ({
-      ...prev,
-      applicant: {
-        ...prev.applicant,
-        [e.target.name]: e.target.value,
-      },
-    }));
-  };
-
-  const handleDateChange = (key: string, val: Date | null) => {
-    setValues((prev) => ({
-      ...prev,
-      applicant: {
-        ...prev.applicant,
-        [key]: val,
-      },
-    }));
-  };
-
   useEffect(() => {
     if (country) {
       setValues((prev) => ({
@@ -108,7 +108,9 @@ function ApplicantDetailsForm({
         },
       }));
       setState(null);
+      setStates([]);
       setCity(null);
+      setCities([]);
     }
   }, [country]);
 
@@ -119,6 +121,7 @@ function ApplicantDetailsForm({
         applicant: { ...prev.applicant, state: state.name, city: "" },
       }));
       setCity(null);
+      setCities([]);
     }
   }, [state]);
 
