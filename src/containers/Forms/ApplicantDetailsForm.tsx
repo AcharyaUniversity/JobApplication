@@ -96,6 +96,7 @@ function ApplicantDetailsForm({
         });
   }, [country, state]);
 
+  // update country, initialise state and city on country change
   useEffect(() => {
     if (country) {
       setValues((prev) => ({
@@ -113,7 +114,7 @@ function ApplicantDetailsForm({
       setCities([]);
     }
   }, [country]);
-
+  // update state, initialise city on state change
   useEffect(() => {
     if (state) {
       setValues((prev) => ({
@@ -124,7 +125,7 @@ function ApplicantDetailsForm({
       setCities([]);
     }
   }, [state]);
-
+  // update city
   useEffect(() => {
     if (city)
       setValues((prev) => ({
@@ -269,6 +270,17 @@ function ApplicantDetailsForm({
         <>
           <Grid item xs={12} md={4}>
             <CustomTextField
+              name="street"
+              value={values.applicant.street}
+              handleChange={handleChange}
+              fullWidth
+              label="House no. / Street"
+              required
+              error={errors.street}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CustomTextField
               name="locality"
               value={values.applicant.locality}
               handleChange={handleChange}
@@ -276,17 +288,6 @@ function ApplicantDetailsForm({
               label="Locality"
               required
               error={errors.locality}
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <CustomTextField
-              name="street"
-              value={values.applicant.street}
-              handleChange={handleChange}
-              fullWidth
-              label="Street"
-              required
-              error={errors.street}
             />
           </Grid>
           <Grid item xs={12} md={4}>

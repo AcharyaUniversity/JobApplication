@@ -6,13 +6,20 @@ import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutl
 import CloseIcon from "@mui/icons-material/Close";
 
 interface Props {
-  index: number;
-  files: any[];
-  setFiles: React.Dispatch<React.SetStateAction<any[]>>;
+  name: string;
+  file: any;
+  handleFileDrop: (e: any, name: string) => void;
+  handleFileRemove: (name: string) => void;
   error?: string;
 }
 
-const Dropfileinput = ({ index, files, setFiles, error }: Props) => {
+const Dropfileinput = ({
+  name,
+  file,
+  handleFileDrop,
+  handleFileRemove,
+  error,
+}: Props) => {
   const wrapperRef = useRef(null);
   const classes = useStyles();
 
@@ -21,26 +28,6 @@ const Dropfileinput = ({ index, files, setFiles, error }: Props) => {
   const onDragLeave = () => wrapperRef.current.classList.remove("dragover");
 
   const onDrop = () => wrapperRef.current.classList.remove("dragover");
-
-  const handleFileDrop = (e: any) => {
-    const newFile = e.target.files[0];
-    if (newFile) {
-      setFiles((prev) =>
-        prev.map((o, i) => {
-          if (i === index) return newFile;
-          return o;
-        })
-      );
-    }
-  };
-  const handleFileRemove = () => {
-    setFiles((prev) =>
-      prev.map((o, i) => {
-        if (i === index) return null;
-        return o;
-      })
-    );
-  };
 
   const calcFileSize = (file: any): string => {
     const ext = new Array("Bytes", "KB", "MB", "GB");
@@ -68,31 +55,30 @@ const Dropfileinput = ({ index, files, setFiles, error }: Props) => {
         <input
           type="file"
           className={classes.input}
-          onChange={handleFileDrop}
+          onChange={(e) => handleFileDrop(e, name)}
         />
         <CloudUploadIcon sx={{ color: "#3346bd", fontSize: 75 }} />
         <p className={classes.smallText}>pdf - smaller than 2 MB</p>
         <p className={classes.bottomText}>
           Drop your
-          {index === 0 && <span style={{ fontWeight: 500 }}> resume </span>}
-          {index === 1 && <span style={{ fontWeight: 500 }}> degree </span>}
+          <span style={{ fontWeight: 500 }}> {name} </span>
           here or
           <span style={{ color: "#4A57A9", fontWeight: 500 }}> browse</span>
         </p>
       </div>
 
       {/* show preview */}
-      {files[index] && (
+      {file && (
         <Grid container className={classes.previewContainer}>
           <Grid item xs={1}>
             <InsertDriveFileOutlinedIcon style={{ color: "#333" }} />
           </Grid>
           <Grid item xs={10} pl={1} pr={1}>
-            <p className={classes.fileName}>{files[index].name}</p>
-            <p className={classes.fileSize}>{calcFileSize(files[index])}</p>
+            <p className={classes.fileName}>{file.name}</p>
+            <p className={classes.fileSize}>{calcFileSize(file)}</p>
           </Grid>
           <Grid item xs={1}>
-            <IconButton size="small" onClick={handleFileRemove}>
+            <IconButton size="small" onClick={() => handleFileRemove(name)}>
               <CloseIcon />
             </IconButton>
           </Grid>

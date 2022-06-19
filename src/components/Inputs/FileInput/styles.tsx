@@ -59,7 +59,6 @@ export const useStyles = makeStyles((theme: Theme) => ({
   fileName: {
     fontSize: "0.9rem",
     margin: "5px 0",
-    maxHeight: 17,
     overflow: "hidden",
   },
   fileSize: {

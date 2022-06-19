@@ -25,14 +25,21 @@ const useStyles = makeStyles((theme: Theme) => ({
 function AttachmentsForm({ values, setValues, errors }) {
   const classes = useStyles();
 
-  const [files, setFiles] = useState<any[]>([null, null]);
-
-  useEffect(() => {
+  const handleFileDrop = (e: any, name: string) => {
+    const newFile = e.target.files[0];
+    if (newFile) {
+      setValues((prev: IFormState) => ({
+        ...prev,
+        attachments: { ...prev.attachments, [name]: newFile },
+      }));
+    }
+  };
+  const handleFileRemove = (name: string) => {
     setValues((prev: IFormState) => ({
       ...prev,
-      attachments: { resume: files[0], degree: files[1] },
+      attachments: { ...prev.attachments, [name]: null },
     }));
-  }, [files]);
+  };
 
   return (
     <Grid
@@ -50,17 +57,19 @@ function AttachmentsForm({ values, setValues, errors }) {
 
       <Grid item xs={12} md={5}>
         <Dropfileinput
-          index={0}
-          files={files}
-          setFiles={setFiles}
+          name="resume"
+          file={values.attachments.resume}
+          handleFileDrop={handleFileDrop}
+          handleFileRemove={handleFileRemove}
           error={errors.resume}
         />
       </Grid>
       <Grid item xs={12} md={5}>
         <Dropfileinput
-          index={1}
-          files={files}
-          setFiles={setFiles}
+          name="degree"
+          file={values.attachments.degree}
+          handleFileDrop={handleFileDrop}
+          handleFileRemove={handleFileRemove}
           error={errors.degree}
         />
       </Grid>

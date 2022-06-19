@@ -139,10 +139,10 @@ function FormStepper() {
     temp.maritalStatus = values.applicant.maritalStatus
       ? ""
       : "This field is required";
-    temp.street = /^.{1,20}$/.test(values.applicant.street)
+    temp.street = /^.{1,30}$/.test(values.applicant.street)
       ? ""
       : "Invalid street";
-    temp.locality = /^.{1,25}$/.test(values.applicant.locality)
+    temp.locality = /^.{1,30}$/.test(values.applicant.locality)
       ? ""
       : "Invalid locality";
     temp.country = values.applicant.country ? "" : "This field is required";
