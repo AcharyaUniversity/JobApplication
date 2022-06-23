@@ -1,10 +1,11 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Box, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import CustomTextField from "../../components/Inputs/CustomTextField";
 import CustomDatePicker from "../../components/Inputs/CustomDatePicker";
 import CustomSelect from "../../components/Inputs/CustomSelect";
 import { IFormState } from "../../states/FormState";
+import axios from "axios";
 
 interface Props {
   values: IFormState;
@@ -20,7 +21,28 @@ const useStyles = makeStyles(() => ({
 }));
 
 function EducationDetailsForm({ values, setValues, index, errors }: Props) {
+  const [graduationTypes, setGraduationTypes] = useState<
+    {
+      value: number;
+      label: string;
+    }[]
+  >([]);
+
   const classes = useStyles();
+
+  // get graduation types
+  useEffect(() => {
+    axios("https://www.stageapi-acharyainstitutes.in/api/employee/graduation")
+      .then((res) => {
+        setGraduationTypes(
+          res.data.map((obj: any) => ({
+            value: obj.graduation_id,
+            label: obj.graduation_name,
+          }))
+        );
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleChange = (e: any) => {
     setValues((prev) => ({
@@ -55,22 +77,13 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
         <>
           <Grid item xs={12} md={4}>
             <CustomSelect
-              name="graduation"
+              name="graduationId"
               label="Graduation"
-              value={values.education[index].graduation}
-              items={[
-                { value: "IIT", label: "IIT" },
-                { value: "Diploma", label: "Diploma" },
-                { value: "UG", label: "UG" },
-                { value: "PG", label: "PG" },
-                { value: "Ph.D.", label: "Ph.D." },
-                { value: "NET/SLET", label: "NET/SLET" },
-                { value: "MPhil", label: "MPhil" },
-                { value: "Other", label: "Other" },
-              ]}
+              value={values.education[index].graduationId}
+              items={graduationTypes}
               handleChange={handleChange}
               required
-              error={errors.graduation}
+              error={errors.graduationId}
             />
           </Grid>
           <Grid item xs={12} md={4}>

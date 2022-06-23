@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DesktopFormStepper from "../components/Steppers/DesktopFormStepper";
 import MobileFormStepper from "../components/Steppers/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
@@ -8,6 +8,11 @@ import MultipleFormsContainer from "./MultipleFormsContainer";
 import { Paper, Theme } from "@mui/material";
 import { formState } from "../states/FormState";
 import { makeStyles } from "@mui/styles";
+import axios from "axios";
+
+interface ITempObj {
+  [key: string]: any;
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -21,12 +26,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-let formData = new FormData();
-
 function FormStepper() {
-  const [activeStep, setActiveStep] = useState(0);
-
   const isMobile = useMobileView();
+
+  const [activeStep, setActiveStep] = useState(0);
+  const [refNumber, setRefNumber] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const [values, setValues] = useState(formState);
 
@@ -42,10 +47,6 @@ function FormStepper() {
   const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
 
   const classes = useStyles();
-
-  useEffect(() => {
-    for (let key in values) formData.set(key, values[key]);
-  }, [values]);
 
   const steps = [
     {
@@ -74,9 +75,9 @@ function FormStepper() {
           setErrors={setEducationErrors}
           tab="education"
           initValues={{
+            graduationId: "",
             graduationName: "",
             graduationInstitute: "",
-            graduation: "",
             universityName: "",
             universityScore: 0,
             dateOfJoining: null,
@@ -159,7 +160,7 @@ function FormStepper() {
       : "Please enter 6 digits";
     temp.skills = /^.{1,100}$/.test(values.applicant.skills)
       ? ""
-      : "Please enter skills seperated by commas";
+      : "Please enter skills, upto 100 characters";
 
     setApplicantErrors({ ...temp });
 
@@ -171,7 +172,7 @@ function FormStepper() {
     values.education.forEach((obj, index) => {
       let temp: any = {};
 
-      temp.graduation = obj.graduation ? "" : "This field is required";
+      temp.graduationId = obj.graduationId ? "" : "This field is required";
       temp.graduationName = obj.graduationName ? "" : "This field is required";
       temp.graduationInstitute = obj.graduationInstitute
         ? ""
@@ -256,13 +257,10 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0 && validateApplicant())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1 && validateEducation())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 2 && validateExperience())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 3 && validateAttachments()) {
+    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 3) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       handleSubmit();
     }
@@ -272,10 +270,135 @@ function FormStepper() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setLoading(true);
+
+    let tempObj: ITempObj = {};
+
+    let jobId: number;
+
     console.log("form submit");
-    console.log(Array.from(formData));
-    console.log(values);
+
+    // applicant details submit
+    tempObj.active = true;
+    tempObj.city_id = values.applicant.city;
+    tempObj.country_id = values.applicant.country;
+    tempObj.dateofbirth = values.applicant.birthDate;
+    tempObj.email = values.applicant.email;
+    tempObj.first_name = values.applicant.name;
+    tempObj.gender = values.applicant.gender;
+    tempObj.dateofbirth = values.applicant.birthDate;
+    tempObj.key_skills = values.applicant.skills;
+    tempObj.link = values.applicant.link;
+    tempObj.linkedin_id = values.applicant.linkedIn;
+    tempObj.locality = values.applicant.locality;
+    tempObj.marital_status = values.applicant.maritalStatus;
+    tempObj.mobile = values.applicant.phone;
+    tempObj.pincode = values.applicant.pinCode;
+    tempObj.resume_headline = values.applicant.headline;
+    tempObj.state_id = values.applicant.state;
+    tempObj.street = values.applicant.street;
+
+    axios
+      .post(
+        "https://www.stageapi-acharyainstitutes.in/api/employee/JobProfile",
+        tempObj
+      )
+      .then((res) => {
+        jobId = res.data.job_id;
+        submitEducation(jobId)
+          .then(() => submitExperience(jobId))
+          .then(() => submitResume(jobId))
+          .then(() => submitDegree(jobId))
+          .then(() => {
+            axios
+              .get(
+                `https://www.stageapi-acharyainstitutes.in/api/employee/JobProfileReferenceNo/${jobId}`
+              )
+              .then((res) => {
+                setRefNumber(res.data);
+                setLoading(false);
+              })
+              .catch((err) => console.error(err));
+          })
+          .catch((err) => console.error(err));
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const submitEducation = async (jobId: number) => {
+    let tempArray: ITempObj[] = [];
+
+    values.education.forEach((obj) => {
+      let tempObj: ITempObj = {};
+
+      tempObj.active = true;
+      tempObj.job_id = jobId;
+      tempObj.academic_score = obj.universityScore;
+      tempObj.academic_year_completed = obj.dateOfCompletion;
+      tempObj.academic_year_joining = obj.dateOfJoining;
+      tempObj.graduation_id = obj.graduationId;
+      tempObj.graduation_name = obj.graduationName;
+      tempObj.university_name = obj.universityName;
+      tempObj.school_name = obj.graduationInstitute;
+
+      tempArray.push(tempObj);
+    });
+    axios
+      .post(
+        "https://www.stageapi-acharyainstitutes.in/api/employee/EducationDetails",
+        tempArray
+      )
+      .catch((err) => console.error(err));
+  };
+  const submitExperience = async (jobId: number) => {
+    let tempArray: ITempObj[] = [];
+
+    values.experience.forEach((obj) => {
+      let tempObj: ITempObj = {};
+
+      tempObj.active = true;
+      tempObj.job_id = jobId;
+      tempObj.annual_salary_lakhs = obj.ctcDrawn;
+      tempObj.designation = obj.designation;
+      tempObj.employer_name = obj.employerName;
+      tempObj.exp_in_months = obj.expMonths;
+      tempObj.exp_in_years = obj.expYears;
+
+      tempArray.push(tempObj);
+    });
+    axios
+      .post(
+        "https://www.stageapi-acharyainstitutes.in/api/employee/ExperienceDetails",
+        tempArray
+      )
+      .catch((err) => console.error(err));
+  };
+  const submitResume = async (jobId: number) => {
+    const formData = new FormData();
+
+    formData.set("file", values.attachments.resume);
+    formData.set("job_id", jobId.toString());
+
+    axios
+      .post(
+        "https://www.stageapi-acharyainstitutes.in/api/employee/JobUploadFile",
+        formData
+      )
+      .catch((err) => console.error(err));
+  };
+  const submitDegree = async (jobId: number) => {
+    const formData = new FormData();
+
+    formData.set("file", values.attachments.degree);
+    formData.set("job_id", jobId.toString());
+
+    axios
+      .post(
+        "https://www.stageapi-acharyainstitutes.in/api/employee/higherEducationUploadFile",
+        formData
+      )
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -284,6 +407,8 @@ function FormStepper() {
         <MobileFormStepper
           steps={steps}
           activeStep={activeStep}
+          loading={loading}
+          refNumber={refNumber}
           handleNext={handleNext}
           handleBack={handleBack}
         />
@@ -291,6 +416,8 @@ function FormStepper() {
         <DesktopFormStepper
           steps={steps}
           activeStep={activeStep}
+          loading={loading}
+          refNumber={refNumber}
           handleNext={handleNext}
           handleBack={handleBack}
         />

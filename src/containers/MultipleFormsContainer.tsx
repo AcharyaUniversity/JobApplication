@@ -129,7 +129,7 @@ function MultipleFormsContainer({
         ))}
 
         {/* add button */}
-        <Grid item xs={2} textAlign="right">
+        <Grid item xs={6} textAlign="right">
           <Tooltip title="Add entry">
             <Button
               onClick={handleAdd}

@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   steps: { label: string; form: JSX.Element }[];
   activeStep: number;
+  loading: boolean;
+  refNumber: string;
   handleNext: () => void;
   handleBack: () => void;
 }
@@ -34,6 +36,8 @@ interface Props {
 function MobileFormStepper({
   steps,
   activeStep,
+  loading,
+  refNumber,
   handleNext,
   handleBack,
 }: Props) {
@@ -44,7 +48,7 @@ function MobileFormStepper({
   return (
     <Box sx={{ width: "100%", flexGrow: 1 }}>
       {activeStep === steps.length ? (
-        <Complete />
+        <Complete loading={loading} refNumber={refNumber} />
       ) : (
         <>
           <Paper

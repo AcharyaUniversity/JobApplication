@@ -10,17 +10,17 @@ export interface IApplicantState {
   link: string;
   street: string;
   locality: string;
-  city: string;
-  state: string;
-  country: string;
+  city: number;
+  state: number;
+  country: number;
   pinCode: string;
   skills: string;
 }
 
 export interface IEducationState {
+  graduationId: number | string;
   graduationName: string;
   graduationInstitute: string;
-  graduation: string;
   universityName: string;
   universityScore: number;
   dateOfJoining: Date | null;
@@ -59,17 +59,17 @@ export const formState: IFormState = {
     link: "",
     street: "",
     locality: "",
-    city: "",
-    state: "",
-    country: "",
+    city: null,
+    state: null,
+    country: null,
     pinCode: "",
     skills: "",
   },
   education: [
     {
+      graduationId: "",
       graduationName: "",
       graduationInstitute: "",
-      graduation: "",
       universityName: "",
       universityScore: 0,
       dateOfJoining: null,

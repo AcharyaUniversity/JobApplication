@@ -15,6 +15,8 @@ import Complete from "../Complete";
 interface Props {
   steps: { label: string; form: JSX.Element }[];
   activeStep: number;
+  loading: boolean;
+  refNumber: string;
   handleNext: () => void;
   handleBack: () => void;
 }
@@ -96,7 +98,14 @@ function ColorlibStepIcon(props: StepIconProps) {
   );
 }
 
-function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
+function DesktopStepper({
+  steps,
+  activeStep,
+  loading,
+  refNumber,
+  handleNext,
+  handleBack,
+}: Props) {
   const classes = useStyles();
 
   return (
@@ -117,7 +126,7 @@ function DesktopStepper({ steps, activeStep, handleNext, handleBack }: Props) {
       </Stepper>
 
       {activeStep === steps.length ? (
-        <Complete />
+        <Complete loading={loading} refNumber={refNumber} />
       ) : (
         <>
           <Box sx={{ width: "100%", p: 2 }}>{steps[activeStep].form}</Box>

@@ -103,9 +103,9 @@ function ApplicantDetailsForm({
         ...prev,
         applicant: {
           ...prev.applicant,
-          country: country.name,
-          state: "",
-          city: "",
+          country: country.id,
+          state: null,
+          city: null,
         },
       }));
       setState(null);
@@ -119,7 +119,7 @@ function ApplicantDetailsForm({
     if (state) {
       setValues((prev) => ({
         ...prev,
-        applicant: { ...prev.applicant, state: state.name, city: "" },
+        applicant: { ...prev.applicant, state: state.id, city: null },
       }));
       setCity(null);
       setCities([]);
@@ -130,7 +130,7 @@ function ApplicantDetailsForm({
     if (city)
       setValues((prev) => ({
         ...prev,
-        applicant: { ...prev.applicant, city: city.name },
+        applicant: { ...prev.applicant, city: city.id },
       }));
   }, [city]);
 
@@ -309,7 +309,7 @@ function ApplicantDetailsForm({
             <CustomAutocomplete
               label="Country"
               options={countries}
-              value={values.applicant.country}
+              value={country ? country.name : ""}
               setValue={setCountry}
               required
               error={errors.country}
@@ -319,7 +319,7 @@ function ApplicantDetailsForm({
             <CustomAutocomplete
               label="State"
               options={states}
-              value={values.applicant.state}
+              value={state ? state.name : ""}
               setValue={setState}
               required={states.length > 0}
               error={errors.state}
@@ -329,7 +329,7 @@ function ApplicantDetailsForm({
             <CustomAutocomplete
               label="City"
               options={cities}
-              value={values.applicant.city}
+              value={city ? city.name : ""}
               setValue={setCity}
               required={cities.length > 0}
               error={errors.city}
