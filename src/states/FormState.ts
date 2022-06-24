@@ -10,9 +10,9 @@ export interface IApplicantState {
   link: string;
   street: string;
   locality: string;
-  city: number;
-  state: number;
-  country: number;
+  city: { id: number; name: string };
+  state: { id: number; name: string };
+  country: { id: number; name: string };
   pinCode: string;
   skills: string;
 }

@@ -39,11 +39,17 @@ function ApplicantDetailsForm({
 }: Props) {
   const classes = useStyles();
 
-  const [country, setCountry] = useState<{ id: number; name: string }>(null);
+  const [country, setCountry] = useState<{ id: number; name: string }>(
+    values.applicant.country
+  );
 
-  const [state, setState] = useState<{ id: number; name: string }>(null);
+  const [state, setState] = useState<{ id: number; name: string }>(
+    values.applicant.state
+  );
 
-  const [city, setCity] = useState<{ id: number; name: string }>(null);
+  const [city, setCity] = useState<{ id: number; name: string }>(
+    values.applicant.city
+  );
 
   const handleChange = (e: any) => {
     setValues((prev) => ({
@@ -103,7 +109,7 @@ function ApplicantDetailsForm({
         ...prev,
         applicant: {
           ...prev.applicant,
-          country: country.id,
+          country: country,
           state: null,
           city: null,
         },
@@ -119,7 +125,7 @@ function ApplicantDetailsForm({
     if (state) {
       setValues((prev) => ({
         ...prev,
-        applicant: { ...prev.applicant, state: state.id, city: null },
+        applicant: { ...prev.applicant, state: state, city: null },
       }));
       setCity(null);
       setCities([]);
@@ -130,7 +136,7 @@ function ApplicantDetailsForm({
     if (city)
       setValues((prev) => ({
         ...prev,
-        applicant: { ...prev.applicant, city: city.id },
+        applicant: { ...prev.applicant, city: city },
       }));
   }, [city]);
 
@@ -309,7 +315,9 @@ function ApplicantDetailsForm({
             <CustomAutocomplete
               label="Country"
               options={countries}
-              value={country ? country.name : ""}
+              value={
+                values.applicant.country ? values.applicant.country.name : ""
+              }
               setValue={setCountry}
               required
               error={errors.country}
@@ -319,7 +327,7 @@ function ApplicantDetailsForm({
             <CustomAutocomplete
               label="State"
               options={states}
-              value={state ? state.name : ""}
+              value={values.applicant.state ? values.applicant.state.name : ""}
               setValue={setState}
               required={states.length > 0}
               error={errors.state}
@@ -329,7 +337,7 @@ function ApplicantDetailsForm({
             <CustomAutocomplete
               label="City"
               options={cities}
-              value={city ? city.name : ""}
+              value={values.applicant.city ? values.applicant.city.name : ""}
               setValue={setCity}
               required={cities.length > 0}
               error={errors.city}

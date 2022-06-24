@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DesktopFormStepper from "../components/Steppers/DesktopFormStepper";
 import MobileFormStepper from "../components/Steppers/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
@@ -280,12 +280,10 @@ function FormStepper() {
 
     let jobId: number;
 
-    console.log("form submit");
-
     // applicant details submit
     tempObj.active = true;
-    tempObj.city_id = values.applicant.city;
-    tempObj.country_id = values.applicant.country;
+    tempObj.city_id = values.applicant.city.id;
+    tempObj.country_id = values.applicant.country.id;
     tempObj.dateofbirth = values.applicant.birthDate;
     tempObj.email = values.applicant.email;
     tempObj.first_name = values.applicant.name;
@@ -299,7 +297,7 @@ function FormStepper() {
     tempObj.mobile = values.applicant.phone;
     tempObj.pincode = values.applicant.pinCode;
     tempObj.resume_headline = values.applicant.headline;
-    tempObj.state_id = values.applicant.state;
+    tempObj.state_id = values.applicant.state.id;
     tempObj.street = values.applicant.street;
 
     axios
@@ -314,15 +312,17 @@ function FormStepper() {
           .then(() => submitResume(jobId))
           .then(() => submitDegree(jobId))
           .then(() => {
-            axios
-              .get(
-                `https://www.stageapi-acharyainstitutes.in/api/employee/JobProfileReferenceNo/${jobId}`
-              )
-              .then((res) => {
-                setRefNumber(res.data);
-                setLoading(false);
-              })
-              .catch((err) => console.error(err));
+            setTimeout(() => {
+              axios
+                .get(
+                  `https://www.stageapi-acharyainstitutes.in/api/employee/JobProfileReferenceNo/${jobId}`
+                )
+                .then((res) => {
+                  setRefNumber(res.data);
+                  setLoading(false);
+                })
+                .catch((err) => console.error(err));
+            }, 2000);
           })
           .catch((err) => console.error(err));
       })

@@ -27,8 +27,7 @@ function Complete({ loading, refNumber }: Props) {
               </h2>
               <p>
                 Your application was submitted with the reference number{" "}
-                {refNumber}
-                .
+                {refNumber}.
                 <br />
                 Please check mail for more information.
               </p>
