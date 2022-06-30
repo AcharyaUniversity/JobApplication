@@ -35,7 +35,7 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
     axios("https://www.stageapi-acharyainstitutes.in/api/employee/graduation")
       .then((res) => {
         setGraduationTypes(
-          res.data.map((obj: any) => ({
+          res.data.data.map((obj: any) => ({
             value: obj.graduation_id,
             label: obj.graduation_name,
           }))
