@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DesktopFormStepper from "../components/Steppers/DesktopFormStepper";
 import MobileFormStepper from "../components/Steppers/MobileFormStepper";
 import { useMobileView } from "../utils/ViewContext";
@@ -257,13 +257,10 @@ function FormStepper() {
   };
 
   const handleNext = () => {
-    if (activeStep === 0 && validateApplicant())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 1 && validateEducation())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 2 && validateExperience())
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 3 && validateAttachments()) {
+    if (activeStep === 0) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 3) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       handleSubmit();
     }
@@ -282,13 +279,14 @@ function FormStepper() {
 
     // applicant details submit
     tempObj.active = true;
-    tempObj.city_id = values.applicant.city.id;
+    tempObj.city_id = values.applicant.city?.id;
     tempObj.country_id = values.applicant.country.id;
-    tempObj.dateofbirth = values.applicant.birthDate;
+    tempObj.dateofbirth = `${values.applicant.birthDate.getDate()}-${
+      values.applicant.birthDate.getMonth() + 1
+    }-${values.applicant.birthDate.getFullYear()}`;
     tempObj.email = values.applicant.email;
     tempObj.first_name = values.applicant.name;
     tempObj.gender = values.applicant.gender;
-    tempObj.dateofbirth = values.applicant.birthDate;
     tempObj.key_skills = values.applicant.skills;
     tempObj.link = values.applicant.link;
     tempObj.linkedin_id = values.applicant.linkedIn;
@@ -297,7 +295,7 @@ function FormStepper() {
     tempObj.mobile = values.applicant.phone;
     tempObj.pincode = values.applicant.pinCode;
     tempObj.resume_headline = values.applicant.headline;
-    tempObj.state_id = values.applicant.state.id;
+    tempObj.state_id = values.applicant.state?.id;
     tempObj.street = values.applicant.street;
 
     axios
@@ -321,12 +319,21 @@ function FormStepper() {
                   setRefNumber(res.data);
                   setLoading(false);
                 })
-                .catch((err) => console.error(err));
+                .catch((err) => {
+                  console.error(err);
+                  setLoading(false);
+                });
             }, 2000);
           })
-          .catch((err) => console.error(err));
+          .catch((err) => {
+            console.error(err);
+            setLoading(false);
+          });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
 
   const submitEducation = async (jobId: number) => {
@@ -352,7 +359,10 @@ function FormStepper() {
         "https://www.stageapi-acharyainstitutes.in/api/employee/EducationDetails",
         tempArray
       )
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
   const submitExperience = async (jobId: number) => {
     let tempArray: ITempObj[] = [];
@@ -375,7 +385,10 @@ function FormStepper() {
         "https://www.stageapi-acharyainstitutes.in/api/employee/ExperienceDetails",
         tempArray
       )
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
   const submitResume = async (jobId: number) => {
     const formData = new FormData();
@@ -388,7 +401,10 @@ function FormStepper() {
         "https://www.stageapi-acharyainstitutes.in/api/employee/JobUploadFile",
         formData
       )
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
   const submitDegree = async (jobId: number) => {
     const formData = new FormData();
@@ -401,7 +417,10 @@ function FormStepper() {
         "https://www.stageapi-acharyainstitutes.in/api/employee/higherEducationUploadFile",
         formData
       )
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
 
   return (
