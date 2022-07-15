@@ -117,8 +117,18 @@ function FormStepper() {
     },
   ];
 
-  const validateApplicant = () => {
+  const validateApplicant = async () => {
     let temp: any = {};
+    let exists: boolean;
+
+    await axios
+      .get(
+        `https://www.stageapi-acharyainstitutes.in/api/employee/checkEmail/${values.applicant.email}`
+      )
+      .then((res) => {
+        exists = res.data["Email Present"];
+      })
+      .catch((err) => console.error(err));
 
     temp.name = values.applicant.name ? "" : "This field is required";
     temp.birthDate =
@@ -133,7 +143,7 @@ function FormStepper() {
     temp.email =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         values.applicant.email
-      )
+      ) && !exists
         ? ""
         : "Invalid email";
     temp.headline = values.applicant.headline ? "" : "This field is required";
@@ -256,8 +266,8 @@ function FormStepper() {
     return Object.values(temp).every((x) => x === "");
   };
 
-  const handleNext = () => {
-    if (activeStep === 0 && validateApplicant())
+  const handleNext = async () => {
+    if (activeStep === 0 && (await validateApplicant()))
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === 1 && validateEducation())
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
