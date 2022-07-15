@@ -282,7 +282,7 @@ function FormStepper() {
 
     // applicant details submit
     tempObj.active = true;
-    tempObj.city_id = values.applicant.city?.id;
+    tempObj.city_id = values.applicant.city ? values.applicant.city.id : null;
     tempObj.country_id = values.applicant.country.id;
     tempObj.dateofbirth = `${values.applicant.birthDate.getDate()}-${
       values.applicant.birthDate.getMonth() + 1
@@ -298,7 +298,9 @@ function FormStepper() {
     tempObj.mobile = values.applicant.phone;
     tempObj.pincode = values.applicant.pinCode;
     tempObj.resume_headline = values.applicant.headline;
-    tempObj.state_id = values.applicant.state?.id;
+    tempObj.state_id = values.applicant.state
+      ? values.applicant.state.id
+      : null;
     tempObj.street = values.applicant.street;
 
     axios
@@ -348,8 +350,12 @@ function FormStepper() {
       tempObj.active = true;
       tempObj.job_id = jobId;
       tempObj.academic_score = obj.universityScore;
-      tempObj.academic_year_completed = obj.dateOfCompletion;
-      tempObj.academic_year_joining = obj.dateOfJoining;
+      tempObj.academic_year_completed = `${obj.dateOfCompletion.getDate()}-${
+        obj.dateOfCompletion.getMonth() + 1
+      }-${obj.dateOfCompletion.getFullYear()}`;
+      tempObj.academic_year_joining = `${obj.dateOfJoining.getDate()}-${
+        obj.dateOfJoining.getMonth() + 1
+      }-${obj.dateOfJoining.getFullYear()}`;
       tempObj.graduation_id = obj.graduationId;
       tempObj.graduation_name = obj.graduationName;
       tempObj.university_name = obj.universityName;
@@ -357,6 +363,7 @@ function FormStepper() {
 
       tempArray.push(tempObj);
     });
+
     axios
       .post(
         "https://www.stageapi-acharyainstitutes.in/api/employee/EducationDetails",
@@ -383,6 +390,7 @@ function FormStepper() {
 
       tempArray.push(tempObj);
     });
+
     axios
       .post(
         "https://www.stageapi-acharyainstitutes.in/api/employee/ExperienceDetails",
