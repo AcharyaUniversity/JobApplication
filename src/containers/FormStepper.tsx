@@ -140,12 +140,16 @@ function FormStepper() {
     temp.phone = /^[0-9]{10}$/.test(values.applicant.phone)
       ? ""
       : "Invalid phone";
-    temp.email =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+
+    if (
+      !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         values.applicant.email
-      ) && !exists
-        ? ""
-        : "Invalid email";
+      )
+    )
+      temp.email = "Invalid email";
+    else if (exists) temp.email = "Email already exists";
+    else temp.email = "";
+
     temp.headline = values.applicant.headline ? "" : "This field is required";
     temp.maritalStatus = values.applicant.maritalStatus
       ? ""
@@ -323,23 +327,12 @@ function FormStepper() {
         submitEducation(jobId)
           .then(() => submitExperience(jobId))
           .then(() => submitResume(jobId))
-          .then(() => submitDegree(jobId))
-          .then(() => {
-            setTimeout(() => {
-              axios
-                .get(
-                  `https://www.stageapi-acharyainstitutes.in/api/employee/JobProfileReferenceNo/${jobId}`
-                )
-                .then((res) => {
-                  setRefNumber(res.data);
-                  setLoading(false);
-                })
-                .catch((err) => {
-                  console.error(err);
-                  setLoading(false);
-                });
-            }, 2000);
+          .then((res) => {
+            console.log(res);
+            if (res) setRefNumber(res.data);
+            setLoading(false);
           })
+          .then(() => submitDegree(jobId))
           .catch((err) => {
             console.error(err);
             setLoading(false);
@@ -417,11 +410,12 @@ function FormStepper() {
     formData.set("file", values.attachments.resume);
     formData.set("job_id", jobId.toString());
 
-    axios
+    return axios
       .post(
         "https://www.stageapi-acharyainstitutes.in/api/employee/JobUploadFile",
         formData
       )
+      .then((res) => res)
       .catch((err) => {
         console.error(err);
         setLoading(false);
