@@ -302,7 +302,7 @@ function FormStepper() {
       values.applicant.birthDate.getMonth() + 1
     }-${values.applicant.birthDate.getFullYear()}`;
     tempObj.email = values.applicant.email;
-    tempObj.first_name = values.applicant.name;
+    tempObj.firstname = values.applicant.name;
     tempObj.gender = values.applicant.gender;
     tempObj.key_skills = values.applicant.skills;
     tempObj.link = values.applicant.link;
@@ -360,9 +360,9 @@ function FormStepper() {
         obj.dateOfJoining.getMonth() + 1
       }-${obj.dateOfJoining.getFullYear()}`;
       tempObj.graduation_id = obj.graduationId;
-      tempObj.graduation_name = obj.graduationName;
-      tempObj.university_name = obj.universityName;
-      tempObj.school_name = obj.graduationInstitute;
+      tempObj.graduation = obj.graduationName;
+      tempObj.university = obj.universityName;
+      tempObj.school = obj.graduationInstitute;
 
       tempArray.push(tempObj);
     });
@@ -383,7 +383,6 @@ function FormStepper() {
     values.experience.forEach((obj) => {
       let tempObj: ITempObj = {};
 
-      tempObj.active = true;
       tempObj.job_id = jobId;
       tempObj.annual_salary_lakhs = obj.ctcDrawn;
       tempObj.designation = obj.designation;

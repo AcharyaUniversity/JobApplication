@@ -180,8 +180,8 @@ function ApplicantDetailsForm({
               label="Gender"
               value={values.applicant.gender}
               options={[
-                { value: "Male", label: "Male" },
-                { value: "Female", label: "Female" },
+                { value: "M", label: "Male" },
+                { value: "F", label: "Female" },
               ]}
               handleChange={handleChange}
               required
@@ -238,11 +238,10 @@ function ApplicantDetailsForm({
               label="Marital Status"
               value={values.applicant.maritalStatus}
               items={[
-                { value: "Married", label: "Married" },
-                { value: "Unmarried", label: "Unmarried" },
-                { value: "Divorced", label: "Divorced" },
-                { value: "Widow", label: "Widow" },
-                { value: "Widower", label: "Widower" },
+                { value: "M", label: "Married" },
+                { value: "U", label: "Unmarried" },
+                { value: "D", label: "Divorced" },
+                { value: "W", label: "Widow" },
               ]}
               handleChange={handleChange}
               required
