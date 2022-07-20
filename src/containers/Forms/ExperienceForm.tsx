@@ -73,7 +73,7 @@ function ExperienceForm({ values, setValues, index, errors }: Props) {
               value={values.experience[index].ctcDrawn}
               handleChange={handleChange}
               fullWidth
-              label="CTC Drawn (in ₹)"
+              label="CTC Drawn (per month)"
               error={errors.ctcDrawn}
               required
             />
