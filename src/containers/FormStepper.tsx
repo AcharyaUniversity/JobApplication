@@ -295,7 +295,7 @@ function FormStepper() {
     let jobId: number;
 
     // applicant details submit
-    tempObj.active = true;
+    tempObj.active = 1;
     tempObj.city_id = values.applicant.city ? values.applicant.city.id : null;
     tempObj.country_id = values.applicant.country.id;
     tempObj.dateofbirth = `${values.applicant.birthDate.getDate()}-${
@@ -316,6 +316,8 @@ function FormStepper() {
       ? values.applicant.state.id
       : null;
     tempObj.street = values.applicant.street;
+
+    console.log(tempObj);
 
     axios
       .post(
@@ -350,7 +352,7 @@ function FormStepper() {
     values.education.forEach((obj) => {
       let tempObj: ITempObj = {};
 
-      tempObj.active = true;
+      tempObj.active = 1;
       tempObj.job_id = jobId;
       tempObj.academic_score = obj.universityScore;
       tempObj.academic_year_completed = `${obj.dateOfCompletion.getDate()}-${
