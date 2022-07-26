@@ -234,9 +234,11 @@ function FormStepper() {
       temp.expYears = /^([0-9]*[.])?[0-9]+$/.test(obj.expYears.toString())
         ? ""
         : "Invalid number";
-      temp.expMonths = /^([0-9]*[.])?[0-9]+$/.test(obj.expMonths.toString())
-        ? ""
-        : "Invalid number";
+      temp.expMonths =
+        /^([0-9]*[.])?[0-9]+$/.test(obj.expMonths.toString()) &&
+        obj.expMonths <= 12
+          ? ""
+          : "Invalid number of months";
       setExperienceErrors((prev) =>
         prev.map((o, i) => {
           if (i === index) {
