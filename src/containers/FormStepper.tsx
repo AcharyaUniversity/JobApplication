@@ -310,7 +310,7 @@ function FormStepper() {
     tempObj.link = values.applicant.link;
     tempObj.linkedin_id = values.applicant.linkedIn;
     tempObj.locality = values.applicant.locality;
-    tempObj.marital_status = values.applicant.maritalStatus;
+    tempObj.martial_status = values.applicant.maritalStatus;
     tempObj.mobile = values.applicant.phone;
     tempObj.pincode = values.applicant.pinCode;
     tempObj.resume_headline = values.applicant.headline;
