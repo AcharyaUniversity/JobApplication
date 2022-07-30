@@ -227,7 +227,9 @@ function FormStepper() {
     values.experience.forEach((obj, index) => {
       let temp: any = {};
       temp.employerName = obj.employerName ? "" : "This field is required";
-      temp.designation = obj.designation ? "" : "This field is required";
+      temp.designation = /^[a-zA-Z\s]+$/.test(obj.designation)
+        ? ""
+        : "Invalid designation";
       temp.ctcDrawn = /^([0-9]*[.])?[0-9]+$/.test(obj.ctcDrawn.toString())
         ? ""
         : "Invalid number";
