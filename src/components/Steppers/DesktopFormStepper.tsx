@@ -119,7 +119,9 @@ function DesktopStepper({
         {steps.map((obj) => (
           <Step key={obj.label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>
-              <span style={{ fontSize: "0.85rem" }}>{obj.label}</span>
+              <span style={{ fontFamily: "Roboto", fontSize: "0.95rem" }}>
+                {obj.label}
+              </span>
             </StepLabel>
           </Step>
         ))}

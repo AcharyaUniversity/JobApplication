@@ -44,7 +44,7 @@ const theme = responsiveFontSizes(
       },
     },
     typography: {
-      fontFamily: "Open Sans, Roboto, sans-serif",
+      fontFamily: "Rubik, Roboto, sans-serif",
       fontSize: 13,
     },
   })

@@ -15,8 +15,8 @@ import Complete from "../Complete";
 const useStyles = makeStyles((theme: Theme) => ({
   label: {
     margin: "auto !important",
-    fontSize: "1.4rem !important",
-    fontWeight: "500 !important",
+    fontFamily: "Roboto !important",
+    fontSize: "1.6rem !important",
     color: theme.palette.primary.dark,
   },
   nextButton: {
