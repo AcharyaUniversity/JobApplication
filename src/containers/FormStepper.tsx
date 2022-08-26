@@ -172,9 +172,9 @@ function FormStepper() {
     temp.pinCode = /^[0-9]{6}$/.test(values.applicant.pinCode)
       ? ""
       : "Please enter 6 digits";
-    temp.skills = /^.{1,100}$/.test(values.applicant.skills)
+    temp.skills = /^.{1,200}$/.test(values.applicant.skills)
       ? ""
-      : "Please enter skills, upto 100 characters";
+      : "Please enter skills, upto 200 characters.";
 
     setApplicantErrors({ ...temp });
 
