@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
-import { Box, Grid, Autocomplete, TextField } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import CustomTextField from "../../components/Inputs/CustomTextField";
 import { makeStyles } from "@mui/styles";
 import CustomDatePicker from "../../components/Inputs/CustomDatePicker";
@@ -358,6 +358,8 @@ function ApplicantDetailsForm({
         {/* 6th row */}
         <Grid item xs={12}>
           <CustomTextField
+            multiline
+            rows={3}
             name="skills"
             value={values.applicant.skills}
             handleChange={handleChange}

@@ -101,6 +101,21 @@ function ExperienceForm({ values, setValues, index, errors }: Props) {
             />
           </Grid>
         </>
+
+        {/* third row */}
+        <Grid item xs={12}>
+          <CustomTextField
+            multiline
+            rows={3}
+            name="domainSkills"
+            value={values.experience[index].domainSkills}
+            handleChange={handleChange}
+            fullWidth
+            label="Domain skills"
+            required
+            error={errors.domainSkills}
+          />
+        </Grid>
       </Grid>
     </Box>
   );

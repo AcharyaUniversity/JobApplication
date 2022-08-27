@@ -33,6 +33,7 @@ export interface IExperienceState {
   ctcDrawn: number;
   expYears: number;
   expMonths: number;
+  domainSkills: string;
 }
 
 export interface IAttachmentState {
@@ -83,6 +84,7 @@ export const formState: IFormState = {
       ctcDrawn: 0,
       expYears: 0,
       expMonths: 0,
+      domainSkills: "",
     },
   ],
   attachments: {

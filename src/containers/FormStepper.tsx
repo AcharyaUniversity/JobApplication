@@ -101,6 +101,7 @@ function FormStepper() {
             ctcDrawn: 0,
             expYears: 0,
             expMonths: 0,
+            domainSkills: "",
           }}
         />
       ),
@@ -241,6 +242,10 @@ function FormStepper() {
         obj.expMonths <= 12
           ? ""
           : "Invalid number of months";
+      temp.domainSkills = /^.{1,200}$/.test(obj.domainSkills)
+        ? ""
+        : "Please enter working skills, upto 200 characters.";
+
       setExperienceErrors((prev) =>
         prev.map((o, i) => {
           if (i === index) {
@@ -395,6 +400,7 @@ function FormStepper() {
       tempObj.employer_name = obj.employerName;
       tempObj.exp_in_months = obj.expMonths;
       tempObj.exp_in_years = obj.expYears;
+      tempObj.skills = obj.domainSkills;
 
       tempArray.push(tempObj);
     });
