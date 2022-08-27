@@ -111,7 +111,7 @@ function ExperienceForm({ values, setValues, index, errors }: Props) {
             value={values.experience[index].domainSkills}
             handleChange={handleChange}
             fullWidth
-            label="Domain skills"
+            label="Nature of Work"
             required
             error={errors.domainSkills}
           />
