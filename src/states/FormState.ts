@@ -30,9 +30,9 @@ export interface IEducationState {
 export interface IExperienceState {
   employerName: string;
   designation: string;
-  ctcDrawn: number;
-  expYears: number;
-  expMonths: number;
+  ctcDrawn: string;
+  expYears: string;
+  expMonths: string;
   domainSkills: string;
 }
 
@@ -81,9 +81,9 @@ export const formState: IFormState = {
     {
       employerName: "",
       designation: "",
-      ctcDrawn: 0,
-      expYears: 0,
-      expMonths: 0,
+      ctcDrawn: "",
+      expYears: "",
+      expMonths: "",
       domainSkills: "",
     },
   ],
