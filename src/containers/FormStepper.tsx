@@ -239,7 +239,7 @@ function FormStepper() {
         : "Invalid number";
       temp.expMonths =
         /^([0-9]*[.])?[0-9]+$/.test(obj.expMonths.toString()) &&
-        parseInt(obj.expMonths) <= 12
+        parseFloat(obj.expMonths) <= 12
           ? ""
           : "Invalid number of months";
       temp.domainSkills = /^.{1,200}$/.test(obj.domainSkills)
@@ -397,11 +397,11 @@ function FormStepper() {
       let tempObj: ITempObj = {};
 
       tempObj.job_id = jobId;
-      tempObj.annual_salary_lakhs = parseInt(obj.ctcDrawn);
+      tempObj.annual_salary_lakhs = parseFloat(obj.ctcDrawn);
       tempObj.designation = obj.designation;
       tempObj.employer_name = obj.employerName;
-      tempObj.exp_in_months = parseInt(obj.expMonths);
-      tempObj.exp_in_years = parseInt(obj.expYears);
+      tempObj.exp_in_months = parseFloat(obj.expMonths);
+      tempObj.exp_in_years = parseFloat(obj.expYears);
       tempObj.skills = obj.domainSkills;
 
       console.log(tempObj);
