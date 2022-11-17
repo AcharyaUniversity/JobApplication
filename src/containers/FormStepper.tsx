@@ -124,7 +124,7 @@ function FormStepper() {
 
     await axios
       .get(
-        `https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/checkEmail/${values.applicant.email}`
+        `https://www.stageapi-acharyainstitutes.in/api/employee/checkEmail/${values.applicant.email}`
       )
       .then((res) => {
         exists = res.data["Email Present"];
@@ -332,7 +332,7 @@ function FormStepper() {
 
     axios
       .post(
-        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/JobProfile",
+        "https://www.stageapi-acharyainstitutes.in/api/employee/JobProfile",
         tempObj
       )
       .then((res) => {
@@ -382,7 +382,7 @@ function FormStepper() {
 
     axios
       .post(
-        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/EducationDetails",
+        "https://www.stageapi-acharyainstitutes.in/api/employee/EducationDetails",
         tempArray
       )
       .catch((err) => {
@@ -410,7 +410,7 @@ function FormStepper() {
 
     axios
       .post(
-        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/ExperienceDetails",
+        "https://www.stageapi-acharyainstitutes.in/api/employee/ExperienceDetails",
         tempArray
       )
       .catch((err) => {
@@ -426,7 +426,7 @@ function FormStepper() {
 
     return axios
       .post(
-        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/JobUploadFile",
+        "https://www.stageapi-acharyainstitutes.in/api/employee/JobUploadFile",
         formData
       )
       .then((res) => res)
@@ -443,7 +443,7 @@ function FormStepper() {
 
     axios
       .post(
-        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/higherEducationUploadFile",
+        "https://www.stageapi-acharyainstitutes.in/api/employee/higherEducationUploadFile",
         formData
       )
       .catch((err) => {
