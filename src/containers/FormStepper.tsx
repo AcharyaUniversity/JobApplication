@@ -124,7 +124,7 @@ function FormStepper() {
 
     await axios
       .get(
-        `https://www.stageapi-acharyainstitutes.in/api/employee/checkEmail/${values.applicant.email}`
+        `https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/checkEmail/${values.applicant.email}`
       )
       .then((res) => {
         exists = res.data["Email Present"];
@@ -173,7 +173,7 @@ function FormStepper() {
     temp.pinCode = /^[0-9]{6}$/.test(values.applicant.pinCode)
       ? ""
       : "Please enter 6 digits";
-    temp.skills = /^.{1,200}$/.test(values.applicant.skills)
+    temp.skills = /^(.|\n){1,200}$/.test(values.applicant.skills)
       ? ""
       : "Please enter skills, upto 200 characters.";
 
@@ -292,8 +292,6 @@ function FormStepper() {
     }
   };
 
-  console.log(values.experience[0]);
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
@@ -328,11 +326,9 @@ function FormStepper() {
       : null;
     tempObj.street = values.applicant.street;
 
-    console.log(tempObj);
-
     axios
       .post(
-        "https://www.stageapi-acharyainstitutes.in/api/employee/JobProfile",
+        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/JobProfile",
         tempObj
       )
       .then((res) => {
@@ -341,7 +337,6 @@ function FormStepper() {
           .then(() => submitExperience(jobId))
           .then(() => submitResume(jobId))
           .then((res) => {
-            console.log(res);
             if (res) setRefNumber(res.data);
             setLoading(false);
           })
@@ -382,7 +377,7 @@ function FormStepper() {
 
     axios
       .post(
-        "https://www.stageapi-acharyainstitutes.in/api/employee/EducationDetails",
+        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/EducationDetails",
         tempArray
       )
       .catch((err) => {
@@ -404,13 +399,12 @@ function FormStepper() {
       tempObj.exp_in_years = parseFloat(obj.expYears);
       tempObj.skills = obj.domainSkills;
 
-      console.log(tempObj);
       tempArray.push(tempObj);
     });
 
     axios
       .post(
-        "https://www.stageapi-acharyainstitutes.in/api/employee/ExperienceDetails",
+        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/ExperienceDetails",
         tempArray
       )
       .catch((err) => {
@@ -426,7 +420,7 @@ function FormStepper() {
 
     return axios
       .post(
-        "https://www.stageapi-acharyainstitutes.in/api/employee/JobUploadFile",
+        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/JobUploadFile",
         formData
       )
       .then((res) => res)
@@ -443,7 +437,7 @@ function FormStepper() {
 
     axios
       .post(
-        "https://www.stageapi-acharyainstitutes.in/api/employee/higherEducationUploadFile",
+        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/higherEducationUploadFile",
         formData
       )
       .catch((err) => {

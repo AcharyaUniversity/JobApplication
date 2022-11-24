@@ -73,7 +73,9 @@ function ApplicantDetailsForm({
 
   // make countries array
   useEffect(() => {
-    fetch(`https://www.stageapi-acharyainstitutes.in/api/Country`)
+    fetch(
+      `https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/Country`
+    )
       .then((res) => res.json())
       .then((data) => {
         setCountries(
@@ -88,7 +90,7 @@ function ApplicantDetailsForm({
   useEffect(() => {
     if (country)
       fetch(
-        `https://www.stageapi-acharyainstitutes.in/api/State1/${country.id}`
+        `https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/State1/${country.id}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -100,7 +102,9 @@ function ApplicantDetailsForm({
   // make cities array
   useEffect(() => {
     if (country && state)
-      fetch(`https://www.stageapi-acharyainstitutes.in/api/City1/${state.id}`)
+      fetch(
+        `https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/City1/${state.id}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setCities(

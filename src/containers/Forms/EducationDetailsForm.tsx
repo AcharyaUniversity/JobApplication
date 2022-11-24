@@ -32,7 +32,9 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
 
   // get graduation types
   useEffect(() => {
-    axios("https://www.stageapi-acharyainstitutes.in/api/employee/graduation")
+    axios(
+      "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/graduation"
+    )
       .then((res) => {
         setGraduationTypes(
           res.data.data.map((obj: any) => ({
@@ -41,7 +43,7 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
           }))
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }, []);
 
   const handleChange = (e: any) => {
