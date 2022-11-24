@@ -1,6 +1,6 @@
 {
-  "name": "erp-application",
-  "homepage": "https://Electromorphous.github.io/erp-application",
+  "name": "job-application",
+  "homepage": "https://AcharyaUniversity.github.io/JobApplication",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
