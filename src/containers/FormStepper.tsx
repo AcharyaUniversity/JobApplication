@@ -239,10 +239,10 @@ function FormStepper() {
         : "Invalid number";
       temp.expMonths =
         /^([0-9]*[.])?[0-9]+$/.test(obj.expMonths.toString()) &&
-        parseFloat(obj.expMonths) <= 12
+        parseFloat(obj.expMonths) < 12
           ? ""
-          : "Invalid number of months";
-      temp.domainSkills = /^.{1,200}$/.test(obj.domainSkills)
+          : "Enter less than 12 months";
+      temp.domainSkills = /^(.|\n){1,200}$/.test(obj.domainSkills)
         ? ""
         : "Please enter working skills, upto 200 characters.";
 

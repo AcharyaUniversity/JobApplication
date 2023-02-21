@@ -209,7 +209,7 @@ function ApplicantDetailsForm({
               value={values.applicant.phone}
               handleChange={handleChange}
               fullWidth
-              label="Mobile number"
+              label="WhatsApp Number"
               required
               error={errors.phone}
             />

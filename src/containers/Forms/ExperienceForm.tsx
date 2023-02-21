@@ -47,7 +47,7 @@ function ExperienceForm({ values, setValues, index, errors }: Props) {
               value={values.experience[index].employerName}
               handleChange={handleChange}
               fullWidth
-              label="Employer Name"
+              label="Organization worked/working"
               error={errors.employerName}
               required
             />

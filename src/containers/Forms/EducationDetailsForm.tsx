@@ -80,7 +80,7 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
           <Grid item xs={12} md={4}>
             <CustomSelect
               name="graduationId"
-              label="Graduation"
+              label="Qualification"
               value={values.education[index].graduationId}
               items={graduationTypes}
               handleChange={handleChange}
@@ -94,7 +94,7 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
               value={values.education[index].graduationName}
               handleChange={handleChange}
               fullWidth
-              label="Graduation Name"
+              label="Name of Degree"
               error={errors.graduationName}
               required
             />
@@ -105,7 +105,7 @@ function EducationDetailsForm({ values, setValues, index, errors }: Props) {
               value={values.education[index].graduationInstitute}
               handleChange={handleChange}
               fullWidth
-              label="Graduation Institute"
+              label="Institute studied"
               error={errors.graduationInstitute}
               required
             />
