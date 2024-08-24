@@ -251,8 +251,8 @@ function ApplicantDetailsForm({
               items={[
                 { value: "M", label: "Married" },
                 { value: "U", label: "Unmarried" },
-                { value: "D", label: "Divorced" },
-                { value: "W", label: "Widow" },
+                // { value: "D", label: "Divorced" },
+                // { value: "W", label: "Widow" },
               ]}
               handleChange={handleChange}
               required
