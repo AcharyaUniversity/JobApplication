@@ -10,6 +10,8 @@ import { formState } from "../states/FormState";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
 
+const API_URL = "https://acerp.acharyaerptech.in";
+
 interface ITempObj {
   [key: string]: any;
 }
@@ -123,9 +125,7 @@ function FormStepper() {
     let exists: boolean;
 
     await axios
-      .get(
-        `https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/checkEmail/${values.applicant.email}`
-      )
+      .get(`${API_URL}/api/employee/checkEmail/${values.applicant.email}`)
       .then((res) => {
         exists = res.data["Email Present"];
       })
@@ -327,10 +327,7 @@ function FormStepper() {
     tempObj.street = values.applicant.street;
 
     axios
-      .post(
-        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/JobProfile",
-        tempObj
-      )
+      .post(`${API_URL}/api/employee/JobProfile`, tempObj)
       .then((res) => {
         jobId = res.data.job_id;
         submitEducation(jobId)
@@ -376,10 +373,7 @@ function FormStepper() {
     });
 
     axios
-      .post(
-        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/EducationDetails",
-        tempArray
-      )
+      .post(`${API_URL}/api/employee/EducationDetails`, tempArray)
       .catch((err) => {
         console.error(err);
         setLoading(false);
@@ -403,10 +397,7 @@ function FormStepper() {
     });
 
     axios
-      .post(
-        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/ExperienceDetails",
-        tempArray
-      )
+      .post(`${API_URL}/api/employee/ExperienceDetails`, tempArray)
       .catch((err) => {
         console.error(err);
         setLoading(false);
@@ -419,10 +410,7 @@ function FormStepper() {
     formData.set("job_id", jobId.toString());
 
     return axios
-      .post(
-        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/JobUploadFile",
-        formData
-      )
+      .post(`${API_URL}/api/employee/JobUploadFile`, formData)
       .then((res) => res)
       .catch((err) => {
         console.error(err);
@@ -436,10 +424,7 @@ function FormStepper() {
     formData.set("job_id", jobId.toString());
 
     axios
-      .post(
-        "https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/employee/higherEducationUploadFile",
-        formData
-      )
+      .post(`${API_URL}/api/employee/higherEducationUploadFile`, formData)
       .catch((err) => {
         console.error(err);
         setLoading(false);
