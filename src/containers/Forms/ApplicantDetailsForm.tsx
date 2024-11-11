@@ -73,13 +73,15 @@ function ApplicantDetailsForm({
 
   // make countries array
   useEffect(() => {
-    fetch(`https://acerp.acharyaerptech.in/api/Country`)
+    fetch(
+      `https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/Country`
+    )
       .then((res) => res.json())
       .then((data) => {
         setCountries(
           data.map((obj: any) => ({
-            id: obj.id,
-            name: obj.name,
+            id: obj.country_id,
+            name: obj.country_name,
           }))
         );
       });
@@ -87,21 +89,27 @@ function ApplicantDetailsForm({
   // make states array
   useEffect(() => {
     if (country)
-      fetch(`https://acerp.acharyaerptech.in/api/State1/${country.id}`)
+      fetch(
+        `https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/State1/${country.id}`
+      )
         .then((res) => res.json())
         .then((data) => {
-          setStates(data.map((obj: any) => ({ id: obj.id, name: obj.name })));
+          setStates(
+            data.map((obj: any) => ({ id: obj.state_id, name: obj.state_name }))
+          );
         });
   }, [country]);
   // make cities array
   useEffect(() => {
     if (country && state)
       fetch(
-        `https://acerp.acharyaerptech.in/api/City1/${state.id}/${country.id}`
+        `https://api-prod-acharyainstitutes.in/Acharya_University_Mess/api/City1/${state.id}`
       )
         .then((res) => res.json())
         .then((data) => {
-          setCities(data.map((obj: any) => ({ id: obj.id, name: obj.name })));
+          setCities(
+            data.map((obj: any) => ({ id: obj.city_id, name: obj.city_name }))
+          );
         });
   }, [country, state]);
 

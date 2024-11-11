@@ -10,7 +10,7 @@ import { formState } from "../states/FormState";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
 
-const API_URL = "https://acerp.acharyaerptech.in";
+const API_URL = "https://api-prod-acharyainstitutes.in/Acharya_University_Mess";
 
 interface ITempObj {
   [key: string]: any;
